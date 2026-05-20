@@ -136,6 +136,39 @@
   .tag-sph { background: #FDEDE8; color: #E85D04; }
 
   .warn-pill { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #FDEDE8; color: #E85D04; font-weight: 700; }
+
+  /* === 核心洞察模块样式 === */
+  .insight-hero { background: linear-gradient(135deg, #0560C4 0%, #044A9A 100%); border-radius: 20px; padding: 28px 24px; margin-bottom: 16px; color: #fff; }
+  .insight-hero .hero-title { font-size: 18px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .insight-hero .hero-title .icon { width: 36px; height: 36px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .insight-hero .hero-item { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+  .insight-hero .hero-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .insight-hero .hero-item:first-child { padding-top: 0; }
+  .insight-hero .hero-tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 8px; background: rgba(252,142,81,0.25); color: #FFD4B8; margin-bottom: 8px; }
+  .insight-hero .hero-q { font-size: 16px; font-weight: 700; margin-bottom: 6px; line-height: 1.5; }
+  .insight-hero .hero-a { font-size: 14px; color: rgba(255,255,255,0.82); line-height: 1.8; }
+  .insight-hero .hero-a strong { color: #FFD4B8; font-weight: 700; }
+  .insight-hero .hero-big { font-size: 32px; font-weight: 900; color: #FFD4B8; }
+
+  /* === 行动指南模块样式 === */
+  .action-hero { background: linear-gradient(135deg, #FC8E51 0%, #E85D04 100%); border-radius: 20px; padding: 28px 24px; margin-bottom: 16px; color: #fff; }
+  .action-hero .hero-title { font-size: 18px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .action-hero .hero-title .icon { width: 36px; height: 36px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .action-hero .action-item { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+  .action-hero .action-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .action-hero .action-item:first-child { padding-top: 0; }
+  .action-hero .action-tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 8px; background: rgba(255,255,255,0.15); color: #fff; margin-bottom: 8px; }
+  .action-hero .action-chain { font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.6; }
+  .action-hero .action-detail { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.8; }
+  .action-hero .action-detail strong { color: #FFE8D6; font-weight: 700; }
+  .action-hero .action-kpi { display: inline-block; background: rgba(255,255,255,0.12); padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; margin-top: 8px; }
+  .action-hero .action-big { font-size: 28px; font-weight: 900; color: #FFE8D6; }
+
+  /* === 全页重点放大 === */
+  .big-num { font-size: 28px !important; font-weight: 900 !important; }
+  .highlight-box { background: linear-gradient(135deg, #FFF3EB 0%, #E8F1FC 100%); border-radius: 14px; padding: 14px 18px; margin: 12px 0; border-left: 4px solid #FC8E51; }
+  .highlight-box .hl-text { font-size: 15px; font-weight: 700; color: #1A1A2E; line-height: 1.7; }
+  .highlight-box .hl-num { font-size: 26px; font-weight: 900; color: #FC8E51; }
 </style>
 </head>
 <body>
@@ -367,7 +400,123 @@
       </div>
     </div>
 
-    <!-- 3. 三平台五维能力对比 -->
+    <!-- 3. 核心洞察：反直觉发现与深层问题 -->
+    <div class="sec-title"><div class="icon icon-b">💡</div>核心洞察 · 反直觉发现与深层问题</div>
+
+    <div class="insight-hero">
+      <div class="hero-title"><div class="icon">💡</div>数据不说谎 · 但这些结论可能反直觉</div>
+
+      <div class="hero-item">
+        <div class="hero-tag">🔴 问题① · 粉丝越多 ≠ 越值钱</div>
+        <div class="hero-q">视频号 70,089 粉丝的周浏览量，为什么还不如微博 1,491 粉丝？</div>
+        <div class="hero-a">
+          视频号 70,089 粉丝 → 7日浏览 <span class="hero-big">1.8万</span>（人均 0.26次）<br>
+          微博 1,491 粉丝 → 周阅读 <span class="hero-big">4,347</span>（人均 <strong>2.9次</strong>）<br><br>
+          <strong>深层原因：</strong>视频号7日仅发布1篇作品 + 0场直播，粉丝是"沉睡资产"。微博虽粉丝少，但内容活跃时人均阅读2.9次，说明<strong>精准度 > 规模</strong>。<br>
+          <strong>结论：</strong>视频号70,089粉丝的价值目前不到微博1,491粉丝的1/3，内容缺口是最大浪费。
+        </div>
+      </div>
+
+      <div class="hero-item">
+        <div class="hero-tag">🔴 问题② · 用户更爱「参与」而非「围观」</div>
+        <div class="hero-q">小红书 Top1 曝光 17,797 的「西藏来信」，为什么评论只有 50 条？</div>
+        <div class="hero-a">
+          「西藏来信」曝光 <span class="hero-big">17,797</span> → 评论 <strong>50条</strong>（互动率 0.28%）<br>
+          「晒娃有奖」曝光未知 → 评论 <span class="hero-big">95条</span>（已知最高）<br><br>
+          <strong>深层原因：</strong>UGC激励类内容天然具备「参与门槛」——用户晒娃即可获得追光礼包，评论95条是「西藏来信」的1.9倍。<strong>内容设计决定互动上限</strong>，而非曝光量。<br>
+          <strong>结论：</strong>每篇内容都应设计一个「可参与的动作」（晒图/投票/留言），围观型内容互动天花板极低。
+        </div>
+      </div>
+
+      <div class="hero-item">
+        <div class="hero-tag">🟡 问题③ · 情感共鸣 > 活动热度</div>
+        <div class="hero-q">母亲节追光(1,154阅读) 为什么超过春日骑行(1,086阅读)？</div>
+        <div class="hero-a">
+          母亲节追光 → <span class="hero-big">1,154</span> 阅读（20.03%占比）<br>
+          春日骑行 → <span class="hero-big">1,086</span> 阅读（18.85%占比）<br><br>
+          <strong>深层原因：</strong>骑行活动有明确的地域和时间限制（仅广州），而母亲节情感无边界。「妈妈陪我追光」触发了全量妈妈的<strong>身份认同</strong>，而骑行只触发了广州妈妈的<strong>地理兴趣</strong>。<br>
+          <strong>结论：</strong>追光IP的下一站应该是「情感+身份」双驱动（如「每一个追光的妈妈」），而非继续加码地域活动。
+        </div>
+      </div>
+
+      <div class="hero-item">
+        <div class="hero-tag">🟡 问题④ · 0.1% 不是低谷，是 50 倍杠杆</div>
+        <div class="hero-q">公众号推荐算法占比仅 0.1%，为什么不是坏事而是最大机会？</div>
+        <div class="hero-a">
+          当前推荐占比 <span class="hero-big">0.1%</span> → 若提升至 <strong>5%</strong>（行业平均）<br>
+          当前30天总阅读 ~5,761 → 推荐增量 = 5,761 × (5% - 0.1%) / 43.5% ≈ <span class="hero-big">+649</span> 阅读/篇<br>
+          全年潜在增量 ≈ <span class="hero-big">+7,788</span> 阅读（假设每月4篇）<br><br>
+          <strong>深层原因：</strong>社交裂变已达天花板（72.3%），推荐算法是唯一的增量引擎。优化标题关键词（防晒/宝宝/夏日）+ 前200字 + 封面图，推荐占比从0.1%→5%的技术门槛极低。<br>
+          <strong>结论：</strong>0.1%是「尚未开发的流量金矿」，不是失败指标。
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="hl-text">
+        📌 <strong>核心结论：</strong>海龟爸爸当前面临的不是「流量不够」，而是<strong>「流量分配极度不均」</strong>——
+        小红书互动强但内容弱（封面5.4%拖后腿）、公众号社交裂变强但推荐几乎为零（0.1%）、
+        视频号粉丝最多但完全沉睡（人均0.26次）、微博粉丝最少但最精准（人均2.9次）。
+        <strong>下一个增长飞轮：用微博的精准度思维做视频号，用小红书的互动思维做公众号。</strong>
+      </div>
+    </div>
+
+    <!-- 4. 行动指南：量化因果链与核心指标监控 -->
+    <div class="sec-title"><div class="icon icon-b">🎯</div>行动指南 · 量化因果链与核心指标监控</div>
+
+    <div class="action-hero">
+      <div class="hero-title"><div class="icon">🎯</div>如果做 X → 预期 Y → 监控 Z</div>
+
+      <div class="action-item">
+        <div class="action-tag">🎬 P0 · 视频号</div>
+        <div class="action-chain">如果每周发布 3-5 条「1分钟追光日记」→ 预期 7日作品数从 1 → 15，人均浏览从 0.26 → 1.5 次</div>
+        <div class="action-detail">
+          <strong>因果链：</strong>公众号追光图文（已有素材）→ 剪辑为15-60秒短视频 → 视频号发布 → 触达70,089沉睡粉丝 → 粉丝活跃度提升 → 带动直播预约/转化<br><br>
+          <strong>执行路径：</strong>① 整理近3个月公众号追光图文素材 ② 每条配追光BGM + 字幕 ③ 每天17:00-19:00发布（下班通勤高峰）④ 前3秒必须出现"追光"关键词或视觉符号
+        </div>
+        <div class="action-kpi">📊 监控指标：7日作品数 ≥ 15 | 人均浏览 ≥ 1.0次 | 粉丝净增长 ≥ +50/周 | 周报看板</div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-tag">📈 P0 · 公众号推荐算法</div>
+        <div class="action-chain">如果标题加入「防晒/宝宝/夏日」关键词 + 封面优化 → 预期推荐占比从 0.1% → 3-5%，单篇阅读提升 50-100%</div>
+        <div class="action-detail">
+          <strong>因果链：</strong>关键词优化 → 搜一搜/推荐算法收录 → 非粉丝用户曝光 → 点击率提升 → 阅读数增长 → 算法加权 → 正向循环<br><br>
+          <strong>执行路径：</strong>① 每篇标题必须含1个核心关键词（防晒/宝宝/夏日/追光）② 前200字重复关键词1次 ③ 封面图加文字标注关键词 ④ A/B测试2组标题，48小时后选CTR高的
+        </div>
+        <div class="action-kpi">📊 监控指标：推荐占比 ≥ 3% | 搜一搜占比 ≥ 10% | 单篇阅读 ≥ 800 | 关键词覆盖 100%</div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-tag">📝 P1 · 追光系列扩产</div>
+        <div class="action-chain">如果追光系列从 2篇/月 → 4篇/月 → 预期追光内容占比从 38.9% → 60%，带动整体阅读均值提升 25%</div>
+        <div class="action-detail">
+          <strong>因果链：</strong>追光IP内容（已验证高阅读）→ 增加频次 → 品牌心智强化 → 粉丝期待值提升 → 打开率提升 → 社交裂变增强 → 总阅读增长<br><br>
+          <strong>执行路径：</strong>① 固定每月第1周和第3周发布追光内容 ② 主题轮换：情感向（妈妈/爸爸）→ 活动向（骑行/西藏）→ 产品向（防晒科普）→ UGC向（晒娃有奖）
+        </div>
+        <div class="action-kpi">📊 监控指标：追光内容占比 ≥ 50% | 追光篇均阅读 ≥ 800 | 系列连续性 100%</div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-tag">📅 P1 · 微博日更排期</div>
+        <div class="action-chain">如果每日固定 1 条原创博文 → 预期周阅读稳定在 4,000-6,000，粉丝净增长转正</div>
+        <div class="action-detail">
+          <strong>因果链：</strong>固定排期 → 粉丝养成阅读习惯 → 打开率稳定 → 互动率稳定 → 算法推荐加权 → 自然增粉 → 蓝V信任背书 → 转化提升<br><br>
+          <strong>执行路径：</strong>① 每日10:00发布1条（妈妈早上空闲时段）② 内容类型：周一产品/周三追光/周五UGC/周日育儿科普 ③ 每月至少1次转发抽奖（拉新）④ 蓝V年审材料提前2个月准备
+        </div>
+        <div class="action-kpi">📊 监控指标：日更达成率 ≥ 90% | 周阅读 ≥ 4,000 | 粉丝净增长 ≥ +10/周 | 蓝V续费 2026.05.15前启动</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="hl-text">
+        🎯 <strong>4周目标总览：</strong>视频号人均浏览 <span class="hl-num">0.26→1.0</span> · 公众号推荐占比 <span class="hl-num">0.1%→3%</span> · 追光系列占比 <span class="hl-num">38.9%→50%</span> · 微博日更率 <span class="hl-num">0%→90%</span>
+        <br><br>
+        📊 <strong>监控节奏：</strong>每周五 17:00 看板自动更新 → 对比上述4个核心指标 → 未达标项标红 → 下周重点调整
+      </div>
+    </div>
+
+    <!-- 5. 三平台五维能力对比 -->
     <div class="sec-title"><div class="icon icon-b">⭐</div>三平台五维能力对比</div>
     <div class="grid2">
       <div class="radar-box">
@@ -427,35 +576,6 @@
           <strong style="color:#00A651">💬 公众号</strong>：内容和互动均衡（85分），追光系列IP质量高，社交裂变72.3%。但搜索维度（45分）和推荐算法0.1%是短板。<br><br>
           <strong style="color:#0560C4">🔴 微博</strong>：五维全面偏弱，最大问题是粉丝量级太小（1,491）且内容产出不稳定。有内容时人均阅读2.9次，粉丝质量高。
         </div>
-      </div>
-    </div>
-
-    <!-- 4. 基于数据的优化建议 -->
-    <div class="sec-title"><div class="icon icon-b">🚀</div>基于数据的优化建议</div>
-    <div class="s-grid">
-      <div class="s-card r">
-        <div class="s-t"><span class="s-icon si-r">!</span>P0 · 立即行动</div>
-        <div class="s-item"><span>🎬</span><span>视频号启动「1分钟追光日记」每周3-5条，70,089粉丝空转是最大浪费</span></div>
-        <div class="s-item"><span>📈</span><span>公众号标题加「防晒/宝宝/夏日」关键词，激活推荐算法（0.1%→5%=50倍增长）</span></div>
-        <div class="s-item"><span>📝</span><span>追光系列扩产：2篇/月 → 4篇/月，IP化内容已验证有碾压级流量优势</span></div>
-      </div>
-      <div class="s-card o">
-        <div class="s-t"><span class="s-icon si-o">2</span>P1 · 本周优化</div>
-        <div class="s-item"><span>📤</span><span>每篇内容设计「转发给闺蜜/妈妈」分享诱因，社交裂变已是主渠道(72.3%)</span></div>
-        <div class="s-item"><span>🎁</span><span>UGC激励模式复制：每周至少1篇互动型内容（晒娃有奖评论95条验证有效）</span></div>
-        <div class="s-item"><span>📅</span><span>微博保持日更1条，避免断崖式下跌，蓝V年审提前准备（2026.07.15到期）</span></div>
-      </div>
-      <div class="s-card g">
-        <div class="s-t"><span class="s-icon si-g">✓</span>做得好的 · 继续保持</div>
-        <div class="s-item"><span>📕</span><span>小红书互动全面飙升（点赞+115%/收藏+250%），UGC策略有效</span></div>
-        <div class="s-item"><span>✨</span><span>追光IP已形成跨平台资产（公众号Top2 + 小红书Top1）</span></div>
-        <div class="s-item"><span>💬</span><span>公众号社交裂变属性极强（72.3%），私域运营能力强</span></div>
-      </div>
-      <div class="s-card" style="border-top-color:#4DB8FF">
-        <div class="s-t"><span class="s-icon si-b">📊</span>数据观察</div>
-        <div class="s-item"><span>🔍</span><span>小红书封面点击率5.4%(↓11%)需优化前3秒视觉</span></div>
-        <div class="s-item"><span>📉</span><span>视频号完播率7.3%(↓17%)节奏有问题，需加快前5秒</span></div>
-        <div class="s-item"><span>⚠️</span><span>微博蓝V 2026.07.15到期，需提前3个月准备年审材料</span></div>
       </div>
     </div>
 
