@@ -57,6 +57,7 @@
   th { background: #E8F1FC; padding: 10px 8px; text-align: left; font-weight: 700; color: #044A9A; border-bottom: 2px solid #E8F0FE; white-space: nowrap; }
   td { padding: 10px 8px; border-bottom: 1px solid #E8F0FE; vertical-align: middle; }
   td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  th.n { text-align: right; }
   tr:hover { background: #FAFBFF; }
 
   .rank { min-width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-size: 12px; font-weight: 800; color: #fff; display: inline-block; }
@@ -206,42 +207,98 @@
       <!-- 小红书 -->
       <div class="stat-card">
         <div class="stat-head">
-          <div class="stat-icon" style="background:#FC8E51">📕</div>
+          <div class="stat-name">📕 小红书</div>
           <span class="stat-trend up">↑18%</span>
         </div>
-        <div class="stat-num" style="color:#FC8E51">12,143<span class="unit">曝光</span></div>
-        <div class="stat-label">观看 828 ↑12% · 互动 36 ↑80%</div>
-        <div class="stat-desc">最佳互动平台 · 曝光环比全面上涨</div>
+        <div class="stat-body">
+          <div class="stat-num-wrap">
+            <div class="stat-num" style="color:#FC8E51">12,143<span class="unit">曝光</span></div>
+          </div>
+          <div class="stat-ring" style="border-top-color:#FC8E51;"></div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-foot">
+          <div class="stat-metric">
+            <div class="stat-metric-label">观看</div>
+            <div class="stat-metric-val">828 <span class="up">↑12%</span></div>
+          </div>
+          <div class="stat-metric">
+            <div class="stat-metric-label">互动</div>
+            <div class="stat-metric-val up">36 ↑80%</div>
+          </div>
+        </div>
       </div>
       <!-- 公众号 -->
       <div class="stat-card">
         <div class="stat-head">
-          <div class="stat-icon" style="background:#00A651">💬</div>
+          <div class="stat-name">💬 公众号</div>
           <span class="stat-trend up">↑0.02%</span>
         </div>
-        <div class="stat-num" style="color:#00A651">218,391<span class="unit">粉丝</span></div>
-        <div class="stat-label">新增 +39/日 · 昨日阅读 523 ↑5%</div>
-        <div class="stat-desc">社交裂变主阵地 · 私域运营能力强</div>
+        <div class="stat-body">
+          <div class="stat-num-wrap">
+            <div class="stat-num" style="color:#00A651">218,391<span class="unit">粉丝</span></div>
+          </div>
+          <div class="stat-ring" style="border-top-color:#00A651;"></div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-foot">
+          <div class="stat-metric">
+            <div class="stat-metric-label">昨日阅读</div>
+            <div class="stat-metric-val">523 <span class="up">↑5%</span></div>
+          </div>
+          <div class="stat-metric">
+            <div class="stat-metric-label">新增粉丝</div>
+            <div class="stat-metric-val up">+39/日</div>
+          </div>
+        </div>
       </div>
       <!-- 视频号 -->
       <div class="stat-card">
         <div class="stat-head">
-          <div class="stat-icon" style="background:#E85D04">🎬</div>
+          <div class="stat-name">🎬 视频号</div>
           <span class="stat-trend down">↓0.001%</span>
         </div>
-        <div class="stat-num" style="color:#E85D04">70,089<span class="unit">粉丝</span></div>
-        <div class="stat-label">浏览 2,571 ↓8% · 作品 <span style="color:#E85D04;font-weight:700">0</span> ⚠️断更</div>
-        <div class="stat-desc">需重点关注 · 昨日0作品0直播</div>
+        <div class="stat-body">
+          <div class="stat-num-wrap">
+            <div class="stat-num" style="color:#E85D04">70,089<span class="unit">粉丝</span></div>
+          </div>
+          <div class="stat-ring" style="border-top-color:#E85D04;"></div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-foot">
+          <div class="stat-metric">
+            <div class="stat-metric-label">昨日浏览</div>
+            <div class="stat-metric-val down">2,571 ↓8%</div>
+          </div>
+          <div class="stat-metric">
+            <div class="stat-metric-label">昨日作品</div>
+            <div class="stat-metric-val down">0 ⚠️</div>
+          </div>
+        </div>
       </div>
       <!-- 微博 -->
       <div class="stat-card">
         <div class="stat-head">
-          <div class="stat-icon" style="background:#0560C4">🔴</div>
+          <div class="stat-name">🔴 微博</div>
           <span class="stat-trend down">↓0.13%</span>
         </div>
-        <div class="stat-num">1,491<span class="unit">粉丝</span></div>
-        <div class="stat-label">发博 <span style="color:#E85D04;font-weight:700">0</span> ⚠️静默 · 阅读 635 ↓8.6%</div>
-        <div class="stat-desc">精准但休眠 · 人均阅读2.9次/人</div>
+        <div class="stat-body">
+          <div class="stat-num-wrap">
+            <div class="stat-num" style="color:#0560C4">1,491<span class="unit">粉丝</span></div>
+          </div>
+          <div class="stat-ring" style="border-top-color:#0560C4;"></div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-foot">
+          <div class="stat-metric">
+            <div class="stat-metric-label">昨日阅读</div>
+            <div class="stat-metric-val down">635 ↓8.6%</div>
+          </div>
+          <div class="stat-metric">
+            <div class="stat-metric-label">昨日发博</div>
+            <div class="stat-metric-val down">0 ⚠️</div>
+          </div>
+        </div>
       </div>
     </div>
 
