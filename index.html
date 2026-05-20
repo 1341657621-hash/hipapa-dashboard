@@ -182,13 +182,251 @@
 
   <!-- Tabs -->
   <div class="tabs">
-    <button class="tab on" onclick="switchTab('p3')">🎯 竞品对标</button>
-    <button class="tab" onclick="switchTab('p1')">📊 数据概览</button>
+    <button class="tab on" onclick="switchTab('p1')">📊 数据概览</button>
+    <button class="tab" onclick="switchTab('p3')">🎯 竞品对标</button>
     <button class="tab" onclick="switchTab('p2')">📈 数据明细</button>
   </div>
 
   <!-- ===== PAGE 1: 概览 ===== -->
-  <div id="p3" class="page on">
+  <div id="p1" class="page on">
+
+    <!-- 小红书 -->
+    <div class="sec-title"><div class="icon icon-o">📕</div>小红书 · 7日内数据 & Top5</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="num o">8.5万</div><div class="label">曝光 <span class="up">↑40%</span></div></div>
+      <div class="kpi"><div class="num">5,798</div><div class="label">观看 <span class="up">↑25%</span></div></div>
+      <div class="kpi"><div class="num g">254</div><div class="label">点赞 <span class="up">↑115%</span></div></div>
+      <div class="kpi"><div class="num g">186</div><div class="label">评论 <span class="up">↑138%</span></div></div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th style="width:40px">排名</th><th>笔记标题</th><th class="n">日期</th><th class="n">曝光</th><th class="n">观看</th><th class="n">点赞</th><th class="n">评论</th><th class="n">收藏</th></tr>
+        <tr><td><span class="rank r1">1</span></td><td><strong>好朋友来信📬丨将你对西藏的好奇写在纸上</strong></td><td class="n">05-15</td><td class="n" style="color:#FC8E51;font-weight:700">17,797</td><td class="n">407</td><td class="n">44</td><td class="n" style="color:#00A651;font-weight:700">50</td><td class="n">39</td></tr>
+        <tr><td><span class="rank r2">2</span></td><td><strong>晒娃有奖！海龟爸爸追光礼包持续派送中🎁</strong></td><td class="n">05-19</td><td class="n">-</td><td class="n">427</td><td class="n">68</td><td class="n" style="color:#00A651;font-weight:700">95</td><td class="n">70</td></tr>
+        <tr><td><span class="rank r3">3</span></td><td>🎬现场直击｜海龟爸爸夏日追光路演</td><td class="n">05-17</td><td class="n">459</td><td class="n">171</td><td class="n">6</td><td class="n">0</td><td class="n">1</td></tr>
+        <tr><td><span class="rank r4">4</span></td><td>12点开播！黄海冰闪现海龟爸爸直播间！</td><td class="n">05-16</td><td class="n">1,225</td><td class="n">76</td><td class="n">4</td><td class="n">1</td><td class="n">4</td></tr>
+        <tr><td><span class="rank r4">5</span></td><td>好朋友招募｜走！带娃去西藏追光吧～</td><td class="n">05-19</td><td class="n">-</td><td class="n">149</td><td class="n">4</td><td class="n">8</td><td class="n">4</td></tr>
+      </table>
+    </div>
+
+    <div class="insight">
+      <div class="t">📊 小红书数据洞察</div>
+      <div class="txt">
+        • <strong>曝光8.5万（↑40%）</strong>：增长势头强劲，追光主题内容持续带动流量<br>
+        • <strong>Top1「西藏来信」曝光17,797</strong>：跨平台一致爆款，与公众号西藏主题形成内容矩阵<br>
+        • <strong>互动全面飙升</strong>：点赞↑115% / 收藏↑250% / 评论↑138%，UGC激励类内容（晒娃有奖）评论95条最多<br>
+        • <strong>封面点击率5.4%（↓11%）</strong>：需优化前3秒视觉吸引力，测试A/B封面<br>
+        • <strong>完播率7.3%（↓17%）</strong>：视频节奏可能需要加快，前5秒留住用户
+      </div>
+    </div>
+
+    <!-- 公众号 -->
+    <div class="sec-title"><div class="icon icon-g">💬</div>微信公众号 · 7日内数据 & Top5</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="num g">218,391</div><div class="label">总粉丝 · +39今日</div></div>
+      <div class="kpi"><div class="num o">1,154</div><div class="label">30天阅读Top1</div></div>
+      <div class="kpi"><div class="num b">72.3%</div><div class="label">社交裂变占比</div></div>
+      <div class="kpi"><div class="num r">0.1%</div><div class="label">推荐算法占比</div></div>
+    </div>
+
+    <div class="card card-g">
+      <div style="font-size:15px;font-weight:700;margin-bottom:12px">📖 阅读来源分布（2026-04-20 至 2026-05-19）</div>
+      <div class="bar"><span class="bar-l">朋友圈</span><div class="bar-t"><div class="bar-f" style="width:43.5%;background:linear-gradient(90deg,#FC8E51,#F5A962)">43.5%</div></div></div>
+      <div class="bar"><span class="bar-l">聊天会话</span><div class="bar-t"><div class="bar-f" style="width:28.8%;background:linear-gradient(90deg,#4DB8FF,#7EC8F0)">28.8%</div></div></div>
+      <div class="bar"><span class="bar-l">服务号消息</span><div class="bar-t"><div class="bar-f" style="width:17.6%;background:linear-gradient(90deg,#0560C4,#0A74DA)">17.6%</div></div></div>
+      <div class="bar"><span class="bar-l">搜一搜</span><div class="bar-t"><div class="bar-f" style="width:6.5%;background:linear-gradient(90deg,#00A651,#3DD689)">6.5%</div></div></div>
+      <div class="bar"><span class="bar-l">服务号主页</span><div class="bar-t"><div class="bar-f" style="width:4.9%;background:#8A9AAA">4.9%</div></div></div>
+      <div class="bar"><span class="bar-l">推荐</span><div class="bar-t"><div class="bar-f" style="width:0.1%;background:#E85D04;min-width:36px;font-size:10px">0.1% 🔴</div></div></div>
+      <div class="note">💡 <strong>朋友圈(43.5%) + 聊天会话(28.8%) = 72.3%</strong>，公众号已从「订阅推送」转变为「社交裂变」模式</div>
+    </div>
+
+    <div class="card card-g">
+      <div style="font-size:15px;font-weight:700;margin-bottom:12px">🏆 30天 Top5 内容（按阅读人数）</div>
+      <div class="top-item">
+        <span class="rank r1">1</span>
+        <div class="top-info"><div class="top-title">母亲节 | 妈妈，谢谢你陪我一起「追光」 ✨</div><div class="top-meta">2026/05/10 · 朋友圈主导 · 追光系列</div></div>
+        <div class="top-data"><div><div class="top-num o">1,154</div><div class="top-lbl">阅读</div></div><div><div class="top-num">20.03%</div><div class="top-lbl">占比</div></div></div>
+      </div>
+      <div class="top-item">
+        <span class="rank r2">2</span>
+        <div class="top-info"><div class="top-title">海龟爸爸「追光共创营」春日骑行直击 🚲</div><div class="top-meta">2026/04/30 · 朋友圈主导 · 追光系列</div></div>
+        <div class="top-data"><div><div class="top-num o">1,086</div><div class="top-lbl">阅读</div></div><div><div class="top-num">18.85%</div><div class="top-lbl">占比</div></div></div>
+      </div>
+      <div class="top-item">
+        <span class="rank r3">3</span>
+        <div class="top-info"><div class="top-title">好朋友来信📬｜将你对西藏的好奇写在纸上</div><div class="top-meta">2026/05/15 · 跨平台爆款（小红书17,797曝光）</div></div>
+        <div class="top-data"><div><div class="top-num">548</div><div class="top-lbl">阅读</div></div><div><div class="top-num">9.51%</div><div class="top-lbl">占比</div></div></div>
+      </div>
+      <div class="top-item">
+        <span class="rank r4">4</span>
+        <div class="top-info"><div class="top-title">好朋友招募｜走！带娃去西藏追光吧～</div><div class="top-meta">2026/05/16 · 追光系列延续</div></div>
+        <div class="top-data"><div><div class="top-num">536</div><div class="top-lbl">阅读</div></div><div><div class="top-num">9.30%</div><div class="top-lbl">占比</div></div></div>
+      </div>
+      <div class="top-item">
+        <span class="rank r4">5</span>
+        <div class="top-info"><div class="top-title">海龟爸爸参与制定的洁面新国标正式发布！🎉</div><div class="top-meta">2026/04/25 · 信任背书类</div></div>
+        <div class="top-data"><div><div class="top-num">523</div><div class="top-lbl">阅读</div></div><div><div class="top-num">9.08%</div><div class="top-lbl">占比</div></div></div>
+      </div>
+    </div>
+
+    <div class="insight g">
+      <div class="t">📊 公众号数据洞察</div>
+      <div class="txt">
+        • <strong>社交裂变72.3%</strong>：朋友圈43.5% + 聊天会话28.8%，订阅推送(17.6%)效率极低，内容必须设计「转发给闺蜜/妈妈」的理由<br>
+        • <strong>追光IP碾压级优势</strong>：Top2均为追光主题（合计38.9%），Top4中3篇为追光，IP化内容具有碾压性流量优势<br>
+        • <strong>推荐算法0.1% = 50倍增长空间</strong>：加入「防晒/宝宝/夏日」关键词，优化封面和前200字，推荐从0.1%提升至5%，阅读可翻50倍<br>
+        • <strong>信任背书类内容稳定</strong>：洁面新国标发布523阅读(9.08%)，专业内容有固定受众
+      </div>
+    </div>
+
+    <!-- 微博 -->
+    <div class="sec-title"><div class="icon icon-o">🔴</div>微博 · 7日内数据 & 内容表现</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="num">1,491</div><div class="label">总粉丝 · -2净增</div></div>
+      <div class="kpi"><div class="num g">4,347</div><div class="label">周阅读 <span class="up">↑66.7%</span></div></div>
+      <div class="kpi"><div class="num">8</div><div class="label">原创发博 <span class="up">↑167%</span></div></div>
+      <div class="kpi"><div class="num r">0</div><div class="label">昨日发博 ❌</div></div>
+    </div>
+
+    <div class="card card-o">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="font-size:15px;font-weight:700">📅 昨日(05.19) vs 本周周期(05.13-19)</div>
+        <span style="font-size:10px;padding:3px 10px;border-radius:10px;background:#FDEDE8;color:#E85D04;font-weight:700">蓝V 2026.07.15到期</span>
+      </div>
+      <div class="grid2">
+        <div>
+          <div style="font-size:11px;color:#8A9AAA;margin-bottom:8px;text-align:center;font-weight:600">昨日 · 05.19</div>
+          <div class="m-row"><span class="m-l">发博</span><span class="m-v r">0 ❌</span></div>
+          <div class="m-row"><span class="m-l">阅读</span><span class="m-v">635 <span class="down">↓8.6%</span></span></div>
+          <div class="m-row"><span class="m-l">转评赞</span><span class="m-v">1 <span class="down">↓75%</span></span></div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:#8A9AAA;margin-bottom:8px;text-align:center;font-weight:600">本周 · 05.13-19</div>
+          <div class="m-row"><span class="m-l">阅读</span><span class="m-v g">4,347 <span class="up">↑66.7%</span></span></div>
+          <div class="m-row"><span class="m-l">转评赞</span><span class="m-v g">20 <span class="up">↑233%</span></span></div>
+          <div class="m-row"><span class="m-l">原创发博</span><span class="m-v g">8 <span class="up">↑167%</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight o">
+      <div class="t">📊 微博数据洞察</div>
+      <div class="txt">
+        • <strong>内容产出不稳定是核心问题</strong>：昨日完全静默（发博0/阅读635），但有内容时数据明显回暖（周阅读↑66.7%）<br>
+        • <strong>1,491粉丝质量极高</strong>：人均贡献2.9次阅读，远超视频号70,089粉丝的0.26次/人——微博粉丝少但精准<br>
+        • <strong>蓝V即将过期（2026.07.15）</strong>：需尽快年审，蓝V对品牌信任度至关重要<br>
+        • <strong>建议</strong>：保持日更1条，将公众号追光内容适配为微博短图文，避免断崖式下跌
+      </div>
+    </div>
+
+    <!-- 五维对比 -->
+    <div class="sec-title"><div class="icon icon-b">⭐</div>三平台五维能力对比</div>
+        <div class="grid2">
+      <div>
+<div     <div class="grid2">
+      <div>
+s="radar-box">
+            <div class="radar-t">增长 · 互动 · 内容 · 转化 · 搜索</div>
+            <svg viewBox="0 0 360 320" style="max-width:100%;height:auto">
+              <g stroke="#E8F0FE" stroke-width="1" fill="none">
+                <polygon points="180,40 312,136 268,280 92,280 48,136"/>
+                <polygon points="180,70 285,146 252,250 108,250 75,146"/>
+                <polygon points="180,100 258,156 236,220 124,220 102,156"/>
+                <polygon points="180,130 231,166 220,190 140,190 129,166"/>
+                <polygon points="180,160 204,176 204,190 156,190 156,176"/>
+              </g>
+              <g stroke="#D0E0F5" stroke-width="1">
+                <line x1="180" y1="40" x2="180" y2="280"/>
+                <line x1="180" y1="160" x2="312" y2="136"/>
+                <line x1="180" y1="160" x2="268" y2="280"/>
+                <line x1="180" y1="160" x2="92" y2="280"/>
+                <line x1="180" y1="160" x2="48" y2="136"/>
+              </g>
+              <g font-size="13" font-weight="700" fill="#1A1A2E" text-anchor="middle">
+                <text x="180" y="28">增长</text>
+                <text x="330" y="130">搜索</text>
+                <text x="280" y="300">转化</text>
+                <text x="80" y="300">内容</text>
+                <text x="30" y="130">互动</text>
+              </g>
+              <!-- 小红书 -->
+              <polygon points="180,55 289,145 225,260 130,220 27,108" fill="rgba(252,142,81,0.15)" stroke="#FC8E51" stroke-width="2.5"/>
+              <circle cx="180" cy="55" r="4" fill="#fff" stroke="#FC8E51" stroke-width="2"/>
+              <circle cx="289" cy="145" r="4" fill="#fff" stroke="#FC8E51" stroke-width="2"/>
+              <circle cx="225" cy="260" r="4" fill="#fff" stroke="#FC8E51" stroke-width="2"/>
+              <circle cx="130" cy="220" r="4" fill="#fff" stroke="#FC8E51" stroke-width="2"/>
+              <circle cx="27" cy="108" r="4" fill="#fff" stroke="#FC8E51" stroke-width="2"/>
+              <!-- 公众号 -->
+              <polygon points="180,60 240,148 216,220 97,220 60,116" fill="rgba(0,166,81,0.15)" stroke="#00A651" stroke-width="2.5"/>
+              <circle cx="180" cy="60" r="4" fill="#fff" stroke="#00A651" stroke-width="2"/>
+              <circle cx="240" cy="148" r="4" fill="#fff" stroke="#00A651" stroke-width="2"/>
+              <circle cx="216" cy="220" r="4" fill="#fff" stroke="#00A651" stroke-width="2"/>
+              <circle cx="97" cy="220" r="4" fill="#fff" stroke="#00A651" stroke-width="2"/>
+              <circle cx="60" cy="116" r="4" fill="#fff" stroke="#00A651" stroke-width="2"/>
+              <!-- 微博 -->
+              <polygon points="180,130 195,154 200,232 156,232 105,144" fill="rgba(5,96,196,0.15)" stroke="#0560C4" stroke-width="2.5"/>
+              <circle cx="180" cy="130" r="4" fill="#fff" stroke="#0560C4" stroke-width="2"/>
+              <circle cx="195" cy="154" r="4" fill="#fff" stroke="#0560C4" stroke-width="2"/>
+              <circle cx="200" cy="232" r="4" fill="#fff" stroke="#0560C4" stroke-width="2"/>
+              <circle cx="156" cy="232" r="4" fill="#fff" stroke="#0560C4" stroke-width="2"/>
+              <circle cx="105" cy="144" r="4" fill="#fff" stroke="#0560C4" stroke-width="2"/>
+            </svg>
+            <div class="legend">
+              <div class="legend-item"><span class="dot" style="background:#FC8E51"></span>小红书</div>
+              <div class="legend-item"><span class="dot" style="background:#00A651"></span>公众号</div>
+              <div class="legend-item"><span class="dot" style="background:#0560C4"></span>微博</div>
+            </div>
+          </div>
+
+                </div>
+        <div>
+<div class="card">
+            <div style="font-weight:700;color:#0560C4;margin-bottom:10px;font-size:14px">      </div>
+      <div>
+维能力解读</div>
+            <div class="txt">
+              <strong style="color:#FC8E51">小红书</strong>：互动维度最强（95分），点赞+115%/收藏+250%。但内容维度偏弱（50分），封面点击率5.4%和完播率7.3%拖后腿。<br><br>
+              <strong style="color:#00A651">公众号</strong>：内容和互动均衡（85分），追光系列IP质量高，社交裂变72.3%。但搜索维度（45分）和推荐算法0.1%是短板。<br><br>
+              <strong style="color:#0560C4">微博</strong>：五维全面偏弱，最大问题是粉丝量级太小（1,491）且内容产出不稳定。有内容时人均阅读2.9次，粉丝质量高。
+            </div>
+                </div>
+      </div></div>
+
+            </div>
+    </div><!-- 优化建议 -->
+    <div class="sec-title"><div class="icon icon-b">🚀</div>基于数据的优化建议</div>
+    <div class="s-grid">
+      <div class="s-card r">
+        <div class="s-t"><span class="s-icon si-r">!</span>P0 · 立即行动</div>
+        <div class="s-item"><span>🎬</span><span>视频号启动「1分钟追光日记」每周3-5条，70,089粉丝空转是最大浪费</span></div>
+        <div class="s-item"><span>📈</span><span>公众号标题加「防晒/宝宝/夏日」关键词，激活推荐算法（0.1%→5%=50倍增长）</span></div>
+        <div class="s-item"><span>📝</span><span>追光系列扩产：2篇/月 → 4篇/月，IP化内容已验证有碾压级流量优势</span></div>
+      </div>
+      <div class="s-card o">
+        <div class="s-t"><span class="s-icon si-o">2</span>P1 · 本周优化</div>
+        <div class="s-item"><span>📤</span><span>每篇内容设计「转发给闺蜜/妈妈」分享诱因，社交裂变已是主渠道(72.3%)</span></div>
+        <div class="s-item"><span>🎁</span><span>UGC激励模式复制：每周至少1篇互动型内容（晒娃有奖评论95条验证有效）</span></div>
+        <div class="s-item"><span>📅</span><span>微博保持日更1条，避免断崖式下跌，蓝V年审提前准备（2026.07.15到期）</span></div>
+      </div>
+      <div class="s-card g">
+        <div class="s-t"><span class="s-icon si-g">✓</span>做得好的 · 继续保持</div>
+        <div class="s-item"><span>📕</span><span>小红书互动全面飙升（点赞+115%/收藏+250%），UGC策略有效</span></div>
+        <div class="s-item"><span>✨</span><span>追光IP已形成跨平台资产（公众号Top2 + 小红书Top1）</span></div>
+        <div class="s-item"><span>💬</span><span>公众号社交裂变属性极强（72.3%），私域运营能力强</span></div>
+      </div>
+      <div class="s-card" style="border-top-color:#4DB8FF">
+        <div class="s-t"><span class="s-icon si-b">📊</span>数据观察</div>
+        <div class="s-item"><span>🔍</span><span>小红书封面点击率5.4%(↓11%)需优化前3秒视觉</span></div>
+        <div class="s-item"><span>📉</span><span>视频号完播率7.3%(↓17%)节奏有问题，需加快前5秒</span></div>
+        <div class="s-item"><span>⚠️</span><span>微博蓝V 2026.07.15到期，需提前3个月准备年审材料</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== PAGE 3: 竞品对标 ===== -->
+  <div id="p3" class="page">
 
     <div class="sec-title"><div class="icon icon-b">🎯</div>婴童护肤赛道 · 竞品对标分析</div>
     <div style="font-size:13px;color:#5A6A7A;margin-bottom:16px">数据来源：公开市场情报 · 蝉妈妈/魔镜/知战略 · 2025年度</div>
@@ -367,235 +605,6 @@
 
   </div>
 
-  <!-- Footer -->
-  <div id="p1" class="page">
-
-    <!-- 小红书 -->
-    <div class="sec-title"><div class="icon icon-o">📕</div>小红书 · 7日内数据 & Top5</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="num o">8.5万</div><div class="label">曝光 <span class="up">↑40%</span></div></div>
-      <div class="kpi"><div class="num">5,798</div><div class="label">观看 <span class="up">↑25%</span></div></div>
-      <div class="kpi"><div class="num g">254</div><div class="label">点赞 <span class="up">↑115%</span></div></div>
-      <div class="kpi"><div class="num g">186</div><div class="label">评论 <span class="up">↑138%</span></div></div>
-    </div>
-
-    <div class="tbl-wrap">
-      <table>
-        <tr><th style="width:40px">排名</th><th>笔记标题</th><th class="n">日期</th><th class="n">曝光</th><th class="n">观看</th><th class="n">点赞</th><th class="n">评论</th><th class="n">收藏</th></tr>
-        <tr><td><span class="rank r1">1</span></td><td><strong>好朋友来信📬丨将你对西藏的好奇写在纸上</strong></td><td class="n">05-15</td><td class="n" style="color:#FC8E51;font-weight:700">17,797</td><td class="n">407</td><td class="n">44</td><td class="n" style="color:#00A651;font-weight:700">50</td><td class="n">39</td></tr>
-        <tr><td><span class="rank r2">2</span></td><td><strong>晒娃有奖！海龟爸爸追光礼包持续派送中🎁</strong></td><td class="n">05-19</td><td class="n">-</td><td class="n">427</td><td class="n">68</td><td class="n" style="color:#00A651;font-weight:700">95</td><td class="n">70</td></tr>
-        <tr><td><span class="rank r3">3</span></td><td>🎬现场直击｜海龟爸爸夏日追光路演</td><td class="n">05-17</td><td class="n">459</td><td class="n">171</td><td class="n">6</td><td class="n">0</td><td class="n">1</td></tr>
-        <tr><td><span class="rank r4">4</span></td><td>12点开播！黄海冰闪现海龟爸爸直播间！</td><td class="n">05-16</td><td class="n">1,225</td><td class="n">76</td><td class="n">4</td><td class="n">1</td><td class="n">4</td></tr>
-        <tr><td><span class="rank r4">5</span></td><td>好朋友招募｜走！带娃去西藏追光吧～</td><td class="n">05-19</td><td class="n">-</td><td class="n">149</td><td class="n">4</td><td class="n">8</td><td class="n">4</td></tr>
-      </table>
-    </div>
-
-    <div class="insight">
-      <div class="t">📊 小红书数据洞察</div>
-      <div class="txt">
-        • <strong>曝光8.5万（↑40%）</strong>：增长势头强劲，追光主题内容持续带动流量<br>
-        • <strong>Top1「西藏来信」曝光17,797</strong>：跨平台一致爆款，与公众号西藏主题形成内容矩阵<br>
-        • <strong>互动全面飙升</strong>：点赞↑115% / 收藏↑250% / 评论↑138%，UGC激励类内容（晒娃有奖）评论95条最多<br>
-        • <strong>封面点击率5.4%（↓11%）</strong>：需优化前3秒视觉吸引力，测试A/B封面<br>
-        • <strong>完播率7.3%（↓17%）</strong>：视频节奏可能需要加快，前5秒留住用户
-      </div>
-    </div>
-
-    <!-- 公众号 -->
-    <div class="sec-title"><div class="icon icon-g">💬</div>微信公众号 · 7日内数据 & Top5</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="num g">218,391</div><div class="label">总粉丝 · +39今日</div></div>
-      <div class="kpi"><div class="num o">1,154</div><div class="label">30天阅读Top1</div></div>
-      <div class="kpi"><div class="num b">72.3%</div><div class="label">社交裂变占比</div></div>
-      <div class="kpi"><div class="num r">0.1%</div><div class="label">推荐算法占比</div></div>
-    </div>
-
-    <div class="card card-g">
-      <div style="font-size:15px;font-weight:700;margin-bottom:12px">📖 阅读来源分布（2026-04-20 至 2026-05-19）</div>
-      <div class="bar"><span class="bar-l">朋友圈</span><div class="bar-t"><div class="bar-f" style="width:43.5%;background:linear-gradient(90deg,#FC8E51,#F5A962)">43.5%</div></div></div>
-      <div class="bar"><span class="bar-l">聊天会话</span><div class="bar-t"><div class="bar-f" style="width:28.8%;background:linear-gradient(90deg,#4DB8FF,#7EC8F0)">28.8%</div></div></div>
-      <div class="bar"><span class="bar-l">服务号消息</span><div class="bar-t"><div class="bar-f" style="width:17.6%;background:linear-gradient(90deg,#0560C4,#0A74DA)">17.6%</div></div></div>
-      <div class="bar"><span class="bar-l">搜一搜</span><div class="bar-t"><div class="bar-f" style="width:6.5%;background:linear-gradient(90deg,#00A651,#3DD689)">6.5%</div></div></div>
-      <div class="bar"><span class="bar-l">服务号主页</span><div class="bar-t"><div class="bar-f" style="width:4.9%;background:#8A9AAA">4.9%</div></div></div>
-      <div class="bar"><span class="bar-l">推荐</span><div class="bar-t"><div class="bar-f" style="width:0.1%;background:#E85D04;min-width:36px;font-size:10px">0.1% 🔴</div></div></div>
-      <div class="note">💡 <strong>朋友圈(43.5%) + 聊天会话(28.8%) = 72.3%</strong>，公众号已从「订阅推送」转变为「社交裂变」模式</div>
-    </div>
-
-    <div class="card card-g">
-      <div style="font-size:15px;font-weight:700;margin-bottom:12px">🏆 30天 Top5 内容（按阅读人数）</div>
-      <div class="top-item">
-        <span class="rank r1">1</span>
-        <div class="top-info"><div class="top-title">母亲节 | 妈妈，谢谢你陪我一起「追光」 ✨</div><div class="top-meta">2026/05/10 · 朋友圈主导 · 追光系列</div></div>
-        <div class="top-data"><div><div class="top-num o">1,154</div><div class="top-lbl">阅读</div></div><div><div class="top-num">20.03%</div><div class="top-lbl">占比</div></div></div>
-      </div>
-      <div class="top-item">
-        <span class="rank r2">2</span>
-        <div class="top-info"><div class="top-title">海龟爸爸「追光共创营」春日骑行直击 🚲</div><div class="top-meta">2026/04/30 · 朋友圈主导 · 追光系列</div></div>
-        <div class="top-data"><div><div class="top-num o">1,086</div><div class="top-lbl">阅读</div></div><div><div class="top-num">18.85%</div><div class="top-lbl">占比</div></div></div>
-      </div>
-      <div class="top-item">
-        <span class="rank r3">3</span>
-        <div class="top-info"><div class="top-title">好朋友来信📬｜将你对西藏的好奇写在纸上</div><div class="top-meta">2026/05/15 · 跨平台爆款（小红书17,797曝光）</div></div>
-        <div class="top-data"><div><div class="top-num">548</div><div class="top-lbl">阅读</div></div><div><div class="top-num">9.51%</div><div class="top-lbl">占比</div></div></div>
-      </div>
-      <div class="top-item">
-        <span class="rank r4">4</span>
-        <div class="top-info"><div class="top-title">好朋友招募｜走！带娃去西藏追光吧～</div><div class="top-meta">2026/05/16 · 追光系列延续</div></div>
-        <div class="top-data"><div><div class="top-num">536</div><div class="top-lbl">阅读</div></div><div><div class="top-num">9.30%</div><div class="top-lbl">占比</div></div></div>
-      </div>
-      <div class="top-item">
-        <span class="rank r4">5</span>
-        <div class="top-info"><div class="top-title">海龟爸爸参与制定的洁面新国标正式发布！🎉</div><div class="top-meta">2026/04/25 · 信任背书类</div></div>
-        <div class="top-data"><div><div class="top-num">523</div><div class="top-lbl">阅读</div></div><div><div class="top-num">9.08%</div><div class="top-lbl">占比</div></div></div>
-      </div>
-    </div>
-
-    <div class="insight g">
-      <div class="t">📊 公众号数据洞察</div>
-      <div class="txt">
-        • <strong>社交裂变72.3%</strong>：朋友圈43.5% + 聊天会话28.8%，订阅推送(17.6%)效率极低，内容必须设计「转发给闺蜜/妈妈」的理由<br>
-        • <strong>追光IP碾压级优势</strong>：Top2均为追光主题（合计38.9%），Top4中3篇为追光，IP化内容具有碾压性流量优势<br>
-        • <strong>推荐算法0.1% = 50倍增长空间</strong>：加入「防晒/宝宝/夏日」关键词，优化封面和前200字，推荐从0.1%提升至5%，阅读可翻50倍<br>
-        • <strong>信任背书类内容稳定</strong>：洁面新国标发布523阅读(9.08%)，专业内容有固定受众
-      </div>
-    </div>
-
-    <!-- 微博 -->
-    <div class="sec-title"><div class="icon icon-o">🔴</div>微博 · 7日内数据 & 内容表现</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="num">1,491</div><div class="label">总粉丝 · -2净增</div></div>
-      <div class="kpi"><div class="num g">4,347</div><div class="label">周阅读 <span class="up">↑66.7%</span></div></div>
-      <div class="kpi"><div class="num">8</div><div class="label">原创发博 <span class="up">↑167%</span></div></div>
-      <div class="kpi"><div class="num r">0</div><div class="label">昨日发博 ❌</div></div>
-    </div>
-
-    <div class="card card-o">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <div style="font-size:15px;font-weight:700">📅 昨日(05.19) vs 本周周期(05.13-19)</div>
-        <span style="font-size:10px;padding:3px 10px;border-radius:10px;background:#FDEDE8;color:#E85D04;font-weight:700">蓝V 2026.07.15到期</span>
-      </div>
-      <div class="grid2">
-        <div>
-          <div style="font-size:11px;color:#8A9AAA;margin-bottom:8px;text-align:center;font-weight:600">昨日 · 05.19</div>
-          <div class="m-row"><span class="m-l">发博</span><span class="m-v r">0 ❌</span></div>
-          <div class="m-row"><span class="m-l">阅读</span><span class="m-v">635 <span class="down">↓8.6%</span></span></div>
-          <div class="m-row"><span class="m-l">转评赞</span><span class="m-v">1 <span class="down">↓75%</span></span></div>
-        </div>
-        <div>
-          <div style="font-size:11px;color:#8A9AAA;margin-bottom:8px;text-align:center;font-weight:600">本周 · 05.13-19</div>
-          <div class="m-row"><span class="m-l">阅读</span><span class="m-v g">4,347 <span class="up">↑66.7%</span></span></div>
-          <div class="m-row"><span class="m-l">转评赞</span><span class="m-v g">20 <span class="up">↑233%</span></span></div>
-          <div class="m-row"><span class="m-l">原创发博</span><span class="m-v g">8 <span class="up">↑167%</span></span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="insight o">
-      <div class="t">📊 微博数据洞察</div>
-      <div class="txt">
-        • <strong>内容产出不稳定是核心问题</strong>：昨日完全静默（发博0/阅读635），但有内容时数据明显回暖（周阅读↑66.7%）<br>
-        • <strong>1,491粉丝质量极高</strong>：人均贡献2.9次阅读，远超视频号70,089粉丝的0.26次/人——微博粉丝少但精准<br>
-        • <strong>蓝V即将过期（2026.07.15）</strong>：需尽快年审，蓝V对品牌信任度至关重要<br>
-        • <strong>建议</strong>：保持日更1条，将公众号追光内容适配为微博短图文，避免断崖式下跌
-      </div>
-    </div>
-
-    <!-- 五维对比 -->
-    <div class="sec-title"><div class="icon icon-b">⭐</div>三平台五维能力对比</div>
-    <div class="radar-box">
-      <div class="radar-t">增长 · 互动 · 内容 · 转化 · 搜索</div>
-      <svg viewBox="0 0 360 320" style="max-width:100%;height:auto">
-        <g stroke="#E8F0FE" stroke-width="1" fill="none">
-          <polygon points="180,40 312,136 268,280 92,280 48,136"/>
-          <polygon points="180,70 285,146 252,250 108,250 75,146"/>
-          <polygon points="180,100 258,156 236,220 124,220 102,156"/>
-          <polygon points="180,130 231,166 220,190 140,190 129,166"/>
-          <polygon points="180,160 204,176 204,190 156,190 156,176"/>
-        </g>
-        <g stroke="#D0E0F5" stroke-width="1">
-          <line x1="180" y1="40" x2="180" y2="280"/>
-          <line x1="180" y1="160" x2="312" y2="136"/>
-          <line x1="180" y1="160" x2="268" y2="280"/>
-          <line x1="180" y1="160" x2="92" y2="280"/>
-          <line x1="180" y1="160" x2="48" y2="136"/>
-        </g>
-        <g font-size="13" font-weight="700" fill="#1A1A2E" text-anchor="middle">
-          <text x="180" y="28">增长</text>
-          <text x="330" y="130">搜索</text>
-          <text x="280" y="300">转化</text>
-          <text x="80" y="300">内容</text>
-          <text x="30" y="130">互动</text>
-        </g>
-        <!-- 小红书 -->
-        <polygon points="180,55 289,145 225,260 130,220 27,108" fill="rgba(252,142,81,0.15)" stroke="#FC8E51" stroke-width="2.5"/>
-        <circle cx="180" cy="55" r="4" fill="#fff" stroke="#FC8E51" stroke-width="2"/>
-        <circle cx="289" cy="145" r="4" fill="#fff" stroke="#FC8E51" stroke-width="2"/>
-        <circle cx="225" cy="260" r="4" fill="#fff" stroke="#FC8E51" stroke-width="2"/>
-        <circle cx="130" cy="220" r="4" fill="#fff" stroke="#FC8E51" stroke-width="2"/>
-        <circle cx="27" cy="108" r="4" fill="#fff" stroke="#FC8E51" stroke-width="2"/>
-        <!-- 公众号 -->
-        <polygon points="180,60 240,148 216,220 97,220 60,116" fill="rgba(0,166,81,0.15)" stroke="#00A651" stroke-width="2.5"/>
-        <circle cx="180" cy="60" r="4" fill="#fff" stroke="#00A651" stroke-width="2"/>
-        <circle cx="240" cy="148" r="4" fill="#fff" stroke="#00A651" stroke-width="2"/>
-        <circle cx="216" cy="220" r="4" fill="#fff" stroke="#00A651" stroke-width="2"/>
-        <circle cx="97" cy="220" r="4" fill="#fff" stroke="#00A651" stroke-width="2"/>
-        <circle cx="60" cy="116" r="4" fill="#fff" stroke="#00A651" stroke-width="2"/>
-        <!-- 微博 -->
-        <polygon points="180,130 195,154 200,232 156,232 105,144" fill="rgba(5,96,196,0.15)" stroke="#0560C4" stroke-width="2.5"/>
-        <circle cx="180" cy="130" r="4" fill="#fff" stroke="#0560C4" stroke-width="2"/>
-        <circle cx="195" cy="154" r="4" fill="#fff" stroke="#0560C4" stroke-width="2"/>
-        <circle cx="200" cy="232" r="4" fill="#fff" stroke="#0560C4" stroke-width="2"/>
-        <circle cx="156" cy="232" r="4" fill="#fff" stroke="#0560C4" stroke-width="2"/>
-        <circle cx="105" cy="144" r="4" fill="#fff" stroke="#0560C4" stroke-width="2"/>
-      </svg>
-      <div class="legend">
-        <div class="legend-item"><span class="dot" style="background:#FC8E51"></span>小红书</div>
-        <div class="legend-item"><span class="dot" style="background:#00A651"></span>公众号</div>
-        <div class="legend-item"><span class="dot" style="background:#0560C4"></span>微博</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div style="font-weight:700;color:#0560C4;margin-bottom:10px;font-size:14px">📊 五维能力解读</div>
-      <div class="txt">
-        <strong style="color:#FC8E51">小红书</strong>：互动维度最强（95分），点赞+115%/收藏+250%。但内容维度偏弱（50分），封面点击率5.4%和完播率7.3%拖后腿。<br><br>
-        <strong style="color:#00A651">公众号</strong>：内容和互动均衡（85分），追光系列IP质量高，社交裂变72.3%。但搜索维度（45分）和推荐算法0.1%是短板。<br><br>
-        <strong style="color:#0560C4">微博</strong>：五维全面偏弱，最大问题是粉丝量级太小（1,491）且内容产出不稳定。有内容时人均阅读2.9次，粉丝质量高。
-      </div>
-    </div>
-
-    <!-- 优化建议 -->
-    <div class="sec-title"><div class="icon icon-b">🚀</div>基于数据的优化建议</div>
-    <div class="s-grid">
-      <div class="s-card r">
-        <div class="s-t"><span class="s-icon si-r">!</span>P0 · 立即行动</div>
-        <div class="s-item"><span>🎬</span><span>视频号启动「1分钟追光日记」每周3-5条，70,089粉丝空转是最大浪费</span></div>
-        <div class="s-item"><span>📈</span><span>公众号标题加「防晒/宝宝/夏日」关键词，激活推荐算法（0.1%→5%=50倍增长）</span></div>
-        <div class="s-item"><span>📝</span><span>追光系列扩产：2篇/月 → 4篇/月，IP化内容已验证有碾压级流量优势</span></div>
-      </div>
-      <div class="s-card o">
-        <div class="s-t"><span class="s-icon si-o">2</span>P1 · 本周优化</div>
-        <div class="s-item"><span>📤</span><span>每篇内容设计「转发给闺蜜/妈妈」分享诱因，社交裂变已是主渠道(72.3%)</span></div>
-        <div class="s-item"><span>🎁</span><span>UGC激励模式复制：每周至少1篇互动型内容（晒娃有奖评论95条验证有效）</span></div>
-        <div class="s-item"><span>📅</span><span>微博保持日更1条，避免断崖式下跌，蓝V年审提前准备（2026.07.15到期）</span></div>
-      </div>
-      <div class="s-card g">
-        <div class="s-t"><span class="s-icon si-g">✓</span>做得好的 · 继续保持</div>
-        <div class="s-item"><span>📕</span><span>小红书互动全面飙升（点赞+115%/收藏+250%），UGC策略有效</span></div>
-        <div class="s-item"><span>✨</span><span>追光IP已形成跨平台资产（公众号Top2 + 小红书Top1）</span></div>
-        <div class="s-item"><span>💬</span><span>公众号社交裂变属性极强（72.3%），私域运营能力强</span></div>
-      </div>
-      <div class="s-card" style="border-top-color:#4DB8FF">
-        <div class="s-t"><span class="s-icon si-b">📊</span>数据观察</div>
-        <div class="s-item"><span>🔍</span><span>小红书封面点击率5.4%(↓11%)需优化前3秒视觉</span></div>
-        <div class="s-item"><span>📉</span><span>视频号完播率7.3%(↓17%)节奏有问题，需加快前5秒</span></div>
-        <div class="s-item"><span>⚠️</span><span>微博蓝V 2026.07.15到期，需提前3个月准备年审材料</span></div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ===== PAGE 2: 明细 ===== -->
   <div id="p2" class="page">
 
     <div class="sec-title"><div class="icon icon-b">📈</div>全平台数据明细</div>
@@ -682,7 +691,6 @@
 
   </div>
 
-  <!-- ===== PAGE 3: 竞品对标 ===== -->
   <div class="footer">
     <div class="brand">🐢 海龟爸爸 Hi!Papa</div>
     <div>让孩子做自己的光 · 数据看板每周五 17:00 更新</div>
