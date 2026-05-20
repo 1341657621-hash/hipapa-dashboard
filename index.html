@@ -169,6 +169,45 @@
   .highlight-box { background: linear-gradient(135deg, #FFF3EB 0%, #E8F1FC 100%); border-radius: 14px; padding: 14px 18px; margin: 12px 0; border-left: 4px solid #FC8E51; }
   .highlight-box .hl-text { font-size: 15px; font-weight: 700; color: #1A1A2E; line-height: 1.7; }
   .highlight-box .hl-num { font-size: 26px; font-weight: 900; color: #FC8E51; }
+
+  /* === 可视化卡片仪表盘 === */
+  .dash-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (max-width: 600px) { .dash-grid { grid-template-columns: 1fr; } }
+  .dash-card { background: #fff; border-radius: 16px; padding: 0; box-shadow: 0 2px 12px rgba(5,96,196,0.08); border: 1px solid #E8F0FE; border-top: 4px solid #0560C4; overflow: hidden; }
+  .dash-header { display: flex; align-items: center; gap: 10px; padding: 14px 16px 10px; border-bottom: 1px solid #F0F4FA; }
+  .dash-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
+  .dash-name { font-size: 15px; font-weight: 700; flex: 1; }
+  .dash-trend { font-size: 13px; font-weight: 800; padding: 2px 8px; border-radius: 8px; }
+  .dash-trend.up { background: #E8F8F0; color: #00A651; }
+  .dash-trend.down { background: #FDEDE8; color: #E85D04; }
+  .dash-body { padding: 12px 16px 16px; }
+  .dash-row { display: flex; gap: 16px; }
+  .dash-metric { flex: 1; text-align: center; }
+  .dash-val { font-size: 20px; font-weight: 800; color: #1A1A2E; margin-bottom: 2px; }
+  .dash-label { font-size: 11px; color: #8A9AAA; }
+
+  /* === 核心洞察迷你卡片 === */
+  .insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (max-width: 600px) { .insight-grid { grid-template-columns: 1fr; } }
+  .insight-mini { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 2px 12px rgba(5,96,196,0.08); border: 1px solid #E8F0FE; border-left: 4px solid #0560C4; }
+  .insight-mini .mini-tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 8px; margin-bottom: 10px; }
+  .insight-mini .mini-q { font-size: 14px; font-weight: 700; color: #1A1A2E; margin-bottom: 8px; line-height: 1.5; }
+  .insight-mini .mini-a { font-size: 12px; color: #5A6A7A; line-height: 1.7; }
+  .insight-mini .mini-a strong { font-weight: 700; }
+
+  /* === 行动指南迷你卡片 === */
+  .action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (max-width: 600px) { .action-grid { grid-template-columns: 1fr; } }
+  .action-mini { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 2px 12px rgba(5,96,196,0.08); border: 1px solid #E8F0FE; border-top: 4px solid #0560C4; }
+  .action-mini .mini-tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 8px; margin-bottom: 10px; }
+  .action-mini .mini-chain { font-size: 15px; font-weight: 800; color: #1A1A2E; margin-bottom: 8px; }
+  .action-mini .mini-a { font-size: 12px; color: #5A6A7A; line-height: 1.7; }
+  .action-mini .mini-a strong { font-weight: 700; }
+
+  .up { color: #00A651; font-size: 11px; font-weight: 700; }
+  .down { color: #E85D04; font-size: 11px; font-weight: 700; }
+  .flat { color: #8A9AAA; font-size: 11px; font-weight: 700; }
+  .warn-pill { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #FDEDE8; color: #E85D04; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -191,328 +230,231 @@
   <!-- ===== PAGE 1: 数据概览 ===== -->
   <div id="p1" class="page on">
 
-    <!-- 1. 四平台日环比总览 -->
+    <!-- 1. 四平台日环比 · 可视化卡片 -->
     <div class="sec-title"><div class="icon icon-b">📊</div>四平台日环比 · 核心指标</div>
-    <div class="card">
-      <div style="font-size:13px;color:#5A6A7A;margin-bottom:12px">数据周期：2026-05-19（昨日） vs 前一日 · 环比 = 当日 / 前一日</div>
-      <div class="tbl-wrap">
-        <table>
-          <tr>
-            <th>平台</th>
-            <th class="n">核心指标①</th>
-            <th class="n">环比</th>
-            <th class="n">核心指标②</th>
-            <th class="n">环比</th>
-            <th class="n">核心指标③</th>
-            <th class="n">环比</th>
-          </tr>
-          <tr>
-            <td><span class="platform-tag tag-xhs">📕 小红书</span></td>
-            <td class="n"><strong style="color:#FC8E51">12,143</strong><br><span style="font-size:10px;color:#8A9AAA">曝光</span></td>
-            <td class="n"><span class="up">↑18%</span></td>
-            <td class="n"><strong>828</strong><br><span style="font-size:10px;color:#8A9AAA">观看</span></td>
-            <td class="n"><span class="up">↑12%</span></td>
-            <td class="n"><strong style="color:#00A651">36</strong><br><span style="font-size:10px;color:#8A9AAA">互动</span></td>
-            <td class="n"><span class="up">↑80%</span></td>
-          </tr>
-          <tr>
-            <td><span class="platform-tag tag-wx">💬 公众号</span></td>
-            <td class="n"><strong style="color:#00A651">218,391</strong><br><span style="font-size:10px;color:#8A9AAA">总粉丝</span></td>
-            <td class="n"><span class="up">↑0.02%</span></td>
-            <td class="n"><strong>39</strong><br><span style="font-size:10px;color:#8A9AAA">新增</span></td>
-            <td class="n"><span class="flat">—</span></td>
-            <td class="n"><strong style="color:#FC8E51">523</strong><br><span style="font-size:10px;color:#8A9AAA">昨日阅读</span></td>
-            <td class="n"><span class="up">↑5%</span></td>
-          </tr>
-          <tr>
-            <td><span class="platform-tag tag-sph">🎬 视频号</span></td>
-            <td class="n"><strong style="color:#E85D04">70,089</strong><br><span style="font-size:10px;color:#8A9AAA">总粉丝</span></td>
-            <td class="n"><span class="down">↓0.001%</span></td>
-            <td class="n"><strong>2,571</strong><br><span style="font-size:10px;color:#8A9AAA">昨日浏览</span></td>
-            <td class="n"><span class="down">↓8%</span></td>
-            <td class="n"><strong style="color:#E85D04">0</strong><br><span style="font-size:10px;color:#8A9AAA">昨日作品</span></td>
-            <td class="n"><span class="warn-pill">⚠️ 断更</span></td>
-          </tr>
-          <tr>
-            <td><span class="platform-tag tag-wb">🔴 微博</span></td>
-            <td class="n"><strong>1,491</strong><br><span style="font-size:10px;color:#8A9AAA">总粉丝</span></td>
-            <td class="n"><span class="down">↓0.13%</span></td>
-            <td class="n"><strong style="color:#E85D04">0</strong><br><span style="font-size:10px;color:#8A9AAA">昨日发博</span></td>
-            <td class="n"><span class="warn-pill">⚠️ 静默</span></td>
-            <td class="n"><strong>635</strong><br><span style="font-size:10px;color:#8A9AAA">昨日阅读</span></td>
-            <td class="n"><span class="down">↓8.6%</span></td>
-          </tr>
-        </table>
+    <div style="font-size:12px;color:#8A9AAA;margin-bottom:10px">数据周期：2026-05-19（昨日）vs 前一日</div>
+    <div class="dash-grid">
+      <!-- 小红书 -->
+      <div class="dash-card" style="border-top-color:#FC8E51">
+        <div class="dash-header">
+          <span class="dash-icon" style="background:#FC8E51">📕</span>
+          <span class="dash-name">小红书</span>
+          <span class="dash-trend up">↑18%</span>
+        </div>
+        <div class="dash-body">
+          <div class="dash-row">
+            <div class="dash-metric">
+              <div class="dash-val" style="color:#FC8E51">12,143</div>
+              <div class="dash-label">曝光 <span class="up">↑18%</span></div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-val">828</div>
+              <div class="dash-label">观看 <span class="up">↑12%</span></div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-val" style="color:#00A651">36</div>
+              <div class="dash-label">互动 <span class="up">↑80%</span></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="note">📌 <strong>关键发现：</strong>小红书日环比全面上涨（曝光↑18%/互动↑80%），公众号粉丝稳增+39/日；视频号和微博昨日双双静默（0作品/0发博），是今日最大风险点。</div>
+      <!-- 公众号 -->
+      <div class="dash-card" style="border-top-color:#00A651">
+        <div class="dash-header">
+          <span class="dash-icon" style="background:#00A651">💬</span>
+          <span class="dash-name">公众号</span>
+          <span class="dash-trend up">↑0.02%</span>
+        </div>
+        <div class="dash-body">
+          <div class="dash-row">
+            <div class="dash-metric">
+              <div class="dash-val" style="color:#00A651">218,391</div>
+              <div class="dash-label">总粉丝 <span class="up">↑0.02%</span></div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-val">39</div>
+              <div class="dash-label">新增 <span class="flat">—</span></div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-val" style="color:#FC8E51">523</div>
+              <div class="dash-label">昨日阅读 <span class="up">↑5%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 视频号 -->
+      <div class="dash-card" style="border-top-color:#E85D04">
+        <div class="dash-header">
+          <span class="dash-icon" style="background:#E85D04">🎬</span>
+          <span class="dash-name">视频号</span>
+          <span class="dash-trend down">↓0.001%</span>
+        </div>
+        <div class="dash-body">
+          <div class="dash-row">
+            <div class="dash-metric">
+              <div class="dash-val" style="color:#E85D04">70,089</div>
+              <div class="dash-label">总粉丝 <span class="down">↓0.001%</span></div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-val">2,571</div>
+              <div class="dash-label">昨日浏览 <span class="down">↓8%</span></div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-val" style="color:#E85D04">0</div>
+              <div class="dash-label">昨日作品 <span class="warn-pill">⚠️断更</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 微博 -->
+      <div class="dash-card" style="border-top-color:#0560C4">
+        <div class="dash-header">
+          <span class="dash-icon" style="background:#0560C4">🔴</span>
+          <span class="dash-name">微博</span>
+          <span class="dash-trend down">↓0.13%</span>
+        </div>
+        <div class="dash-body">
+          <div class="dash-row">
+            <div class="dash-metric">
+              <div class="dash-val">1,491</div>
+              <div class="dash-label">总粉丝 <span class="down">↓0.13%</span></div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-val" style="color:#E85D04">0</div>
+              <div class="dash-label">昨日发博 <span class="warn-pill">⚠️静默</span></div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-val">635</div>
+              <div class="dash-label">昨日阅读 <span class="down">↓8.6%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:8px">
+      📌 <strong>关键发现：</strong>小红书日环比全面上涨（曝光↑18%/互动↑80%），公众号粉丝稳增+39/日；视频号和微博昨日双双静默（0作品/0发博），是今日最大风险点。
     </div>
 
     <!-- 2. 四平台7日Top5 + 洞察 -->
+    <div class="sec-title"><div class="icon icon-o">🏆</div>四平台7日 Top5 内容 + 运营洞察</div>
 
     <!-- 小红书 -->
-    <div class="sec-title"><div class="icon icon-o">📕</div>小红书 · 7日 Top5 内容</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="num o">8.5万</div><div class="label">7日曝光 <span class="up">↑40%</span></div></div>
-      <div class="kpi"><div class="num">5,798</div><div class="label">7日观看 <span class="up">↑25%</span></div></div>
-      <div class="kpi"><div class="num g">254</div><div class="label">点赞 <span class="up">↑115%</span></div></div>
-      <div class="kpi"><div class="num g">186</div><div class="label">评论 <span class="up">↑138%</span></div></div>
-    </div>
-
-    <div class="tbl-wrap">
-      <table>
-        <tr><th style="width:40px">排名</th><th>笔记标题</th><th class="n">日期</th><th class="n">曝光</th><th class="n">观看</th><th class="n">点赞</th><th class="n">评论</th><th class="n">收藏</th></tr>
-        <tr><td><span class="rank r1">1</span></td><td><strong>好朋友来信📬丨将你对西藏的好奇写在纸上</strong></td><td class="n">05-15</td><td class="n" style="color:#FC8E51;font-weight:700">17,797</td><td class="n">407</td><td class="n">44</td><td class="n" style="color:#00A651;font-weight:700">50</td><td class="n">39</td></tr>
-        <tr><td><span class="rank r2">2</span></td><td><strong>晒娃有奖！海龟爸爸追光礼包持续派送中🎁</strong></td><td class="n">05-19</td><td class="n">-</td><td class="n">427</td><td class="n">68</td><td class="n" style="color:#00A651;font-weight:700">95</td><td class="n">70</td></tr>
-        <tr><td><span class="rank r3">3</span></td><td>🎬现场直击｜海龟爸爸夏日追光路演</td><td class="n">05-17</td><td class="n">459</td><td class="n">171</td><td class="n">6</td><td class="n">0</td><td class="n">1</td></tr>
-        <tr><td><span class="rank r4">4</span></td><td>12点开播！黄海冰闪现海龟爸爸直播间！</td><td class="n">05-16</td><td class="n">1,225</td><td class="n">76</td><td class="n">4</td><td class="n">1</td><td class="n">4</td></tr>
-        <tr><td><span class="rank r4">5</span></td><td>好朋友招募｜走！带娃去西藏追光吧～</td><td class="n">05-19</td><td class="n">-</td><td class="n">149</td><td class="n">4</td><td class="n">8</td><td class="n">4</td></tr>
-      </table>
-    </div>
-
-    <div class="insight o">
-      <div class="t">📊 小红书 7日运营洞察</div>
-      <div class="txt">
-        • <strong>曝光8.5万（↑40%）</strong>增长势头强劲，追光主题内容持续带动流量<br>
-        • <strong>Top1「西藏来信」曝光17,797</strong>：跨平台一致爆款，与公众号西藏主题形成内容矩阵<br>
-        • <strong>互动全面飙升</strong>：点赞↑115% / 收藏↑250% / 评论↑138%，UGC激励类内容评论95条最多<br>
-        • <strong>封面点击率5.4%（↓11%）</strong>：需优化前3秒视觉吸引力，测试A/B封面<br>
-        • <strong>反直觉</strong>：评论区互动最高的是「晒娃有奖」而非「西藏来信」——用户更爱参与而非围观
+    <div class="card card-o">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div style="font-size:15px;font-weight:700"><span style="color:#FC8E51">📕 小红书</span> · 7日 Top5</div>
+        <div style="font-size:11px;color:#8A9AAA">曝光8.5万 ↑40% · 观看5,798 ↑25%</div>
+      </div>
+      <div class="tbl-wrap"><table>
+        <tr><th style="width:30px">#</th><th>笔记标题</th><th class="n">曝光</th><th class="n">观看</th><th class="n">点赞</th><th class="n">评论</th></tr>
+        <tr><td><span class="rank r1">1</span></td><td><strong>好朋友来信📬丨西藏好奇</strong></td><td class="n" style="color:#FC8E51;font-weight:700">17,797</td><td class="n">407</td><td class="n">44</td><td class="n" style="color:#00A651">50</td></tr>
+        <tr><td><span class="rank r2">2</span></td><td><strong>晒娃有奖！追光礼包🎁</strong></td><td class="n">-</td><td class="n">427</td><td class="n">68</td><td class="n" style="color:#00A651">95</td></tr>
+        <tr><td><span class="rank r3">3</span></td><td>🎬夏日追光路演</td><td class="n">459</td><td class="n">171</td><td class="n">6</td><td class="n">0</td></tr>
+        <tr><td><span class="rank r4">4</span></td><td>黄海冰闪现直播间</td><td class="n">1,225</td><td class="n">76</td><td class="n">4</td><td class="n">1</td></tr>
+        <tr><td><span class="rank r4">5</span></td><td>带娃去西藏追光吧～</td><td class="n">-</td><td class="n">149</td><td class="n">4</td><td class="n">8</td></tr>
+      </table></div>
+      <div style="margin-top:10px;padding:10px 12px;background:#FFF3EB;border-radius:10px;font-size:12px;color:#5A6A7A;line-height:1.7">
+        <strong style="color:#FC8E51">📊 洞察：</strong>「晒娃有奖」评论95条 > 「西藏来信」50条——<strong>用户更爱参与而非围观</strong>。UGC激励类内容互动天花板远高于纯内容型。
       </div>
     </div>
 
     <!-- 公众号 -->
-    <div class="sec-title"><div class="icon icon-g">💬</div>公众号 · 30天 Top5（含近7日标注）</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="num g">218,391</div><div class="label">总粉丝 · +39/日</div></div>
-      <div class="kpi"><div class="num o">1,154</div><div class="label">30天阅读Top1</div></div>
-      <div class="kpi"><div class="num">72.3%</div><div class="label">社交裂变占比</div></div>
-      <div class="kpi"><div class="num r">0.1%</div><div class="label">推荐算法占比</div></div>
-    </div>
-
     <div class="card card-g">
-      <div style="font-size:15px;font-weight:700;margin-bottom:12px">🏆 30天 Top5 内容（按阅读人数）· 数据周期 04-20 ~ 05-19</div>
-      <div class="top-item">
-        <span class="rank r1">1</span>
-        <div class="top-info"><div class="top-title">母亲节 | 妈妈，谢谢你陪我一起「追光」 ✨</div><div class="top-meta">2026/05/10 · 朋友圈主导 · 追光系列</div></div>
-        <div class="top-data"><div><div class="top-num o">1,154</div><div class="top-lbl">阅读</div></div><div><div class="top-num">20.03%</div><div class="top-lbl">占比</div></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div style="font-size:15px;font-weight:700"><span style="color:#00A651">💬 公众号</span> · 30天 Top5（近7日标注）</div>
+        <div style="font-size:11px;color:#8A9AAA">社交裂变72.3% · 推荐0.1%</div>
       </div>
-      <div class="top-item">
-        <span class="rank r2">2</span>
-        <div class="top-info"><div class="top-title">海龟爸爸「追光共创营」春日骑行直击 🚲</div><div class="top-meta">2026/04/30 · 朋友圈主导 · 追光系列</div></div>
-        <div class="top-data"><div><div class="top-num o">1,086</div><div class="top-lbl">阅读</div></div><div><div class="top-num">18.85%</div><div class="top-lbl">占比</div></div></div>
-      </div>
-      <div class="top-item">
-        <span class="rank r3">3</span>
-        <div class="top-info"><div class="top-title">好朋友来信📬｜将你对西藏的好奇写在纸上 <span class="warn-pill">近7日</span></div><div class="top-meta">2026/05/15 · 跨平台爆款 · 小红书同步Top1</div></div>
-        <div class="top-data"><div><div class="top-num">548</div><div class="top-lbl">阅读</div></div><div><div class="top-num">9.51%</div><div class="top-lbl">占比</div></div></div>
-      </div>
-      <div class="top-item">
-        <span class="rank r4">4</span>
-        <div class="top-info"><div class="top-title">好朋友招募｜走！带娃去西藏追光吧～ <span class="warn-pill">近7日</span></div><div class="top-meta">2026/05/16 · 追光系列延续</div></div>
-        <div class="top-data"><div><div class="top-num">536</div><div class="top-lbl">阅读</div></div><div><div class="top-num">9.30%</div><div class="top-lbl">占比</div></div></div>
-      </div>
-      <div class="top-item">
-        <span class="rank r4">5</span>
-        <div class="top-info"><div class="top-title">海龟爸爸参与制定的洁面新国标正式发布！🎉</div><div class="top-meta">2026/04/25 · 信任背书类 · 行业新闻</div></div>
-        <div class="top-data"><div><div class="top-num">523</div><div class="top-lbl">阅读</div></div><div><div class="top-num">9.08%</div><div class="top-lbl">占比</div></div></div>
+      <div class="tbl-wrap"><table>
+        <tr><th style="width:30px">#</th><th>文章标题</th><th class="n">阅读</th><th class="n">占比</th><th class="n">日期</th></tr>
+        <tr><td><span class="rank r1">1</span></td><td><strong>母亲节 | 妈妈，谢谢你陪我一起「追光」✨</strong></td><td class="n" style="color:#FC8E51;font-weight:700">1,154</td><td class="n">20.03%</td><td class="n">05/10</td></tr>
+        <tr><td><span class="rank r2">2</span></td><td><strong>海龟爸爸「追光共创营」春日骑行直击 🚲</strong></td><td class="n" style="color:#FC8E51;font-weight:700">1,086</td><td class="n">18.85%</td><td class="n">04/30</td></tr>
+        <tr><td><span class="rank r3">3</span></td><td>好朋友来信📬｜西藏好奇 <span class="warn-pill">近7日</span></td><td class="n">548</td><td class="n">9.51%</td><td class="n">05/15</td></tr>
+        <tr><td><span class="rank r4">4</span></td><td>好朋友招募｜带娃去西藏追光 <span class="warn-pill">近7日</span></td><td class="n">536</td><td class="n">9.30%</td><td class="n">05/16</td></tr>
+        <tr><td><span class="rank r4">5</span></td><td>海龟爸爸参与制定的洁面新国标发布！🎉</td><td class="n">523</td><td class="n">9.08%</td><td class="n">04/25</td></tr>
+      </table></div>
+      <div style="margin-top:10px;padding:10px 12px;background:#E8F8F0;border-radius:10px;font-size:12px;color:#5A6A7A;line-height:1.7">
+        <strong style="color:#00A651">📊 洞察：</strong>母亲节追光1,154 > 春日骑行1,086——<strong>情感共鸣 > 活动热度</strong>。近7日仅2篇原创，内容密度偏低。推荐0.1%→5% = <strong>50倍增长空间</strong>。
       </div>
     </div>
 
-    <div class="insight g">
-      <div class="t">📊 公众号 7日运营洞察</div>
-      <div class="txt">
-        • <strong>社交裂变72.3%</strong>：朋友圈43.5% + 聊天会话28.8%，订阅推送仅17.6%，内容必须设计「转发给闺蜜/妈妈」的理由<br>
-        • <strong>近7日仅有2篇原创内容</strong>（05-15西藏来信 / 05-16招募），内容产出密度偏低，30天Top5中近7日仅占2席<br>
-        • <strong>追光IP碾压级优势</strong>：Top2均为追光主题（合计38.9%），IP化内容具有碾压性流量优势<br>
-        • <strong>推荐算法0.1% = 50倍增长空间</strong>：加入「防晒/宝宝/夏日」关键词，优化封面和前200字，推荐从0.1%提升至5%阅读可翻50倍<br>
-        • <strong>反直觉</strong>：母亲节追光(1,154阅读) > 春日骑行(1,086阅读)——情感类内容比活动类更吸粉，追光IP的情感共鸣 > 活动热度
+    <!-- 视频号 + 微博 合并一行 -->
+    <div class="grid2">
+      <div class="card card-r">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="font-size:15px;font-weight:700"><span style="color:#E85D04">🎬 视频号</span> · 7日</div>
+          <span class="warn-pill">⚠️ 内容严重不足</span>
+        </div>
+        <div class="m-row"><span class="m-l">总粉丝</span><span class="m-v">70,089</span></div>
+        <div class="m-row"><span class="m-l">7日新增</span><span class="m-v r">-1</span></div>
+        <div class="m-row"><span class="m-l">7日浏览</span><span class="m-v">1.8万</span></div>
+        <div class="m-row"><span class="m-l">7日作品</span><span class="m-v r">1篇 ⚠️</span></div>
+        <div class="m-row"><span class="m-l">7日直播</span><span class="m-v r">0场 ❌</span></div>
+        <div style="margin-top:8px;padding:8px 10px;background:#FDEDE8;border-radius:8px;font-size:11px;color:#5A6A7A">
+          <strong style="color:#E85D04">💡 洞察：</strong>70,089粉丝人均浏览仅<strong>0.26次</strong>，粉丝是"沉睡资产"。建议：公众号追光图文→「1分钟追光日记」短视频，每周3-5条。
+        </div>
       </div>
-    </div>
-
-    <!-- 视频号 -->
-    <div class="sec-title"><div class="icon icon-r">🎬</div>视频号 · 7日数据 <span class="warn-pill">⚠️ 内容严重不足</span></div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="num r">70,089</div><div class="label">总粉丝 · -1/7日</div></div>
-      <div class="kpi"><div class="num">1.8万</div><div class="label">7日总浏览</div></div>
-      <div class="kpi"><div class="num r">1</div><div class="label">7日作品 <span class="warn-pill">⚠️</span></div></div>
-      <div class="kpi"><div class="num r">0</div><div class="label">7日直播 <span class="warn-pill">❌</span></div></div>
-    </div>
-
-    <div class="card card-r">
-      <div style="font-size:15px;font-weight:700;margin-bottom:12px">🎬 近7日内容列表（仅1篇）</div>
-      <div class="top-item">
-        <span class="rank r1">1</span>
-        <div class="top-info"><div class="top-title">视频号作品（标题需后台确认）</div><div class="top-meta">近7日内发布 · 具体标题需登录视频号助手查看</div></div>
-        <div class="top-data"><div><div class="top-num">~1.8万</div><div class="top-lbl">浏览</div></div></div>
-      </div>
-      <div style="padding:16px;background:#FDEDE8;border-radius:10px;margin-top:12px">
-        <div style="font-weight:700;color:#E85D04;margin-bottom:6px;font-size:14px">⚠️ 内容缺口严重</div>
-        <div style="font-size:13px;color:#5A6A7A;line-height:1.8">
-          • 7日仅发布 <strong>1篇</strong> 作品，粉丝70,089但内容产出几乎停滞<br>
-          • 70,089粉丝人均7日浏览仅 <strong>0.26次</strong>，粉丝活跃度极低<br>
-          • 建议：公众号追光图文 → 「1分钟追光日记」短视频，每周3-5条
+      <div class="card card-b">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="font-size:15px;font-weight:700"><span style="color:#0560C4">🔴 微博</span> · 7日</div>
+          <span class="warn-pill">⚠️ 昨日静默</span>
+        </div>
+        <div class="m-row"><span class="m-l">总粉丝</span><span class="m-v">1,491</span></div>
+        <div class="m-row"><span class="m-l">净增粉丝</span><span class="m-v r">-2</span></div>
+        <div class="m-row"><span class="m-l">周阅读</span><span class="m-v g">4,347 ↑66.7%</span></div>
+        <div class="m-row"><span class="m-l">原创发博</span><span class="m-v g">8篇 ↑167%</span></div>
+        <div class="m-row"><span class="m-l">昨日发博</span><span class="m-v r">0 ❌</span></div>
+        <div style="margin-top:8px;padding:8px 10px;background:#E8F1FC;border-radius:8px;font-size:11px;color:#5A6A7A">
+          <strong style="color:#0560C4">💡 洞察：</strong>人均阅读<strong>2.9次</strong>，粉丝极精准但产出"脉冲式"。建议：固定日更1条排期。⚠️ <strong>蓝V 2026.07.15到期</strong>。
         </div>
       </div>
     </div>
 
-    <div class="insight r">
-      <div class="t">📊 视频号 7日运营洞察</div>
-      <div class="txt">
-        • <strong>最大浪费：70,089粉丝空转</strong>——7日仅1篇作品+0场直播，粉丝增长停滞(-1)，内容产出严重不足<br>
-        • <strong>人均浏览仅0.26次/7日</strong>：远低于公众号(阅读Top1 1,154/218,391粉丝=0.53%)和小红书(观看5,798/账号粉丝)<br>
-        • <strong>反直觉</strong>：70,089粉丝的浏览量(1.8万) < 1,491微博粉丝的周阅读(4,347)——粉丝多≠活跃，视频号粉丝是"沉睡资产"<br>
-        • <strong>立即行动</strong>：启动「1分钟追光日记」每周3-5条，把公众号追光图文视频化，利用现有粉丝基础快速激活
+    <!-- 3. 核心洞察 · 4平台4卡片 -->
+    <div class="sec-title"><div class="icon icon-b">💡</div>核心洞察 · 反直觉发现</div>
+    <div class="insight-grid">
+      <div class="insight-mini" style="border-left-color:#FC8E51">
+        <div class="mini-tag" style="background:#FFF3EB;color:#FC8E51">📕 小红书</div>
+        <div class="mini-q">曝光17,797的Top1，评论只有50条？</div>
+        <div class="mini-a">「晒娃有奖」评论<strong style="color:#FC8E51">95条</strong> > 「西藏来信」50条——<strong>用户更爱参与而非围观</strong>。每篇内容都应设计「可参与的动作」。</div>
+      </div>
+      <div class="insight-mini" style="border-left-color:#00A651">
+        <div class="mini-tag" style="background:#E8F8F0;color:#00A651">💬 公众号</div>
+        <div class="mini-q">母亲节追光为什么超过春日骑行？</div>
+        <div class="mini-a">母亲节<strong style="color:#00A651">1,154</strong> > 骑行<strong style="color:#00A651">1,086</strong>——<strong>情感共鸣 > 活动热度</strong>。追光下一站应是「情感+身份」双驱动，而非地域活动。</div>
+      </div>
+      <div class="insight-mini" style="border-left-color:#E85D04">
+        <div class="mini-tag" style="background:#FDEDE8;color:#E85D04">🎬 视频号</div>
+        <div class="mini-q">70,089粉丝为什么不如1,491粉丝值钱？</div>
+        <div class="mini-a">视频号人均<strong style="color:#E85D04">0.26次</strong> < 微博人均<strong style="color:#E85D04">2.9次</strong>——<strong>精准度 > 规模</strong>。70,089粉丝是"沉睡资产"，内容缺口是最大浪费。</div>
+      </div>
+      <div class="insight-mini" style="border-left-color:#0560C4">
+        <div class="mini-tag" style="background:#E8F1FC;color:#0560C4">🔴 微博</div>
+        <div class="mini-q">发博8篇(↑167%) but 昨日静默？</div>
+        <div class="mini-a">不是"没时间发"而是"<strong>没有固定排期</strong>"。1,491精准粉丝值得每日1条维护。蓝V <strong style="color:#0560C4">2026.07.15</strong> 到期需提前准备。</div>
       </div>
     </div>
 
-    <!-- 微博 -->
-    <div class="sec-title"><div class="icon icon-r">🔴</div>微博 · 7日数据 <span class="warn-pill">⚠️ 昨日静默</span></div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="num">1,491</div><div class="label">总粉丝 · -2/7日</div></div>
-      <div class="kpi"><div class="num g">4,347</div><div class="label">周阅读 <span class="up">↑66.7%</span></div></div>
-      <div class="kpi"><div class="num g">8</div><div class="label">原创发博 <span class="up">↑167%</span></div></div>
-      <div class="kpi"><div class="num r">0</div><div class="label">昨日发博 <span class="warn-pill">❌</span></div></div>
-    </div>
-
-    <div class="card card-r">
-      <div style="font-size:15px;font-weight:700;margin-bottom:12px">🔴 本周原创发博记录（8篇）</div>
-      <div style="font-size:13px;color:#5A6A7A;line-height:1.8">
-        本周(05.13-05.19)共发布原创博文 <strong>8篇</strong>（环比↑167%），但昨日(05.19)完全静默（发博0/阅读635/转评赞1）。<br><br>
-        微博内容产出呈现 <strong>"脉冲式"</strong> 特征：有内容时数据明显回暖（周阅读↑66.7%），但断更时断崖下跌。<br><br>
-        <span style="color:#E85D04;font-weight:700">⚠️ 蓝V年审提醒：2026.07.15 到期，需提前准备材料</span>
+    <!-- 4. 行动指南 · 4平台4卡片 -->
+    <div class="sec-title"><div class="icon icon-b">🎯</div>行动指南 · 量化因果链</div>
+    <div class="action-grid">
+      <div class="action-mini" style="border-top-color:#FC8E51">
+        <div class="mini-tag" style="background:#FFF3EB;color:#FC8E51">📕 小红书</div>
+        <div class="mini-chain">优化封面点击率 5.4%→8%</div>
+        <div class="mini-a">A/B测试封面，前3秒突出追光视觉符号。<strong>监控：封面点击率 ≥ 8%</strong></div>
       </div>
-      <div style="margin-top:12px;padding:12px;background:#F5F9FF;border-radius:10px">
-        <div style="font-weight:700;color:#0560C4;margin-bottom:6px;font-size:13px">📊 微博 vs 其他平台人均效率</div>
-        <div class="bar"><span class="bar-l">微博</span><div class="bar-t"><div class="bar-f" style="width:100%;background:linear-gradient(90deg,#0560C4,#0A74DA)">2.9次/人</div></div></div>
-        <div class="bar"><span class="bar-l">公众号</span><div class="bar-t"><div class="bar-f" style="width:18%;background:linear-gradient(90deg,#00A651,#3DD689)">0.53%</div></div></div>
-        <div class="bar"><span class="bar-l">视频号</span><div class="bar-t"><div class="bar-f" style="width:9%;background:linear-gradient(90deg,#E85D04,#F5A962)">0.26次</div></div></div>
-        <div class="note">💡 微博1,491粉丝人均阅读2.9次，远超视频号70,089粉丝的0.26次——<strong>粉丝少但极精准</strong></div>
+      <div class="action-mini" style="border-top-color:#00A651">
+        <div class="mini-tag" style="background:#E8F8F0;color:#00A651">💬 公众号</div>
+        <div class="mini-chain">推荐占比 0.1%→3%</div>
+        <div class="mini-a">标题加「防晒/宝宝/夏日」关键词，前200字重复1次。<strong>监控：推荐占比 ≥ 3% · 搜一搜 ≥ 10%</strong></div>
       </div>
-    </div>
-
-    <div class="insight r">
-      <div class="t">📊 微博 7日运营洞察</div>
-      <div class="txt">
-        • <strong>内容产出不稳定是核心问题</strong>：昨日完全静默（发博0/阅读635），但有内容时数据明显回暖（周阅读↑66.7%）<br>
-        • <strong>1,491粉丝质量极高</strong>：人均贡献2.9次阅读，远超视频号70,089粉丝的0.26次/人——微博粉丝少但极精准<br>
-        • <strong>反直觉</strong>：本周原创发博8篇(↑167%) but 昨日静默——说明内容不是"没时间发"而是"没有固定排期"，1,491精准粉丝值得每日1条维护<br>
-        • <strong>蓝V即将过期（2026.07.15）</strong>：需尽快年审，蓝V对品牌信任度至关重要；同时尝试转发抽奖拉新（学习红色小象微博15.5万粉玩法）
+      <div class="action-mini" style="border-top-color:#E85D04">
+        <div class="mini-tag" style="background:#FDEDE8;color:#E85D04">🎬 视频号</div>
+        <div class="mini-chain">人均浏览 0.26→1.0次</div>
+        <div class="mini-a">「1分钟追光日记」每周3-5条，17:00-19:00发布。<strong>监控：7日作品 ≥ 15 · 人均浏览 ≥ 1.0</strong></div>
       </div>
-    </div>
-
-    <!-- 3. 核心洞察：反直觉发现与深层问题 -->
-    <div class="sec-title"><div class="icon icon-b">💡</div>核心洞察 · 反直觉发现与深层问题</div>
-
-    <div class="insight-hero">
-      <div class="hero-title"><div class="icon">💡</div>数据不说谎 · 但这些结论可能反直觉</div>
-
-      <div class="hero-item">
-        <div class="hero-tag">🔴 问题① · 粉丝越多 ≠ 越值钱</div>
-        <div class="hero-q">视频号 70,089 粉丝的周浏览量，为什么还不如微博 1,491 粉丝？</div>
-        <div class="hero-a">
-          视频号 70,089 粉丝 → 7日浏览 <span class="hero-big">1.8万</span>（人均 0.26次）<br>
-          微博 1,491 粉丝 → 周阅读 <span class="hero-big">4,347</span>（人均 <strong>2.9次</strong>）<br><br>
-          <strong>深层原因：</strong>视频号7日仅发布1篇作品 + 0场直播，粉丝是"沉睡资产"。微博虽粉丝少，但内容活跃时人均阅读2.9次，说明<strong>精准度 > 规模</strong>。<br>
-          <strong>结论：</strong>视频号70,089粉丝的价值目前不到微博1,491粉丝的1/3，内容缺口是最大浪费。
-        </div>
-      </div>
-
-      <div class="hero-item">
-        <div class="hero-tag">🔴 问题② · 用户更爱「参与」而非「围观」</div>
-        <div class="hero-q">小红书 Top1 曝光 17,797 的「西藏来信」，为什么评论只有 50 条？</div>
-        <div class="hero-a">
-          「西藏来信」曝光 <span class="hero-big">17,797</span> → 评论 <strong>50条</strong>（互动率 0.28%）<br>
-          「晒娃有奖」曝光未知 → 评论 <span class="hero-big">95条</span>（已知最高）<br><br>
-          <strong>深层原因：</strong>UGC激励类内容天然具备「参与门槛」——用户晒娃即可获得追光礼包，评论95条是「西藏来信」的1.9倍。<strong>内容设计决定互动上限</strong>，而非曝光量。<br>
-          <strong>结论：</strong>每篇内容都应设计一个「可参与的动作」（晒图/投票/留言），围观型内容互动天花板极低。
-        </div>
-      </div>
-
-      <div class="hero-item">
-        <div class="hero-tag">🟡 问题③ · 情感共鸣 > 活动热度</div>
-        <div class="hero-q">母亲节追光(1,154阅读) 为什么超过春日骑行(1,086阅读)？</div>
-        <div class="hero-a">
-          母亲节追光 → <span class="hero-big">1,154</span> 阅读（20.03%占比）<br>
-          春日骑行 → <span class="hero-big">1,086</span> 阅读（18.85%占比）<br><br>
-          <strong>深层原因：</strong>骑行活动有明确的地域和时间限制（仅广州），而母亲节情感无边界。「妈妈陪我追光」触发了全量妈妈的<strong>身份认同</strong>，而骑行只触发了广州妈妈的<strong>地理兴趣</strong>。<br>
-          <strong>结论：</strong>追光IP的下一站应该是「情感+身份」双驱动（如「每一个追光的妈妈」），而非继续加码地域活动。
-        </div>
-      </div>
-
-      <div class="hero-item">
-        <div class="hero-tag">🟡 问题④ · 0.1% 不是低谷，是 50 倍杠杆</div>
-        <div class="hero-q">公众号推荐算法占比仅 0.1%，为什么不是坏事而是最大机会？</div>
-        <div class="hero-a">
-          当前推荐占比 <span class="hero-big">0.1%</span> → 若提升至 <strong>5%</strong>（行业平均）<br>
-          当前30天总阅读 ~5,761 → 推荐增量 = 5,761 × (5% - 0.1%) / 43.5% ≈ <span class="hero-big">+649</span> 阅读/篇<br>
-          全年潜在增量 ≈ <span class="hero-big">+7,788</span> 阅读（假设每月4篇）<br><br>
-          <strong>深层原因：</strong>社交裂变已达天花板（72.3%），推荐算法是唯一的增量引擎。优化标题关键词（防晒/宝宝/夏日）+ 前200字 + 封面图，推荐占比从0.1%→5%的技术门槛极低。<br>
-          <strong>结论：</strong>0.1%是「尚未开发的流量金矿」，不是失败指标。
-        </div>
-      </div>
-    </div>
-
-    <div class="highlight-box">
-      <div class="hl-text">
-        📌 <strong>核心结论：</strong>海龟爸爸当前面临的不是「流量不够」，而是<strong>「流量分配极度不均」</strong>——
-        小红书互动强但内容弱（封面5.4%拖后腿）、公众号社交裂变强但推荐几乎为零（0.1%）、
-        视频号粉丝最多但完全沉睡（人均0.26次）、微博粉丝最少但最精准（人均2.9次）。
-        <strong>下一个增长飞轮：用微博的精准度思维做视频号，用小红书的互动思维做公众号。</strong>
-      </div>
-    </div>
-
-    <!-- 4. 行动指南：量化因果链与核心指标监控 -->
-    <div class="sec-title"><div class="icon icon-b">🎯</div>行动指南 · 量化因果链与核心指标监控</div>
-
-    <div class="action-hero">
-      <div class="hero-title"><div class="icon">🎯</div>如果做 X → 预期 Y → 监控 Z</div>
-
-      <div class="action-item">
-        <div class="action-tag">🎬 P0 · 视频号</div>
-        <div class="action-chain">如果每周发布 3-5 条「1分钟追光日记」→ 预期 7日作品数从 1 → 15，人均浏览从 0.26 → 1.5 次</div>
-        <div class="action-detail">
-          <strong>因果链：</strong>公众号追光图文（已有素材）→ 剪辑为15-60秒短视频 → 视频号发布 → 触达70,089沉睡粉丝 → 粉丝活跃度提升 → 带动直播预约/转化<br><br>
-          <strong>执行路径：</strong>① 整理近3个月公众号追光图文素材 ② 每条配追光BGM + 字幕 ③ 每天17:00-19:00发布（下班通勤高峰）④ 前3秒必须出现"追光"关键词或视觉符号
-        </div>
-        <div class="action-kpi">📊 监控指标：7日作品数 ≥ 15 | 人均浏览 ≥ 1.0次 | 粉丝净增长 ≥ +50/周 | 周报看板</div>
-      </div>
-
-      <div class="action-item">
-        <div class="action-tag">📈 P0 · 公众号推荐算法</div>
-        <div class="action-chain">如果标题加入「防晒/宝宝/夏日」关键词 + 封面优化 → 预期推荐占比从 0.1% → 3-5%，单篇阅读提升 50-100%</div>
-        <div class="action-detail">
-          <strong>因果链：</strong>关键词优化 → 搜一搜/推荐算法收录 → 非粉丝用户曝光 → 点击率提升 → 阅读数增长 → 算法加权 → 正向循环<br><br>
-          <strong>执行路径：</strong>① 每篇标题必须含1个核心关键词（防晒/宝宝/夏日/追光）② 前200字重复关键词1次 ③ 封面图加文字标注关键词 ④ A/B测试2组标题，48小时后选CTR高的
-        </div>
-        <div class="action-kpi">📊 监控指标：推荐占比 ≥ 3% | 搜一搜占比 ≥ 10% | 单篇阅读 ≥ 800 | 关键词覆盖 100%</div>
-      </div>
-
-      <div class="action-item">
-        <div class="action-tag">📝 P1 · 追光系列扩产</div>
-        <div class="action-chain">如果追光系列从 2篇/月 → 4篇/月 → 预期追光内容占比从 38.9% → 60%，带动整体阅读均值提升 25%</div>
-        <div class="action-detail">
-          <strong>因果链：</strong>追光IP内容（已验证高阅读）→ 增加频次 → 品牌心智强化 → 粉丝期待值提升 → 打开率提升 → 社交裂变增强 → 总阅读增长<br><br>
-          <strong>执行路径：</strong>① 固定每月第1周和第3周发布追光内容 ② 主题轮换：情感向（妈妈/爸爸）→ 活动向（骑行/西藏）→ 产品向（防晒科普）→ UGC向（晒娃有奖）
-        </div>
-        <div class="action-kpi">📊 监控指标：追光内容占比 ≥ 50% | 追光篇均阅读 ≥ 800 | 系列连续性 100%</div>
-      </div>
-
-      <div class="action-item">
-        <div class="action-tag">📅 P1 · 微博日更排期</div>
-        <div class="action-chain">如果每日固定 1 条原创博文 → 预期周阅读稳定在 4,000-6,000，粉丝净增长转正</div>
-        <div class="action-detail">
-          <strong>因果链：</strong>固定排期 → 粉丝养成阅读习惯 → 打开率稳定 → 互动率稳定 → 算法推荐加权 → 自然增粉 → 蓝V信任背书 → 转化提升<br><br>
-          <strong>执行路径：</strong>① 每日10:00发布1条（妈妈早上空闲时段）② 内容类型：周一产品/周三追光/周五UGC/周日育儿科普 ③ 每月至少1次转发抽奖（拉新）④ 蓝V年审材料提前2个月准备
-        </div>
-        <div class="action-kpi">📊 监控指标：日更达成率 ≥ 90% | 周阅读 ≥ 4,000 | 粉丝净增长 ≥ +10/周 | 蓝V续费 2026.05.15前启动</div>
-      </div>
-    </div>
-
-    <div class="highlight-box">
-      <div class="hl-text">
-        🎯 <strong>4周目标总览：</strong>视频号人均浏览 <span class="hl-num">0.26→1.0</span> · 公众号推荐占比 <span class="hl-num">0.1%→3%</span> · 追光系列占比 <span class="hl-num">38.9%→50%</span> · 微博日更率 <span class="hl-num">0%→90%</span>
-        <br><br>
-        📊 <strong>监控节奏：</strong>每周五 17:00 看板自动更新 → 对比上述4个核心指标 → 未达标项标红 → 下周重点调整
+      <div class="action-mini" style="border-top-color:#0560C4">
+        <div class="mini-tag" style="background:#E8F1FC;color:#0560C4">🔴 微博</div>
+        <div class="mini-chain">日更达成率 0%→90%</div>
+        <div class="mini-a">固定每日10:00发1条，周一产品/周三追光/周五UGC/周日科普。<strong>监控：日更率 ≥ 90% · 蓝V续费 5.15启动</strong></div>
       </div>
     </div>
 
@@ -568,20 +510,46 @@
           <div class="legend-item"><span class="dot" style="background:#0560C4"></span>微博</div>
         </div>
       </div>
-
       <div class="card" style="margin-bottom:0">
         <div style="font-weight:700;color:#0560C4;margin-bottom:10px;font-size:14px">📊 五维能力解读</div>
         <div style="font-size:13px;color:#5A6A7A;line-height:1.9">
-          <strong style="color:#FC8E51">📕 小红书</strong>：互动维度最强（95分），点赞+115%/收藏+250%。但内容维度偏弱（50分），封面点击率5.4%和完播率7.3%拖后腿。<br><br>
-          <strong style="color:#00A651">💬 公众号</strong>：内容和互动均衡（85分），追光系列IP质量高，社交裂变72.3%。但搜索维度（45分）和推荐算法0.1%是短板。<br><br>
-          <strong style="color:#0560C4">🔴 微博</strong>：五维全面偏弱，最大问题是粉丝量级太小（1,491）且内容产出不稳定。有内容时人均阅读2.9次，粉丝质量高。
+          <strong style="color:#FC8E51">📕 小红书</strong>：互动最强（95分），点赞+115%/收藏+250%。但内容偏弱（50分），封面点击率5.4%拖后腿。<br><br>
+          <strong style="color:#00A651">💬 公众号</strong>：内容互动均衡（85分），追光IP质量高，社交裂变72.3%。搜索（45分）和推荐0.1%是短板。<br><br>
+          <strong style="color:#0560C4">🔴 微博</strong>：五维偏弱，粉丝仅1,491且产出不稳定。有内容时人均阅读2.9次，粉丝极精准。
         </div>
       </div>
     </div>
 
-  </div>
+    <!-- 6. 优化建议 -->
+    <div class="sec-title"><div class="icon icon-b">🚀</div>基于数据的优化建议</div>
+    <div class="s-grid">
+      <div class="s-card r">
+        <div class="s-t"><span class="s-icon si-r">!</span>P0 · 立即行动</div>
+        <div class="s-item"><span>🎬</span><span>视频号启动「1分钟追光日记」每周3-5条</span></div>
+        <div class="s-item"><span>📈</span><span>公众号标题加关键词，激活推荐算法 0.1%→5%</span></div>
+        <div class="s-item"><span>📝</span><span>追光系列扩产：2篇/月 → 4篇/月</span></div>
+      </div>
+      <div class="s-card o">
+        <div class="s-t"><span class="s-icon si-o">2</span>P1 · 本周优化</div>
+        <div class="s-item"><span>📤</span><span>每篇内容设计「转发给闺蜜/妈妈」分享诱因</span></div>
+        <div class="s-item"><span>🎁</span><span>UGC激励：每周至少1篇互动型内容</span></div>
+        <div class="s-item"><span>📅</span><span>微博固定日更1条，蓝V年审提前准备</span></div>
+      </div>
+      <div class="s-card g">
+        <div class="s-t"><span class="s-icon si-g">✓</span>做得好 · 继续保持</div>
+        <div class="s-item"><span>📕</span><span>小红书互动全面飙升（点赞+115%/收藏+250%）</span></div>
+        <div class="s-item"><span>✨</span><span>追光IP跨平台资产（公众号Top2 + 小红书Top1）</span></div>
+        <div class="s-item"><span>💬</span><span>公众号社交裂变72.3%，私域运营能力强</span></div>
+      </div>
+      <div class="s-card" style="border-top-color:#4DB8FF">
+        <div class="s-t"><span class="s-icon si-b">📊</span>数据观察</div>
+        <div class="s-item"><span>🔍</span><span>小红书封面点击率5.4%(↓11%)需优化</span></div>
+        <div class="s-item"><span>📉</span><span>视频号完播率7.3%(↓17%)需加快前5秒</span></div>
+        <div class="s-item"><span>⚠️</span><span>微博蓝V 2026.07.15到期</span></div>
+      </div>
+    </div>
 
-  <!-- ===== PAGE 2: 竞品对标 ===== -->
+  </div><!-- ===== PAGE 2: 竞品对标 ===== -->
   <div id="p3" class="page">
 
     <div class="sec-title"><div class="icon icon-b">🎯</div>婴童护肤赛道 · 竞品对标分析</div>
