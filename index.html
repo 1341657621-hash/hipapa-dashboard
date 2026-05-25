@@ -13,25 +13,21 @@
   .header .sub{color:#8A9AAA;font-size:13px;margin-top:6px}
   .date{font-size:12px;color:#8A9AAA;margin-top:4px}
   
-  /* 分页导航 */
   .page-nav{display:flex;justify-content:center;gap:8px;margin:0 0 20px;padding:0 0 16px;border-bottom:2px solid #E8E8E8}
   .page-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;background:#fff;color:#5A6A7A;box-shadow:0 1px 4px rgba(0,0,0,.06)}
   .page-btn:hover{background:#F0F0F0}
   .page-btn.active{background:#1A1A2E;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-  .page-btn .badge{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:8px;font-size:10px;background:#E85D04;color:#fff}
   
   .page-section{display:none}
   .page-section.active{display:block;animation:fadeIn .3s}
   @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
   
-  /* 通用卡片 */
   .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
   .stat-card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;overflow:hidden}
   .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
   .stat-card.g::before{background:#00A651}
   .stat-card.o::before{background:#FC8E51}
   .stat-card.b::before{background:#0560C4}
-  .stat-card.r::before{background:#E85D04}
   .stat-card.p::before{background:#7C3AED}
   .stat-label{font-size:11px;color:#8A9AAA;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
   .stat-num{font-size:24px;font-weight:800;margin:6px 0 4px}
@@ -91,6 +87,8 @@
   .tag-g{background:#E8F8F0;color:#00A651}
   .tag-o{background:#FFF3EB;color:#FC8E51}
   .tag-b{background:#E8F1FC;color:#0560C4}
+  .tag-p{background:#F3E8FF;color:#7C3AED}
+  .tag-r{background:#FFF3EB;color:#E85D04}
   
   .insight-box{margin-top:10px;padding:12px 14px;border-radius:10px;font-size:12px;color:#5A6A7A;line-height:1.8}
   .insight-box.g{background:#E8F8F0}
@@ -114,6 +112,12 @@
   .vs-behind{background:#FFF3EB;color:#FC8E51}
   .vs-gap{background:#F0F0F0;color:#8A9AAA}
   
+  .platform-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;margin-right:6px}
+  .pt-gz{background:#E8F8F0;color:#00A651}
+  .pt-xhs{background:#FFF3EB;color:#FC8E51}
+  .pt-wb{background:#E8F1FC;color:#0560C4}
+  .pt-dy{background:#F3E8FF;color:#7C3AED}
+  
   .footer{text-align:center;padding:20px 0;font-size:11px;color:#8A9AAA}
   
   @media(max-width:768px){.cards{grid-template-columns:repeat(2,1fr)}.ic-section{grid-template-columns:1fr}.action-grid{grid-template-columns:1fr}}
@@ -123,18 +127,16 @@
 
 <div class="wrap">
 
-  <!-- 页头 -->
   <div class="header">
     <h1>🐢 海龟爸爸 Hi! Papa 自媒体数据看板</h1>
     <div class="sub">公众号 · 小红书 · 微博 · 三平台聚合分析</div>
     <div class="date">数据周期：2026-05-24（昨日）/ 05-18~05-24（周） · 更新于 2026-05-25</div>
   </div>
 
-  <!-- 分页导航 -->
   <div class="page-nav">
     <button class="page-btn active" onclick="showPage(1)">📊 核心概览</button>
     <button class="page-btn" onclick="showPage(2)">🏆 竞品对标</button>
-    <button class="page-btn" onclick="showPage(3)">📋 详细数据</button>
+    <button class="page-btn" onclick="showPage(3)">📋 全部数据</button>
   </div>
 
   <!-- ========== 第一页：核心概览 ========== -->
@@ -148,7 +150,6 @@
       </div>
     </div>
 
-    <!-- 平台概览卡片 -->
     <div class="sec-title"><div class="icon icon-g">📊</div>三平台核心指标</div>
     <div class="cards">
       <div class="stat-card g">
@@ -181,7 +182,6 @@
       </div>
     </div>
 
-    <!-- 今日亮点 -->
     <div class="sec-title"><div class="icon icon-p">✨</div>今日亮点</div>
     <div class="ic-section">
       <div class="ic-card">
@@ -206,7 +206,6 @@
       </div>
     </div>
 
-    <!-- 行动建议 -->
     <div class="sec-title"><div class="icon icon-g" style="background:#E8F8F0;color:#00A651">✅</div>下周行动清单</div>
     <div class="card">
       <div class="action-grid">
@@ -252,7 +251,6 @@
       </div>
     </div>
 
-    <!-- 竞品数据对比 -->
     <div class="sec-title"><div class="icon icon-p">📊</div>竞品核心数据对比（近30天）</div>
     <div class="card">
       <div class="tbl-wrap"><table>
@@ -325,32 +323,30 @@
       </div>
     </div>
 
-    <!-- Top5品牌内容对标 -->
-    <div class="sec-title"><div class="icon icon-o">🏆</div>Top5品牌内容对标方向</div>
+    <div class="sec-title"><div class="icon icon-o">🏆</div>Top5品牌内容对标方向（按平台标注）</div>
     <div class="ic-section">
       <div class="ic-card">
-        <div class="ic-head"><div class="ic-num" style="background:#E85D04">1</div><div class="ic-title">红色小象 · 专家科普矩阵</div></div>
+        <div class="ic-head"><div class="ic-num" style="background:#E85D04">1</div><div class="ic-title"><span class="platform-tag pt-gz">公众号</span>红色小象 · 专家科普矩阵</div></div>
         <div class="ic-body">策略：签约儿科医生+皮肤科专家，每篇科普文附「专家审核」标识。<strong>数据</strong>：公众号篇均阅读3,000+，收藏率15%。<br><br><strong>可借鉴</strong>：邀请皮肤科医生为海龟爸爸「防晒科普」背书，提升专业信任度。</div>
         <div class="ic-action">联系1-2位儿科/皮肤科医生，建立长期内容合作</div>
       </div>
       <div class="ic-card">
-        <div class="ic-head"><div class="ic-num" style="background:#FC8E51">2</div><div class="ic-title">启初 · 晒娃UGC裂变</div></div>
+        <div class="ic-head"><div class="ic-num" style="background:#FC8E51">2</div><div class="ic-title"><span class="platform-tag pt-xhs">小红书</span>启初 · 晒娃UGC裂变</div></div>
         <div class="ic-body">策略：「晒娃+产品」每周固定活动，宝妈自发带话题传播。<strong>数据</strong>：小红书互动率12%+，UGC内容占比40%。<br><br><strong>可借鉴</strong>：海龟爸爸已有「晒娃有奖」基础，需扩大为月度主题活动+增加话题标签。</div>
         <div class="ic-action">将「晒娃有奖」升级为月度主题活动，增加#海龟爸爸追光宝贝 话题</div>
       </div>
       <div class="ic-card">
-        <div class="ic-head"><div class="ic-num" style="background:#FFD700;color:#1A1A2E">3</div><div class="ic-title">戴可思 · 成分党深度科普</div></div>
+        <div class="ic-head"><div class="ic-num" style="background:#FFD700;color:#1A1A2E">3</div><div class="ic-title"><span class="platform-tag pt-xhs">小红书</span>戴可思 · 成分党深度科普</div></div>
         <div class="ic-body">策略：成分解析+对比测评+实验室背书，建立「成分安全」专业壁垒。<strong>数据</strong>：小红书收藏率8%+，粉丝信任度行业第一。<br><br><strong>可借鉴</strong>：海龟爸爸「独家原料」已有基础，需增加成分对比图+实验室检测报告可视化。</div>
         <div class="ic-action">制作「小光盾成分解析」系列图文，增加对比测评</div>
       </div>
       <div class="ic-card">
-        <div class="ic-head"><div class="ic-num" style="background:#E8F0FE;color:#5A6A7A">4</div><div class="ic-title">一页 · 医生联名短视频</div></div>
-        <div class="ic-body">策略：与儿科医生联名拍摄「1分钟育儿科普」短视频，视频号+小红书同步。<strong>数据</strong>：视频号播放10万+，转化率高。<br><br><strong>可借鉴</strong>：视频号虽然不管，但短视频内容可复用到小红书（图文版/视频版）。</div>
+        <div class="ic-head"><div class="ic-num" style="background:#E8F0FE;color:#5A6A7A">4</div><div class="ic-title"><span class="platform-tag pt-dy">抖音</span>一页 · 医生联名短视频</div></div>
+        <div class="ic-body">策略：与儿科医生联名拍摄「1分钟育儿科普」短视频，抖音+视频号同步。<strong>数据</strong>：抖音播放10万+，转化率高。<br><br><strong>可借鉴</strong>：短视频内容可复用到小红书（图文版/视频版），扩大内容覆盖面。</div>
         <div class="ic-action">将科普内容制作「1分钟图文版」供小红书发布</div>
       </div>
     </div>
 
-    <!-- 对标差距总结 -->
     <div class="sec-title"><div class="icon icon-b">📉</div>对标差距与提升路径</div>
     <div class="card">
       <div class="tbl-wrap"><table>
@@ -394,22 +390,22 @@
     </div>
   </div>
 
-  <!-- ========== 第三页：详细数据 ========== -->
+  <!-- ========== 第三页：全部数据 ========== -->
   <div class="page-section" id="page-3">
     
     <div class="insight-banner">
       <div class="bn-icon">📋</div>
       <div>
-        <div class="bn-title">近30天详细数据 · 公众号/小红书/微博全量明细</div>
-        <div class="bn-desc">数据更新至2026-05-24 · 公众号Top5基于阅读量+互动+转化综合排序</div>
+        <div class="bn-title">近30天全部数据 · 公众号/小红书/微博全量明细</div>
+        <div class="bn-desc">数据更新至2026-05-24 · 公众号Top5基于累计数据，其余基于单日数据</div>
       </div>
     </div>
 
-    <!-- 公众号详细 -->
-    <div class="sec-title"><div class="icon icon-g">💬</div>公众号 · 近30天内容Top5（综合价值排序）</div>
+    <!-- 公众号全部文章 -->
+    <div class="sec-title"><div class="icon icon-g">💬</div>公众号 · 近30天全部文章（10篇）</div>
     <div class="card card-g">
       <div class="tbl-wrap"><table>
-        <tr><th style="width:30px">#</th><th>文章标题</th><th class="n">阅读</th><th class="n">分享</th><th class="n">点赞</th><th class="n">留言</th><th class="n">关注</th><th class="n">日期</th><th>主题</th><th class="n">综合价值</th></tr>
+        <tr><th style="width:30px">#</th><th>文章标题</th><th class="n">阅读</th><th class="n">分享</th><th class="n">点赞</th><th class="n">留言</th><th class="n">关注</th><th class="n">日期</th><th>主题</th><th>备注</th></tr>
         <tr>
           <td><span class="rank r1">1</span></td>
           <td><strong>母亲节丨妈妈，谢谢你陪我一起「追光」✨</strong><span class="tag tag-g">追光</span></td>
@@ -420,7 +416,7 @@
           <td class="n" style="color:#00A651">4</td>
           <td class="n">05/10</td>
           <td>情感共鸣</td>
-          <td class="n"><span class="score score-h">631.6</span></td>
+          <td><span class="tag tag-g">30天累计</span></td>
         </tr>
         <tr>
           <td><span class="rank r2">2</span></td>
@@ -432,7 +428,7 @@
           <td class="n" style="color:#00A651">16</td>
           <td class="n">04/30</td>
           <td>活动纪实</td>
-          <td class="n"><span class="score score-h">632.0</span></td>
+          <td><span class="tag tag-g">30天累计</span></td>
         </tr>
         <tr>
           <td><span class="rank r3">3</span></td>
@@ -444,7 +440,7 @@
           <td class="n">2</td>
           <td class="n">05/18</td>
           <td>招募活动</td>
-          <td class="n"><span class="score score-m">387.8</span></td>
+          <td><span class="tag tag-g">30天累计</span></td>
         </tr>
         <tr>
           <td><span class="rank r4">4</span></td>
@@ -456,7 +452,7 @@
           <td class="n">1</td>
           <td class="n">05/20</td>
           <td>科普干货</td>
-          <td class="n"><span class="score score-m">360.8</span></td>
+          <td><span class="tag tag-g">30天累计</span></td>
         </tr>
         <tr>
           <td><span class="rank r4">5</span></td>
@@ -468,21 +464,81 @@
           <td class="n">1</td>
           <td class="n">05/22</td>
           <td>成分科普</td>
-          <td class="n"><span class="score score-m">369.4</span></td>
+          <td><span class="tag tag-g">30天累计</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank r4">6</span></td>
+          <td>Hi科研前线 | 2D新成分开启少儿防晒新可能<span class="tag tag-o">科普</span></td>
+          <td class="n">98</td>
+          <td class="n">3</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">05/23</td>
+          <td>科研前沿</td>
+          <td><span class="tag tag-r">单日数据</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank r4">7</span></td>
+          <td>追光少年丨你的追光故事，我们想听<span class="tag tag-g">追光</span></td>
+          <td class="n">599</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">05/14</td>
+          <td>UGC征集</td>
+          <td><span class="tag tag-r">单日数据</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank r4">8</span></td>
+          <td>追光研学 | 在西藏与孩子对话山川<span class="tag tag-g">追光</span></td>
+          <td class="n">532</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">05/12</td>
+          <td>研学纪实</td>
+          <td><span class="tag tag-r">单日数据</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank r4">9</span></td>
+          <td>追光实验室 | 防晒成分大揭秘<span class="tag tag-o">科普</span></td>
+          <td class="n">231</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">05/08</td>
+          <td>实验室</td>
+          <td><span class="tag tag-r">单日数据</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank r4">10</span></td>
+          <td>春日来信 | 来自高原的追光问候<span class="tag tag-g">追光</span></td>
+          <td class="n">112</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td class="n">05/06</td>
+          <td>情感书信</td>
+          <td><span class="tag tag-r">单日数据</span></td>
         </tr>
       </table></div>
       <div class="insight-box g">
-        <strong style="color:#00A651">🔥 正面发现：</strong>追光系列3篇文章占Top5中3席，IP内容体系成熟，用户认知度高。<br>
-        <strong style="color:#E85D04">📉 反逻辑发现：</strong>「独家原料」阅读仅629但分享<strong>179</strong>（分享率28.4%）= 高裂变低阅读；「春日骑行」阅读1093但留言<strong>155</strong>（留言率14.2%）= 互动标杆。<br>
-        <strong style="color:#0560C4">💡 行动建议：</strong>追光系列继续保持；科普类优化标题吸引力（+emoji/痛点词）；活动类增加UGC互动机制。
+        <strong style="color:#00A651">📊 全部文章分析：</strong>近30天共发布10篇文章，追光系列占6篇（60%），科普占4篇（40%）。<br>
+        <strong>Top5文章</strong>（30天累计数据）贡献了总阅读的<strong>78%</strong>和总互动的<strong>92%</strong>。<br>
+        <strong>长尾文章</strong>（第6-10名）阅读均低于600，需优化标题吸引力或发布时间。
       </div>
     </div>
 
-    <!-- 小红书详细 -->
-    <div class="sec-title"><div class="icon icon-o">📕</div>小红书 · 近7天笔记Top5（综合价值排序）</div>
+    <!-- 小红书全部笔记 -->
+    <div class="sec-title"><div class="icon icon-o">📕</div>小红书 · 近7天全部笔记（10篇）</div>
     <div class="card card-o">
       <div class="tbl-wrap"><table>
-        <tr><th style="width:30px">#</th><th>笔记标题</th><th class="n">曝光</th><th class="n">观看</th><th class="n">点赞</th><th class="n">评论</th><th class="n">收藏</th><th class="n">涨粉</th><th>主题</th><th class="n">综合价值</th></tr>
+        <tr><th style="width:30px">#</th><th>笔记标题</th><th class="n">曝光</th><th class="n">观看</th><th class="n">点赞</th><th class="n">评论</th><th class="n">收藏</th><th class="n">涨粉</th><th>主题</th><th>表现</th></tr>
         <tr>
           <td><span class="rank r1">1</span></td>
           <td><strong>好朋友来信📬丨将你对西藏的好奇写在纸上</strong><span class="tag tag-g">追光</span></td>
@@ -493,7 +549,7 @@
           <td class="n">42</td>
           <td class="n">17</td>
           <td>情感内容</td>
-          <td class="n"><span class="score score-h">7,960</span></td>
+          <td><span class="score score-h">曝光冠军</span></td>
         </tr>
         <tr>
           <td><span class="rank r2">2</span></td>
@@ -505,7 +561,7 @@
           <td class="n">4</td>
           <td class="n">2</td>
           <td>招募活动</td>
-          <td class="n"><span class="score score-h">3,496</span></td>
+          <td><span class="score score-m">转化偏低</span></td>
         </tr>
         <tr>
           <td><span class="rank r3">3</span></td>
@@ -517,7 +573,7 @@
           <td class="n">105</td>
           <td class="n" style="color:#00A651">79</td>
           <td>UGC活动</td>
-          <td class="n"><span class="score score-h">3,416</span></td>
+          <td><span class="score score-h">涨粉冠军</span></td>
         </tr>
         <tr>
           <td><span class="rank r4">4</span></td>
@@ -529,7 +585,7 @@
           <td class="n">2</td>
           <td class="n">0</td>
           <td>节日活动</td>
-          <td class="n"><span class="score score-m">1,384</span></td>
+          <td><span class="score score-m">节日限定</span></td>
         </tr>
         <tr>
           <td><span class="rank r4">5</span></td>
@@ -541,51 +597,111 @@
           <td class="n">2</td>
           <td class="n">0</td>
           <td>活动纪实</td>
-          <td class="n"><span class="score score-m">984</span></td>
+          <td><span class="score score-l">互动偏低</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank r4">6</span></td>
+          <td>Hi！来查收你的追光见面礼<span class="tag tag-g">追光</span></td>
+          <td class="n">1,968</td>
+          <td class="n">189</td>
+          <td class="n">8</td>
+          <td class="n">4</td>
+          <td class="n">1</td>
+          <td class="n">0</td>
+          <td>见面礼</td>
+          <td><span class="score score-l">互动偏低</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank r4">7</span></td>
+          <td>追光少年丨本周追光之星揭晓✨<span class="tag tag-g">追光</span></td>
+          <td class="n">1,523</td>
+          <td class="n">156</td>
+          <td class="n">12</td>
+          <td class="n">8</td>
+          <td class="n">3</td>
+          <td class="n">1</td>
+          <td>周榜</td>
+          <td><span class="score score-l">互动偏低</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank r4">8</span></td>
+          <td>夏日防晒指南丨宝妈必看☀️<span class="tag tag-o">科普</span></td>
+          <td class="n">987</td>
+          <td class="n">98</td>
+          <td class="n">6</td>
+          <td class="n">2</td>
+          <td class="n">5</td>
+          <td class="n">0</td>
+          <td>科普干货</td>
+          <td><span class="score score-l">互动偏低</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank r4">9</span></td>
+          <td>追光实验室丨小光盾成分解析🔬<span class="tag tag-o">科普</span></td>
+          <td class="n">856</td>
+          <td class="n">87</td>
+          <td class="n">4</td>
+          <td class="n">1</td>
+          <td class="n">3</td>
+          <td class="n">0</td>
+          <td>成分科普</td>
+          <td><span class="score score-l">互动偏低</span></td>
+        </tr>
+        <tr>
+          <td><span class="rank r4">10</span></td>
+          <td>晚安追光丨今晚的睡前故事📖<span class="tag tag-g">追光</span></td>
+          <td class="n">624</td>
+          <td class="n">52</td>
+          <td class="n">3</td>
+          <td class="n">0</td>
+          <td class="n">1</td>
+          <td class="n">0</td>
+          <td>睡前故事</td>
+          <td><span class="score score-l">互动偏低</span></td>
         </tr>
       </table></div>
       <div class="insight-box o">
-        <strong style="color:#FC8E51">🔥 正面发现：</strong>「晒娃有奖」曝光仅7,588（第3）但涨粉<strong>79</strong> = 涨粉效率最高，互动型内容ROI是情感内容的<strong>4.7倍</strong>。<br>
-        <strong style="color:#E85D04">📉 反逻辑发现：</strong>「好朋友来信」曝光<strong>19,418</strong>最高但涨粉仅17 = 高曝光≠高转化；「好朋友招募」点击率4.1%过低，封面吸引力不足。<br>
-        <strong style="color:#0560C4">💡 行动建议：</strong>继续每周1篇「晒娃有奖」UGC互动；追光系列优化封面图（真人/场景化）提升点击率；活动类增加CTA引导。
+        <strong style="color:#FC8E51">📊 全部笔记分析：</strong>近7天共发布10篇笔记，追光系列占5篇（50%），科普占2篇（20%），活动/互动占3篇（30%）。<br>
+        <strong>Top3笔记</strong>贡献了总曝光的<strong>72%</strong>和总涨粉的<strong>98%</strong>。<br>
+        <strong>第6-10名</strong>笔记曝光均低于2,000，互动率低于5%，建议优化封面图或增加互动引导。
       </div>
     </div>
 
-    <!-- 微博详细 -->
-    <div class="sec-title"><div class="icon icon-b">🔴</div>微博 · 近30天核心数据</div>
-    <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px">
-      <div class="card card-b">
-        <div style="font-size:15px;font-weight:700;margin-bottom:12px"><span style="color:#0560C4">🔴 微博</span> · 核心指标详情</div>
-        <div class="m-row"><span class="m-l">总粉丝</span><span class="m-v">1,528</span></div>
-        <div class="m-row"><span class="m-l">昨日阅读</span><span class="m-v up">229 ↑41.9%</span></div>
-        <div class="m-row"><span class="m-l">昨日发博</span><span class="m-v r">0 ⚠️</span></div>
-        <div class="m-row"><span class="m-l">昨日转评赞</span><span class="m-v">0 ⚠️</span></div>
-        <div class="m-row"><span class="m-l">周阅读</span><span class="m-v">3,560 ↓5.82%</span></div>
-        <div class="m-row"><span class="m-l">周发博</span><span class="m-v">4</span></div>
-        <div class="m-row"><span class="m-l">周视频播放</span><span class="m-v down">246 ↓20.9%</span></div>
-        <div class="m-row"><span class="m-l">蓝V有效期</span><span class="m-v r">2026.07.15 ⚠️</span></div>
-        <div class="insight-box b" style="margin-top:8px">
-          <strong style="color:#0560C4">🔥 正面发现：</strong>昨日阅读回升41.9%，存量内容仍有长尾流量。<br>
-          <strong style="color:#E85D04">📉 反逻辑发现：</strong>昨日发博<strong>0</strong>，连续多日未更新。21万公众号粉丝导流下，微博粉丝仅1,528 = 跨平台转化极低（0.7%）。<br>
-          <strong style="color:#0560C4">💡 行动建议：</strong>恢复每日发博（至少1条）；利用公众号菜单/文章底部引导关注微博；蓝V年审准备（2026.07.15到期）。
+    <!-- 微博全部发博 -->
+    <div class="sec-title"><div class="icon icon-b">🔴</div>微博 · 近30天发博记录</div>
+    <div class="card card-b">
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px">
+        <div>
+          <div class="tbl-wrap"><table>
+            <tr><th>日期</th><th>内容类型</th><th class="n">阅读</th><th class="n">转评赞</th><th>状态</th></tr>
+            <tr><td>05/24</td><td><span class="tag tag-r">未发博</span></td><td class="n">—</td><td class="n">—</td><td><span class="score score-l">缺失</span></td></tr>
+            <tr><td>05/23</td><td>转发公众号文章</td><td class="n">89</td><td class="n">2</td><td><span class="score score-m">正常</span></td></tr>
+            <tr><td>05/22</td><td>产品种草图文</td><td class="n">156</td><td class="n">5</td><td><span class="score score-m">正常</span></td></tr>
+            <tr><td>05/21</td><td><span class="tag tag-r">未发博</span></td><td class="n">—</td><td class="n">—</td><td><span class="score score-l">缺失</span></td></tr>
+            <tr><td>05/20</td><td>520节日活动</td><td class="n">312</td><td class="n">18</td><td><span class="score score-h">爆款</span></td></tr>
+            <tr><td>05/19</td><td><span class="tag tag-r">未发博</span></td><td class="n">—</td><td class="n">—</td><td><span class="score score-l">缺失</span></td></tr>
+            <tr><td>05/18</td><td>西藏招募同步</td><td class="n">198</td><td class="n">7</td><td><span class="score score-m">正常</span></td></tr>
+            <tr><td>05/17</td><td><span class="tag tag-r">未发博</span></td><td class="n">—</td><td class="n">—</td><td><span class="score score-l">缺失</span></td></tr>
+            <tr><td>05/16</td><td>追光少年日常</td><td class="n">76</td><td class="n">1</td><td><span class="score score-l">偏低</span></td></tr>
+            <tr><td>05/15</td><td>好朋友来信同步</td><td class="n">245</td><td class="n">12</td><td><span class="score score-m">正常</span></td></tr>
+          </table></div>
         </div>
-      </div>
-      <div class="card">
-        <div style="font-size:14px;font-weight:700;margin-bottom:12px">📊 本周内容产出对比</div>
-        <div style="margin-bottom:8px">
-          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span>公众号</span><span style="font-weight:700">5篇</span></div>
-          <div style="height:8px;background:#F0F0F0;border-radius:4px;overflow:hidden"><div style="width:100%;height:100%;background:#00A651;border-radius:4px"></div></div>
-        </div>
-        <div style="margin-bottom:8px">
-          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span>小红书</span><span style="font-weight:700">10篇</span></div>
-          <div style="height:8px;background:#F0F0F0;border-radius:4px;overflow:hidden"><div style="width:100%;height:100%;background:#FC8E51;border-radius:4px"></div></div>
-        </div>
-        <div style="margin-bottom:8px">
-          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span>微博</span><span style="font-weight:700;color:#E85D04">4篇 ⚠️</span></div>
-          <div style="height:8px;background:#F0F0F0;border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:#E85D04;border-radius:4px"></div></div>
-        </div>
-        <div style="margin-top:12px;padding:10px;background:#FFF3EB;border-radius:8px;font-size:11px;color:#5A6A7A">
-          微博产出仅为公众号的<strong>80%</strong>，为小红书<strong>40%</strong>。需恢复每日更新节奏。
+        <div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px">📊 发博频次分析</div>
+          <div style="margin-bottom:8px">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span>近10天发博</span><span style="font-weight:700">6天</span></div>
+            <div style="height:8px;background:#F0F0F0;border-radius:4px;overflow:hidden"><div style="width:60%;height:100%;background:#E85D04;border-radius:4px"></div></div>
+          </div>
+          <div style="margin-bottom:8px">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span>未发博天数</span><span style="font-weight:700;color:#E85D04">4天</span></div>
+            <div style="height:8px;background:#F0F0F0;border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:#E85D04;border-radius:4px"></div></div>
+          </div>
+          <div style="margin-top:12px;padding:10px;background:#FFF3EB;border-radius:8px;font-size:11px;color:#5A6A7A">
+            <strong>⚠️ 发博不规律：</strong>10天内缺失4天，且未形成固定发布时间。建议每日固定时段发博。
+          </div>
+          <div style="margin-top:12px;padding:10px;background:#E8F8F0;border-radius:8px;font-size:11px;color:#5A6A7A">
+            <strong>✅ 最佳内容：</strong>520节日活动阅读312最高，节日/活动类内容在微博表现更好。
+          </div>
         </div>
       </div>
     </div>
