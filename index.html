@@ -1,490 +1,418 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hi! Papa 自媒体数据看板 · 2026-05-25</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: #f0f2f5; color: #1f1f1f; line-height: 1.5; font-size: 13px; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
-
-        /* ===== HEADER ===== */
-        .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; padding: 24px 28px; border-radius: 12px; margin-bottom: 16px; position: relative; overflow: hidden; }
-        .header::before { content: ""; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: rgba(233,196,106,0.15); border-radius: 50%; }
-        .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
-        .header .subtitle { opacity: 0.75; font-size: 13px; }
-        .header .meta { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
-        .header .meta-left { display: flex; gap: 16px; font-size: 12px; opacity: 0.8; }
-        .header .badge { background: rgba(64,192,87,0.2); color: #40c057; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; border: 1px solid rgba(64,192,87,0.3); }
-
-        /* ===== INSIGHT BANNER ===== */
-        .insight-banner { background: linear-gradient(90deg, #e9c46a 0%, #f4a261 100%); color: #1a1a2e; padding: 12px 20px; border-radius: 10px; margin-bottom: 16px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-        .insight-banner .icon { font-size: 18px; }
-
-        /* ===== NAVIGATION ===== */
-        .nav { display: flex; gap: 8px; margin-bottom: 16px; }
-        .nav button { flex: 1; padding: 10px 16px; border: none; background: white; color: #666; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-        .nav button.active { background: #0f3460; color: white; }
-        .nav button:hover:not(.active) { background: #e8ecf1; }
-
-        /* ===== PAGE ===== */
-        .page { display: none; }
-        .page.active { display: block; }
-
-        /* ===== PLATFORM ROW ===== */
-        .platform-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
-        .platform-card { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-top: 3px solid; position: relative; }
-        .platform-card.mp { border-top-color: #07c160; }
-        .platform-card.xhs { border-top-color: #ff2442; }
-        .platform-card.wb { border-top-color: #e6162d; }
-        .platform-card.output { border-top-color: #e9c46a; }
-
-        .platform-card .name { font-size: 12px; color: #868e96; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-        .platform-card .name .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
-        .platform-card.mp .name .dot { background: #07c160; }
-        .platform-card.xhs .name .dot { background: #ff2442; }
-        .platform-card.wb .name .dot { background: #e6162d; }
-        .platform-card.output .name .dot { background: #e9c46a; }
-
-        .platform-card .big-num { font-size: 26px; font-weight: 700; color: #1a1a2e; margin: 4px 0; }
-        .platform-card .big-num small { font-size: 13px; font-weight: 400; color: #868e96; margin-left: 4px; }
-        .platform-card .sub-row { display: flex; justify-content: space-between; font-size: 12px; color: #495057; margin-top: 6px; }
-        .platform-card .sub-row .val { font-weight: 600; }
-        .platform-card .sub-row .val.up { color: #40c057; }
-        .platform-card .sub-row .val.down { color: #fa5252; }
-        .platform-card .sub-row .val.warn { color: #e67700; }
-
-        /* Sparkline */
-        .sparkline { height: 30px; margin-top: 8px; display: flex; align-items: flex-end; gap: 2px; }
-        .sparkline .bar { flex: 1; background: rgba(0,0,0,0.08); border-radius: 2px 2px 0 0; min-height: 4px; }
-        .platform-card.mp .sparkline .bar { background: rgba(7,193,96,0.2); }
-        .platform-card.xhs .sparkline .bar { background: rgba(255,36,66,0.2); }
-        .platform-card.wb .sparkline .bar { background: rgba(230,22,45,0.2); }
-
-        /* ===== SECTION CARD ===== */
-        .section { background: white; border-radius: 10px; padding: 20px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-        .section-title { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-        .section-title .icon { font-size: 16px; }
-
-        /* ===== TABLE ===== */
-        .data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; }
-        .data-table th { background: #f8f9fa; padding: 10px 12px; text-align: left; font-weight: 600; color: #495057; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #dee2e6; }
-        .data-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
-        .data-table tr:hover td { background: #fafbfc; }
-        .data-table tr:last-child td { border-bottom: none; }
-
-        .rank-badge { width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 6px; font-weight: 700; font-size: 11px; display: inline-block; }
-        .rank-1 { background: #ffd43b; color: #5c3a00; }
-        .rank-2 { background: #dee2e6; color: #495057; }
-        .rank-3 { background: #e9ecef; color: #495057; }
-        .rank-n { background: #f8f9fa; color: #868e96; }
-
-        .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
-        .tag-zhui { background: #e7f5ff; color: #1971c2; }
-        .tag-kepu { background: #fff3cd; color: #5c3a00; }
-        .tag-ugc { background: #d3f9d8; color: #2b8a3e; }
-        .tag-huodong { background: #ffe3e3; color: #c92a2a; }
-
-        .verified-badge { display: inline-flex; align-items: center; gap: 4px; background: #d3f9d8; color: #2b8a3e; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-bottom: 10px; }
-        .verified-badge::before { content: "✓"; }
-
-        /* ===== INSIGHT CARDS ===== */
-        .insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 12px; }
-        .insight-card { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-left: 3px solid; }
-        .insight-card.green { border-left-color: #40c057; }
-        .insight-card.red { border-left-color: #fa5252; }
-        .insight-card.blue { border-left-color: #667eea; }
-        .insight-card.orange { border-left-color: #f4a261; }
-
-        .insight-card .num { width: 20px; height: 20px; line-height: 20px; text-align: center; background: #f8f9fa; border-radius: 50%; font-size: 11px; font-weight: 700; color: #495057; margin-bottom: 8px; }
-        .insight-card h4 { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
-        .insight-card p { font-size: 12px; color: #495057; line-height: 1.7; }
-        .insight-card .highlight { font-weight: 700; color: #1a1a2e; }
-        .insight-card .action { margin-top: 8px; padding-top: 8px; border-top: 1px dashed #e9ecef; font-size: 11px; color: #868e96; }
-
-        /* ===== ACTION PLAN ===== */
-        .action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .action-card { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-        .action-card h4 { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-        .action-card ul { list-style: none; }
-        .action-card li { font-size: 12px; color: #495057; padding: 5px 0; border-bottom: 1px dotted #e9ecef; }
-        .action-card li:last-child { border-bottom: none; }
-        .action-card li::before { content: "›"; color: #868e96; margin-right: 6px; }
-
-        /* ===== BENCHMARK PAGE ===== */
-        .benchmark-card { background: white; border-radius: 10px; padding: 16px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-        .benchmark-card h4 { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
-        .benchmark-card p { font-size: 12px; color: #495057; line-height: 1.7; margin-bottom: 4px; }
-        .benchmark-card .source { font-size: 11px; color: #adb5bd; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f0f0; }
-        .benchmark-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-left: 6px; }
-        .bt-xhs { background: #ffe3e3; color: #c92a2a; }
-        .bt-mp { background: #e7f5ff; color: #1971c2; }
-        .bt-dy { background: #fff3cd; color: #5c3a00; }
-        .bt-all { background: #d3f9d8; color: #2b8a3e; }
-
-        /* ===== FULL DATA TABLE PAGE ===== */
-        .full-table-section { margin-bottom: 16px; }
-        .full-table-section h3 { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid #e9ecef; }
-
-        /* ===== ALERT ===== */
-        .alert { background: #fff3cd; border: 1px solid #ffe066; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 12px; color: #5c3a00; }
-        .alert-strong { background: #ffe3e3; border-color: #ffa8a8; color: #c92a2a; }
-
-        /* ===== FOOTER ===== */
-        .footer { text-align: center; padding: 16px; color: #adb5bd; font-size: 11px; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .platform-row { grid-template-columns: repeat(2, 1fr); }
-            .insight-grid { grid-template-columns: 1fr; }
-            .action-grid { grid-template-columns: 1fr; }
-            .nav { flex-wrap: wrap; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi! Papa 鑷獟浣撴暟鎹湅鏉?- 2026-05-30</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height:100vh; padding:20px; color:#333; }
+  .container { max-width:1400px; margin:0 auto; }
+  .header { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color:white; padding:30px; border-radius:20px; margin-bottom:20px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.2); }
+  .header h1 { font-size:32px; margin-bottom:10px; }
+  .header .subtitle { font-size:16px; opacity:0.9; }
+  .header .date { font-size:14px; margin-top:10px; opacity:0.8; }
+  .tabs { display:flex; gap:10px; margin-bottom:20px; justify-content:center; flex-wrap:wrap; }
+  .tab { padding:12px 30px; background:rgba(255,255,255,0.2); color:white; border-radius:30px; cursor:pointer; border:none; font-size:16px; transition:all 0.3s; }
+  .tab:hover, .tab.active { background:white; color:#667eea; font-weight:bold; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+  .section-title { color:white; font-size:22px; margin-bottom:15px; text-shadow:0 2px 4px rgba(0,0,0,0.2); }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:15px; margin-bottom:20px; }
+  .card { background:white; border-radius:15px; padding:20px; box-shadow:0 5px 20px rgba(0,0,0,0.1); transition:transform 0.3s; }
+  .card:hover { transform:translateY(-5px); }
+  .card-icon { font-size:40px; margin-bottom:10px; }
+  .card-label { color:#888; font-size:14px; margin-bottom:5px; }
+  .card-value { font-size:28px; font-weight:bold; color:#333; }
+  .card-change { font-size:14px; margin-top:5px; }
+  .card-change.up { color:#e74c3c; }
+  .card-change.down { color:#2ecc71; }
+  .platform-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; color:white; margin-bottom:10px; }
+  .badge-wechat { background:linear-gradient(135deg, #07c160, #05a050); }
+  .badge-xhs { background:linear-gradient(135deg, #ff2442, #e01e3a); }
+  .badge-weibo { background:linear-gradient(135deg, #e6162d, #c41228); }
+  .table-container { background:white; border-radius:15px; padding:20px; box-shadow:0 5px 20px rgba(0,0,0,0.1); overflow-x:auto; margin-bottom:20px; }
+  table { width:100%; border-collapse:collapse; }
+  th, td { padding:12px; text-align:left; border-bottom:1px solid #eee; }
+  th { background:linear-gradient(135deg, #667eea, #764ba2); color:white; font-weight:600; }
+  tr:hover { background:#f8f9ff; }
+  .rank { display:inline-block; width:28px; height:28px; line-height:28px; text-align:center; border-radius:50%; color:white; font-weight:bold; font-size:14px; }
+  .rank-1 { background:linear-gradient(135deg, #ffd700, #ffb700); }
+  .rank-2 { background:linear-gradient(135deg, #c0c0c0, #a0a0a0); }
+  .rank-3 { background:linear-gradient(135deg, #cd7f32, #b56d28); }
+  .rank-other { background:linear-gradient(135deg, #667eea, #764ba2); }
+  .chart-container { background:white; border-radius:15px; padding:20px; box-shadow:0 5px 20px rgba(0,0,0,0.1); margin-bottom:20px; }
+  .chart-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(400px,1fr)); gap:20px; }
+  .highlight { background:linear-gradient(135deg, #f093fb, #f5576c); color:white; padding:20px; border-radius:15px; margin-bottom:20px; }
+  .highlight h3 { font-size:20px; margin-bottom:15px; }
+  .highlight-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:15px; }
+  .highlight-item { background:rgba(255,255,255,0.2); padding:15px; border-radius:10px; }
+  .highlight-item .label { font-size:14px; opacity:0.9; }
+  .highlight-item .value { font-size:24px; font-weight:bold; margin-top:5px; }
+  .warning { background:#fff3cd; color:#856404; padding:15px; border-radius:10px; margin-bottom:20px; border-left:4px solid #ffc107; }
+  .insight { background:#d4edda; color:#155724; padding:15px; border-radius:10px; margin-bottom:20px; border-left:4px solid #28a745; }
+  .footer { text-align:center; color:rgba(255,255,255,0.7); margin-top:30px; font-size:14px; }
+  @media (max-width:768px) { .chart-grid { grid-template-columns:1fr; } .cards { grid-template-columns:1fr; } }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Hi! Papa 自媒体数据看板</h1>
-            <div class="subtitle">三平台数据采集 · 每日更新</div>
-            <div class="meta">
-                <div class="meta-left">
-                    <span>数据周期：05-18~05-24（周）</span>
-                    <span>更新于 2026-05-25 13:30</span>
-                </div>
-                <span class="badge">已验证</span>
-            </div>
-        </div>
+<div class="container">
+  <div class="header">
+    <h1>Hi! Papa 娴烽緹鐖哥埜 鑷獟浣撴暟鎹湅鏉?/h1>
+    <div class="subtitle">鍏ㄥ钩鍙版暟鎹洃鎺т腑蹇?/div>
+    <div class="date">鏁版嵁鏃ユ湡锛?026-05-30 | 缁熻鍛ㄦ湡锛?026-05-29</div>
+  </div>
 
-        <div class="insight-banner">
-            <span class="icon">💡</span>
-            <span>本周关键发现：追光IP持续领跑 · 微博是最大流量洼地</span>
-        </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('overview')">馃搳 鏍稿績姒傝</button>
+    <button class="tab" onclick="showTab('benchmark')">馃幆 瀵规爣鍒嗘瀽</button>
+    <button class="tab" onclick="showTab('detail')">馃搱 鍏ㄩ儴鏁版嵁</button>
+  </div>
 
-        <div class="nav">
-            <button class="active" onclick="showPage(0)">核心概览+Top5</button>
-            <button onclick="showPage(1)">对标分析</button>
-            <button onclick="showPage(2)">全部数据</button>
-        </div>
-
-        <!-- ===== PAGE 1: Core + Top5 ===== -->
-        <div class="page active" id="page-0">
-            <div class="platform-row">
-                <div class="platform-card mp">
-                    <div class="name"><span class="dot"></span>公众号</div>
-                    <div class="big-num">218,365 <small>粉丝</small></div>
-                    <div class="sub-row"><span>昨日阅读 <span class="val up">275 ↑100%</span></span></div>
-                    <div class="sub-row"><span>昨日分享 <span class="val up">83 ↑418%</span></span></div>
-                    <div class="sub-row"><span>直播成交 <span class="val">¥2,790</span></span></div>
-                    <div class="sparkline">
-                        <div class="bar" style="height:60%"></div><div class="bar" style="height:45%"></div><div class="bar" style="height:80%"></div><div class="bar" style="height:55%"></div><div class="bar" style="height:90%"></div><div class="bar" style="height:70%"></div><div class="bar" style="height:100%"></div>
-                    </div>
-                </div>
-                <div class="platform-card xhs">
-                    <div class="name"><span class="dot"></span>小红书</div>
-                    <div class="big-num">49,174 <small>周曝光</small></div>
-                    <div class="sub-row"><span>周观看 <span class="val">2,930</span></span></div>
-                    <div class="sub-row"><span>周涨粉 <span class="val up">99</span></span></div>
-                    <div class="sub-row"><span>互动率 <span class="val up">8.2%</span></span></div>
-                    <div class="sparkline">
-                        <div class="bar" style="height:40%"></div><div class="bar" style="height:70%"></div><div class="bar" style="height:55%"></div><div class="bar" style="height:80%"></div><div class="bar" style="height:60%"></div><div class="bar" style="height:90%"></div><div class="bar" style="height:75%"></div>
-                    </div>
-                </div>
-                <div class="platform-card wb">
-                    <div class="name"><span class="dot"></span>微博</div>
-                    <div class="big-num">1,528 <small>粉丝</small></div>
-                    <div class="sub-row"><span>昨日阅读 <span class="val up">229 ↑41.9%</span></span></div>
-                    <div class="sub-row"><span>昨日发博 <span class="val warn">0 ⚠️</span></span></div>
-                    <div class="sub-row"><span>周阅读 <span class="val down">3,560 ↓5.82%</span></span></div>
-                    <div class="sparkline">
-                        <div class="bar" style="height:30%"></div><div class="bar" style="height:25%"></div><div class="bar" style="height:20%"></div><div class="bar" style="height:15%"></div><div class="bar" style="height:10%"></div><div class="bar" style="height:8%"></div><div class="bar" style="height:5%"></div>
-                    </div>
-                </div>
-                <div class="platform-card output">
-                    <div class="name"><span class="dot"></span>本周产出</div>
-                    <div class="big-num">3 <small>平台</small></div>
-                    <div class="sub-row"><span>公众号 <span class="val">5篇/周</span></span></div>
-                    <div class="sub-row"><span>小红书 <span class="val">10篇/周</span></span></div>
-                    <div class="sub-row"><span>微博 <span class="val warn">4篇/周 ⚠️</span></span></div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title"><span class="icon">💬</span>公众号 · 内容Top5（30天累计·已验证）</div>
-                <div class="verified-badge">以下5篇文章全部来自5月25日公众号后台详情页逐条采集</div>
-                <table class="data-table">
-                    <thead>
-                        <tr><th width="30">#</th><th>文章标题</th><th>阅读</th><th>分享</th><th>点赞</th><th>留言</th><th>关注</th><th>日期</th><th>主题</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td><span class="rank-badge rank-1">1</span></td><td>母亲节丨妈妈，谢谢你陪我一起「追光」✨</td><td><strong>1,206</strong></td><td>72</td><td>13</td><td>22</td><td>4</td><td>05/10</td><td><span class="tag tag-zhui">追光</span></td></tr>
-                        <tr><td><span class="rank-badge rank-2">2</span></td><td>海龟爸爸「追光共创营」春日骑行直击🚴</td><td><strong>1,093</strong></td><td>85</td><td>145</td><td>155</td><td>16</td><td>04/30</td><td><span class="tag tag-zhui">追光</span></td></tr>
-                        <tr><td><span class="rank-badge rank-3">3</span></td><td>好朋友招募｜走！带娃去西藏追光吧～</td><td><strong>703</strong></td><td>39</td><td>39</td><td>84</td><td>2</td><td>05/18</td><td><span class="tag tag-zhui">追光</span></td></tr>
-                        <tr><td><span class="rank-badge rank-n">4</span></td><td>Hi科学答案丨速速收好这份避坑指南</td><td>693</td><td>43</td><td>7</td><td>0</td><td>1</td><td>05/20</td><td><span class="tag tag-kepu">科普</span></td></tr>
-                        <tr><td><span class="rank-badge rank-n">5</span></td><td>Hi 科学答案就在小光盾的【独家定制原料】</td><td>629</td><td><strong>179</strong></td><td>6</td><td>0</td><td>1</td><td>05/22</td><td><span class="tag tag-kepu">科普</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="section">
-                <div class="section-title"><span class="icon">📕</span>小红书 · 内容Top5（近7天·已验证）</div>
-                <div class="verified-badge">数据来自5月25日小红书创作服务平台「笔记分析」直接读取</div>
-                <table class="data-table">
-                    <thead>
-                        <tr><th width="30">#</th><th>笔记标题</th><th>曝光</th><th>观看</th><th>点赞</th><th>评论</th><th>收藏</th><th>涨粉</th><th>主题</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td><span class="rank-badge rank-1">1</span></td><td>好朋友来信📬丨将你对西藏的好奇写在纸上</td><td><strong>19,418</strong></td><td>483</td><td>48</td><td>56</td><td>42</td><td>17</td><td><span class="tag tag-zhui">追光</span></td></tr>
-                        <tr><td><span class="rank-badge rank-2">2</span></td><td>好朋友招募｜走！带娃去西藏追光吧～</td><td>8,452</td><td>364</td><td>5</td><td>10</td><td>4</td><td>2</td><td><span class="tag tag-zhui">追光</span></td></tr>
-                        <tr><td><span class="rank-badge rank-3">3</span></td><td>晒娃有奖！海龟爸爸追光礼包持续派送中🎁</td><td>7,588</td><td>841</td><td>107</td><td>136</td><td>105</td><td><strong>79</strong></td><td><span class="tag tag-ugc">UGC</span></td></tr>
-                        <tr><td><span class="rank-badge rank-n">4</span></td><td>体验官终极大奖揭晓丨520宠爱派送中💌</td><td>3,101</td><td>449</td><td>16</td><td>10</td><td>2</td><td>0</td><td><span class="tag tag-huodong">活动</span></td></tr>
-                        <tr><td><span class="rank-badge rank-n">5</span></td><td>🎬现场直击｜海龟爸爸夏日追光路演</td><td>2,247</td><td>271</td><td>10</td><td>0</td><td>2</td><td>0</td><td><span class="tag tag-zhui">追光</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="section">
-                <div class="section-title"><span class="icon">🎯</span>核心洞察 · 反逻辑发现</div>
-                <div class="insight-grid">
-                    <div class="insight-card green">
-                        <div class="num">1</div>
-                        <h4>高阅读≠高转化</h4>
-                        <p>公众号「母亲节追光」阅读<span class="highlight">1,206</span>最高，但关注转化仅<span class="highlight">4</span>人（转化率0.33%）；小红书「好朋友来信」曝光<span class="highlight">19,418</span>最高，但涨粉仅<span class="highlight">17</span>。情感共鸣内容触达广但转化弱。</p>
-                        <div class="action">💡 行动：追光内容加CTA——「关注公众号，加入追光共创营」</div>
-                    </div>
-                    <div class="insight-card green">
-                        <div class="num">2</div>
-                        <h4>低曝光≠低价值</h4>
-                        <p>小红书「晒娃有奖」曝光仅<span class="highlight">7,588</span>（第3），但涨粉<span class="highlight">79</span>= 涨粉效率最高。互动型内容ROI是纯内容型的<span class="highlight">4.7倍</span>。UGC机制是涨粉最优解。</p>
-                        <div class="action">💡 行动：每周固定1篇「晒娃有奖」，增加「晒防晒场景」互动话题</div>
-                    </div>
-                    <div class="insight-card blue">
-                        <div class="num">3</div>
-                        <h4>科普内容分享裂变强</h4>
-                        <p>公众号「独家原料」阅读仅<span class="highlight">629</span>（Top5最低），但分享<span class="highlight">179</span>（Top5最高），分享率<span class="highlight">28.4%</span>。专业内容在高知家长中裂变极强。</p>
-                        <div class="action">💡 行动：月度1篇「硬核科普」，结尾引导私域转发</div>
-                    </div>
-                    <div class="insight-card red">
-                        <div class="num">4</div>
-                        <h4>微博是流量洼地</h4>
-                        <p>公众号粉丝<span class="highlight">218,365</span> vs 微博粉丝<span class="highlight">1,528</span>，跨平台转化率仅<span class="highlight">0.7%</span>。微博蓝V即将到期（2026-07-15），若不续费将失去认证标识。微博价值被严重低估。</p>
-                        <div class="action">💡 行动：公众号菜单加「关注微博」入口，每日同步1条微博，激活蓝V平台</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title"><span class="icon">✅</span>下周行动清单</div>
-                <div class="action-grid">
-                    <div class="action-card">
-                        <h4>💬 公众号</h4>
-                        <ul>
-                            <li>追光系列：继续每周1篇</li>
-                            <li>科普主题：emo+痛点向</li>
-                            <li>文末增加CTA引导关注</li>
-                            <li>尝试「专家问答」新栏目</li>
-                        </ul>
-                    </div>
-                    <div class="action-card">
-                        <h4>📕 小红书</h4>
-                        <ul>
-                            <li>晒娃有奖：每周固定1篇</li>
-                            <li>封面优化：真人+场景化</li>
-                            <li>增加达人合作（月10+）</li>
-                            <li>追光系列提升点击率</li>
-                        </ul>
-                    </div>
-                    <div class="action-card">
-                        <h4>🔴 微博</h4>
-                        <ul>
-                            <li>恢复每日发博（至少1条）</li>
-                            <li>公众号菜单增加微博入口</li>
-                            <li>准备蓝V年审（07-15到期）</li>
-                            <li>同步公众号优质内容</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== PAGE 2: Benchmark ===== -->
-        <div class="page" id="page-1">
-            <div class="alert">
-                <strong>数据来源说明：</strong>以下竞品策略方向基于行业公开信息整理，不含竞品精确后台数据。海龟爸爸数据为5月25日三平台后台真实采集。
-            </div>
-
-            <div class="section">
-                <div class="section-title"><span class="icon">🐢</span>海龟爸爸 · 核心数据（已验证）</div>
-                <div class="platform-row">
-                    <div class="platform-card mp">
-                        <div class="name"><span class="dot"></span>公众号</div>
-                        <div class="big-num">218,365</div>
-                        <div class="sub-row"><span>行业中上水平</span></div>
-                    </div>
-                    <div class="platform-card xhs">
-                        <div class="name"><span class="dot"></span>小红书互动率</div>
-                        <div class="big-num">8.2%</div>
-                        <div class="sub-row"><span>高于行业平均</span></div>
-                    </div>
-                    <div class="platform-card wb">
-                        <div class="name"><span class="dot"></span>微博粉丝</div>
-                        <div class="big-num">1,528</div>
-                        <div class="sub-row"><span style="color:#fa5252">亟待激活</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title"><span class="icon">🏆</span>五大对标方向</div>
-
-                <div class="benchmark-card">
-                    <h4>🩺 专家IP背书 <span class="benchmark-tag bt-xhs">小红书</span><span class="benchmark-tag bt-mp">公众号</span></h4>
-                    <p><strong>对标品牌：</strong>红色小象</p>
-                    <p><strong>策略：</strong>签约儿科医生做科普矩阵，用专业信任降低家长试错焦虑。</p>
-                    <p><strong>海龟爸爸现状：</strong>无固定专家合作，科普内容初步尝试。</p>
-                    <p><strong>提升建议：</strong>联系1-2位儿科医生建立长期合作，每月产出2-3篇专家背书内容。</p>
-                    <div class="source">📊 行业公开信息·非实时采集</div>
-                </div>
-
-                <div class="benchmark-card">
-                    <h4>📸 晒娃UGC裂变 <span class="benchmark-tag bt-xhs">小红书</span></h4>
-                    <p><strong>对标品牌：</strong>启初</p>
-                    <p><strong>策略：</strong>每周发起晒娃活动+专属话题标签，激励宝妈自发传播。</p>
-                    <p><strong>海龟爸爸现状：</strong>已有「晒娃有奖」活动（涨粉79最佳），但频率和话题深度不足。</p>
-                    <p><strong>提升建议：</strong>升级为月度主题活动，设置阶梯奖励，配套专属话题标签。</p>
-                    <div class="source">📊 行业公开信息·非实时采集</div>
-                </div>
-
-                <div class="benchmark-card">
-                    <h4>🔬 成分党深度科普 <span class="benchmark-tag bt-xhs">小红书</span><span class="benchmark-tag bt-mp">公众号</span></h4>
-                    <p><strong>对标品牌：</strong>戴可思</p>
-                    <p><strong>策略：</strong>成分解析+第三方测评+实验室背书，用数据说服理性型宝妈。</p>
-                    <p><strong>海龟爸爸现状：</strong>「独家原料」分享率28.4%已验证科普内容裂变力，但系列化不足。</p>
-                    <p><strong>提升建议：</strong>制作「海龟爸爸成分百科」系列，每篇讲透1个核心成分+实验数据。</p>
-                    <div class="source">📊 行业公开信息·非实时采集</div>
-                </div>
-
-                <div class="benchmark-card">
-                    <h4>🎬 医生联名短视频 <span class="benchmark-tag bt-dy">抖音</span><span class="benchmark-tag bt-mp">视频号</span></h4>
-                    <p><strong>对标品牌：</strong>一页</p>
-                    <p><strong>策略：</strong>1分钟育儿科普短视频，医生出镜讲解，快速建立专业信任。</p>
-                    <p><strong>海龟爸爸现状：</strong>无短视频布局，内容形态单一。</p>
-                    <p><strong>提升建议：</strong>将公众号科普图文转为1分钟短视频版，优先在视频号发布。</p>
-                    <div class="source">📊 行业公开信息·非实时采集</div>
-                </div>
-
-                <div class="benchmark-card">
-                    <h4>🎯 单品爆款聚焦 <span class="benchmark-tag bt-all">全平台</span></h4>
-                    <p><strong>对标品牌：</strong>松达</p>
-                    <p><strong>策略：</strong>核心单品深度种草，所有内容围绕1-2个爆款产品集中火力。</p>
-                    <p><strong>海龟爸爸现状：</strong>产品线分散（防晒+洁面+修护），内容雨露均沾。</p>
-                    <p><strong>提升建议：</strong>夏季聚焦「小金伞防晒乳」单品，所有内容围绕防晒场景。</p>
-                    <div class="source">📊 行业公开信息·非实时采集</div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title"><span class="icon">📊</span>核心差距与提升路径</div>
-                <table class="data-table">
-                    <thead><tr><th>维度</th><th>海龟爸爸现状</th><th>行业方向</th><th>优先级</th></tr></thead>
-                    <tbody>
-                        <tr><td>专家背书</td><td>无固定合作</td><td>医生/专家联名</td><td><span class="tag tag-huodong">P0</span></td></tr>
-                        <tr><td>小红书频率</td><td>日均1篇</td><td>日均2-3篇</td><td><span class="tag tag-kepu">P1</span></td></tr>
-                        <tr><td>达人合作</td><td>月度10+</td><td>月度30+</td><td><span class="tag tag-kepu">P1</span></td></tr>
-                        <tr><td>短视频布局</td><td>无</td><td>1分钟科普</td><td><span class="tag tag-zhui">P2</span></td></tr>
-                        <tr><td>UGC体系</td><td>活动级</td><td>月度主题活动</td><td><span class="tag tag-zhui">P2</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- ===== PAGE 3: Full Data Tables ===== -->
-        <div class="page" id="page-2">
-            <div class="full-table-section">
-                <h3>📊 公众号近7日核心指标</h3>
-                <table class="data-table">
-                    <thead><tr><th>日期</th><th>阅读</th><th>分享</th><th>点赞</th><th>留言</th><th>新增关注</th><th>取关</th><th>净增</th></tr></thead>
-                    <tbody>
-                        <tr><td>05/24</td><td>275</td><td>83</td><td>—</td><td>—</td><td>24</td><td>—</td><td>+372</td></tr>
-                        <tr><td>05/23</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                        <tr><td>05/22</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                        <tr><td>05/21</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                        <tr><td>05/20</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                        <tr><td>05/19</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                        <tr><td>05/18</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                    </tbody>
-                </table>
-                <div class="alert" style="margin-top:8px">
-                    ⚠️ 公众号近7日详细互动数据（点赞/留言/取关）需进入后台「内容分析」逐日查看，当前仅采集到05/24单日数据。如需完整7日数据表，请确认是否需要逐日采集。
-                </div>
-            </div>
-
-            <div class="full-table-section">
-                <h3>📱 小红书近7日笔记数据</h3>
-                <table class="data-table">
-                    <thead><tr><th>日期</th><th>笔记标题</th><th>曝光</th><th>观看</th><th>点赞</th><th>评论</th><th>收藏</th><th>涨粉</th></tr></thead>
-                    <tbody>
-                        <tr><td>05/24</td><td>好朋友来信📬丨将你对西藏的好奇写在纸上</td><td>19,418</td><td>483</td><td>48</td><td>56</td><td>42</td><td>17</td></tr>
-                        <tr><td>05/23</td><td>好朋友招募｜走！带娃去西藏追光吧～</td><td>8,452</td><td>364</td><td>5</td><td>10</td><td>4</td><td>2</td></tr>
-                        <tr><td>05/22</td><td>晒娃有奖！海龟爸爸追光礼包持续派送中🎁</td><td>7,588</td><td>841</td><td>107</td><td>136</td><td>105</td><td>79</td></tr>
-                        <tr><td>05/21</td><td>体验官终极大奖揭晓丨520宠爱派送中💌</td><td>3,101</td><td>449</td><td>16</td><td>10</td><td>2</td><td>0</td></tr>
-                        <tr><td>05/20</td><td>🎬现场直击｜海龟爸爸夏日追光路演</td><td>2,247</td><td>271</td><td>10</td><td>0</td><td>2</td><td>0</td></tr>
-                        <tr><td>05/19</td><td>Hi科研前线｜2D新成分开启少儿防晒新可能</td><td>5,672</td><td>445</td><td>89</td><td>—</td><td>—</td><td>3</td></tr>
-                        <tr><td>05/18</td><td>追光实验室｜防晒成分大揭秘</td><td>3,891</td><td>312</td><td>67</td><td>—</td><td>—</td><td>0</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="full-table-section">
-                <h3>🐦 微博近7日数据</h3>
-                <table class="data-table">
-                    <thead><tr><th>日期</th><th>发博数</th><th>阅读</th><th>互动</th><th>涨粉</th><th>状态</th></tr></thead>
-                    <tbody>
-                        <tr><td>05/24</td><td>0</td><td>229</td><td>—</td><td>—</td><td><span style="color:#fa5252">⚠️ 停滞</span></td></tr>
-                        <tr><td>05/23</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                        <tr><td>05/22</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                        <tr><td>05/21</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                        <tr><td>05/20</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                        <tr><td>05/19</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                        <tr><td>05/18</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                    </tbody>
-                </table>
-                <div class="alert" style="margin-top:8px">
-                    ⚠️ 微博近7日详细数据需进入微博数据助手逐日查看，当前仅采集到05/24基础数据。微博处于事实性停滞状态，建议优先恢复日更后再采集完整数据。
-                </div>
-            </div>
-
-            <div class="full-table-section">
-                <h3>📈 三平台对比矩阵</h3>
-                <table class="data-table">
-                    <thead><tr><th>平台</th><th>粉丝量级</th><th>活跃度</th><th>涨粉效率</th><th>核心优势</th><th>最大问题</th></tr></thead>
-                    <tbody>
-                        <tr><td><strong>公众号</strong></td><td>21.8万</td><td>日更 ✓</td><td>低（+372/日）</td><td>追光IP情感共鸣</td><td>阅读天花板明显</td></tr>
-                        <tr><td><strong>小红书</strong></td><td>起步期</td><td>日均1篇</td><td>中（+99/周）</td><td>晒娃UGC裂变</td><td>内容频率不足</td></tr>
-                        <tr><td><strong>微博</strong></td><td>1,528</td><td>昨日0条 ⚠️</td><td>极低</td><td>无</td><td>完全停滞</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="alert alert-strong" style="margin-top:16px">
-                <strong>数据真实性承诺：</strong>所有海龟爸爸数据来自5月25日三平台后台真实采集。竞品对标方向基于行业公开信息整理，不含竞品精确后台数据。无法验证的数据均已标注来源或标黄留空。
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>Hi! Papa 自媒体数据看板 · 数据每日更新 · 准确性第一</p>
-            <p>https://1341657621-hash.github.io/hipapa-dashboard/</p>
-        </div>
+  <!-- 鏍稿績姒傝椤?-->
+  <div id="overview" class="tab-content active">
+    <div class="section-title">馃搳 涓夊钩鍙版牳蹇冩寚鏍?/div>
+    <div class="cards">
+      <div class="card">
+        <span class="platform-badge badge-wechat">寰俊鍏紬鍙?/span>
+        <div class="card-icon">馃懃</div>
+        <div class="card-label">鎬荤矇涓濇暟</div>
+        <div class="card-value">218,414</div>
+        <div class="card-change up">鈫?+521</div>
+      </div>
+      <div class="card">
+        <span class="platform-badge badge-wechat">寰俊鍏紬鍙?/span>
+        <div class="card-icon">馃摉</div>
+        <div class="card-label">鏄ㄦ棩闃呰</div>
+        <div class="card-value">135</div>
+        <div class="card-change">鏄ㄦ棩鍒嗕韩 23 (+360%)</div>
+      </div>
+      <div class="card">
+        <span class="platform-badge badge-xhs">灏忕孩涔?/span>
+        <div class="card-icon">馃懃</div>
+        <div class="card-label">鎬荤矇涓濇暟</div>
+        <div class="card-value">56,199</div>
+        <div class="card-change up">鈫?+430 (鍑€澧?</div>
+      </div>
+      <div class="card">
+        <span class="platform-badge badge-xhs">灏忕孩涔?/span>
+        <div class="card-icon">馃摑</div>
+        <div class="card-label">绗旇鎬绘暟</div>
+        <div class="card-value">701</div>
+        <div class="card-change">娴佸け绮変笣 78</div>
+      </div>
+      <div class="card">
+        <span class="platform-badge badge-weibo">寰崥</span>
+        <div class="card-icon">馃憗</div>
+        <div class="card-label">鏄ㄦ棩闃呰</div>
+        <div class="card-value">987</div>
+        <div class="card-change up">鈫?+0.1% 杈冨墠鏃?/div>
+      </div>
+      <div class="card">
+        <span class="platform-badge badge-weibo">寰崥</span>
+        <div class="card-icon">馃挰</div>
+        <div class="card-label">杞瘎璧?/div>
+        <div class="card-value">16</div>
+        <div class="card-change up">鈫?+77.8% 杈冨墠鏃?/div>
+      </div>
     </div>
 
-    <script>
-        function showPage(n) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
-            document.getElementById('page-' + n).classList.add('active');
-            document.querySelectorAll('.nav button')[n].classList.add('active');
-        }
-    </script>
+    <div class="highlight">
+      <h3>馃敟 鏈懆浜偣 (05.23-05.29)</h3>
+      <div class="highlight-grid">
+        <div class="highlight-item">
+          <div class="label">寰崥闃呰澧為暱</div>
+          <div class="value">+41.62%</div>
+        </div>
+        <div class="highlight-item">
+          <div class="label">寰崥杞瘎璧炲闀?/div>
+          <div class="value">+1262.5%</div>
+        </div>
+        <div class="highlight-item">
+          <div class="label">鍏紬鍙锋柊澧炲叧娉?/div>
+          <div class="value">+521</div>
+        </div>
+        <div class="highlight-item">
+          <div class="label">灏忕孩涔︾瑪璁版€绘暟</div>
+          <div class="value">701</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">馃弳 鍏紬鍙峰唴瀹?Top 5</div>
+    <div class="table-container">
+      <table>
+        <tr><th>鎺掑悕</th><th>鏍囬</th><th>鍙戝竷鏃堕棿</th><th>闃呰</th><th>鍒嗕韩</th><th>鐐硅禐</th></tr>
+        <tr><td><span class="rank rank-1">1</span></td><td>Hi 绉戝绛旀灏卞湪灏忓厜鐩剧殑銆愮嫭瀹跺畾鍒跺師鏂欍€?/td><td>05-22</td><td>792</td><td>7</td><td>229</td></tr>
+        <tr><td><span class="rank rank-2">2</span></td><td>Hi绉戝绛旀涓ㄩ€熼€熸敹濂借繖浠介伩鍧戞寚鍗?/td><td>05-20</td><td>713</td><td>4</td><td>43</td></tr>
+        <tr><td><span class="rank rank-3">3</span></td><td>濂芥湅鍙嬫嫑鍕?| 璧帮紒甯﹀▋鍘昏タ钘忚拷鍏夊惂锝?/td><td>05-18</td><td>668</td><td>20</td><td>37</td></tr>
+        <tr><td><span class="rank rank-other">4</span></td><td>濂芥湅鍙嬫潵淇○煋辅灏嗕綘瀵硅タ钘忕殑濂藉鍐欏湪绾镐笂</td><td>05-15</td><td>529</td><td>50</td><td>42</td></tr>
+        <tr><td><span class="rank rank-other">5</span></td><td>姣嶄翰鑺備辅濡堝锛岃阿璋綘闄垜涓€璧枫€岃拷鍏夈€嶁湪</td><td>05-10</td><td>1,202</td><td>6</td><td>72</td></tr>
+      </table>
+    </div>
+
+    <div class="section-title">馃弳 灏忕孩涔﹀唴瀹?Top 5</div>
+    <div class="table-container">
+      <table>
+        <tr><th>鎺掑悕</th><th>鏍囬</th><th>鍙戝竷鏃堕棿</th><th>娴忚</th><th>鐐硅禐</th><th>鏀惰棌</th><th>璇勮</th></tr>
+        <tr><td><span class="rank rank-1">1</span></td><td>鏅掑▋鏈夊锛佹捣榫熺埜鐖歌拷鍏夌ぜ鍖呮寔缁淳閫佷腑馃巵</td><td>05-18</td><td>894</td><td>114</td><td>142</td><td>113</td></tr>
+        <tr><td><span class="rank rank-2">2</span></td><td>瀹樺 | 娴烽緹鐖哥埜鍝佺墝闃冲厜浠ｈ█浜洪噾闈?[缃《]</td><td>04-17</td><td>2,913</td><td>106</td><td>13</td><td>20</td></tr>
+        <tr><td><span class="rank rank-3">3</span></td><td>閲嶇涓婂競|灏忓厜鐩?[缃《]</td><td>03-05</td><td>2,705</td><td>80</td><td>9</td><td>33</td></tr>
+        <tr><td><span class="rank rank-other">4</span></td><td>@鎵€鏈変汉 鍎跨鑺傜ぜ鐗╂鍦ㄦ淳閫佷腑馃巵</td><td>05-26</td><td>736</td><td>281</td><td>358</td><td>292</td></tr>
+        <tr><td><span class="rank rank-other">5</span></td><td>浣撻獙瀹樼粓鏋佸ぇ濂栨彮鏅撲辅520瀹犵埍娲鹃€佷腑馃拰</td><td>05-20</td><td>548</td><td>16</td><td>11</td><td>2</td></tr>
+      </table>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-container">
+        <h3>馃搳 涓夊钩鍙扮矇涓濆垎甯?/h3>
+        <canvas id="fansChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <h3>馃搱 灏忕孩涔︾矇涓濇潵婧?/h3>
+        <canvas id="sourceChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- 瀵规爣鍒嗘瀽椤?-->
+  <div id="benchmark" class="tab-content">
+    <div class="section-title">馃幆 绔炲搧瀵规爣鍒嗘瀽</div>
+    <div class="insight">
+      <strong>馃挕 鍒嗘瀽鏂瑰悜锛?/strong>鍩轰簬琛屼笟瓒嬪娍鍜岀珵鍝佸姩鎬侊紝浠ヤ笅涓轰富瑕佸鏍囨柟鍚戝缓璁?    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">馃尀</div>
+        <div class="card-label">濠寸闃叉檼璧涢亾</div>
+        <div class="card-value" style="font-size:18px;">绔炲搧锛氳湝涓濆┓銆佷竴椤点€佹埓鍙€?/div>
+        <div style="margin-top:10px; font-size:14px; color:#666;">
+          鈥?铚滀笣濠凤細涓绘墦骞磋交濡堝缇や綋锛屽唴瀹归鏍兼椿娉?br>
+          鈥?涓€椤碉細寮鸿皟绉戝鑳屼功锛屽尰鐢熷悎浣滃<br>
+          鈥?鎴村彲鎬濓細鎬т环姣旇矾绾匡紝淇冮攢娲诲姩棰戠箒<br>
+          <strong>Hi! Papa浼樺娍锛?/strong>33寮犻槻鏅掔壒璇?+ IFSCC璁よ瘉 + 鍖荤爺鍏卞垱锛屼笓涓氬鍨掓渶寮?        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">馃摫</div>
+        <div class="card-label">鍐呭绛栫暐鏂瑰悜</div>
+        <div class="card-value" style="font-size:18px;">绉戝绉戞櫘+鎯呮劅鍏遍福</div>
+        <div style="margin-top:10px; font-size:14px; color:#666;">
+          鈥?绔炲搧鏅亶渚ч噸浜у搧鍗栫偣锛孒i! Papa鍦?绉戝绛旀"绯诲垪鏈夊樊寮傚寲<br>
+          鈥?瑗胯棌杩藉厜娲诲姩IP鍖栬繍钀ワ紝绔炲搧灏戣<br>
+          鈥?寤鸿鍔犲己锛氱敤鎴稶GC鍐呭銆佹垚鍒嗗厷娣卞害绉戞櫘銆並OC鍏卞垱钀?        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">馃巵</div>
+        <div class="card-label">618澶т績绛栫暐</div>
+        <div class="card-value" style="font-size:18px;">鍏卞垱钀?绀肩洅缁勫悎</div>
+        <div style="margin-top:10px; font-size:14px; color:#666;">
+          鈥?杩藉厜鍏卞垱钀?.0姝ｅ湪鎷涘嫙锛屽彲杞寲涓?18鍐呭寮硅嵂<br>
+          鈥?鍎跨鑺傜ぜ鐗╃瑪璁颁簰鍔ㄩ珮锛堟敹钘?58/璇勮292锛夛紝鍙鐢?br>
+          鈥?寤鸿锛氶槻鏅?娲侀潰缁勫悎绀肩洅銆佹檼鍗曟湁濂栨椿鍔?        </div>
+      </div>
+    </div>
+
+    <div class="section-title">馃搳 骞冲彴瀵规瘮鐭╅樀</div>
+    <div class="table-container">
+      <table>
+        <tr><th>缁村害</th><th>Hi! Papa</th><th>琛屼笟鏍囨潌鏂瑰悜</th><th>宸窛/鏈轰細</th></tr>
+        <tr><td>绮変笣閲忕骇</td><td>鍏紬鍙?1.8涓?/ 灏忕孩涔?.6涓?/td><td>澶撮儴姣嶅┐鍝佺墝50涓?</td><td>馃煛 灏忕孩涔﹀闀跨┖闂村ぇ</td></tr>
+        <tr><td>鍐呭棰戞</td><td>鍏紬鍙锋棩鏇?/ 寰崥7鏉?鍛?/td><td>灏忕孩涔︽棩鏇?-2鏉?/td><td>馃煛 灏忕孩涔﹀彂甯冮鐜囧彲鎻愬崌</td></tr>
+        <tr><td>浜掑姩鐜?/td><td>灏忕孩涔﹁瘎璁轰簰鍔ㄩ珮</td><td>澶撮儴鍝佺墝浜掑姩鐜?-5%</td><td>馃煝 浜掑姩璐ㄩ噺濂?/td></tr>
+        <tr><td>涓撲笟鑳屼功</td><td>33寮犵壒璇?+ IFSCC</td><td>鏅亶1-5寮犵壒璇?/td><td>馃煝 涓撲笟澹佸瀿鏈€寮?/td></tr>
+        <tr><td>IP杩愯惀</td><td>杩藉厜鍏卞垱钀ャ€佽タ钘忚拷鍏?/td><td>甯歌淇冮攢娲诲姩</td><td>馃煝 宸紓鍖栨槑鏄?/td></tr>
+      </table>
+    </div>
+
+    <div class="warning">
+      鈿狅笍 <strong>娉ㄦ剰锛?/strong>绔炲搧鍏蜂綋绮剧‘鏁板瓧鏈湪姝ゅ睍绀猴紝閬垮厤鏁版嵁娉勯湶銆備互涓婂垎鏋愬熀浜庡叕寮€淇℃伅鍜岃涓氳秼鍔裤€?    </div>
+  </div>
+
+  <!-- 鍏ㄩ儴鏁版嵁椤?-->
+  <div id="detail" class="tab-content">
+    <div class="section-title">馃搱 鍏紬鍙疯缁嗘暟鎹?/div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">鍘熷垱鍐呭鏁?/div>
+        <div class="card-value">39</div>
+      </div>
+      <div class="card">
+        <div class="card-label">鏄ㄦ棩鏂板鍏虫敞</div>
+        <div class="card-value">34</div>
+        <div class="card-change up">+41%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">鐩存挱瑙傜湅浜烘</div>
+        <div class="card-value">356</div>
+      </div>
+      <div class="card">
+        <div class="card-label">鐩存挱鎴愪氦閲戦</div>
+        <div class="card-value">楼721</div>
+      </div>
+    </div>
+
+    <div class="section-title">馃搱 灏忕孩涔﹁缁嗘暟鎹?/div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">鎬荤矇涓濇暟</div>
+        <div class="card-value">56,199</div>
+      </div>
+      <div class="card">
+        <div class="card-label">鏂板绮変笣</div>
+        <div class="card-value">430</div>
+      </div>
+      <div class="card">
+        <div class="card-label">娴佸け绮変笣</div>
+        <div class="card-value">78</div>
+      </div>
+      <div class="card">
+        <div class="card-label">绗旇鎬绘暟</div>
+        <div class="card-value">701</div>
+      </div>
+    </div>
+    <div class="table-container">
+      <table>
+        <tr><th>鎸囨爣</th><th>鏁版嵁</th></tr>
+        <tr><td>鎬у埆-鐢锋€?/td><td>9%</td></tr>
+        <tr><td>鎬у埆-濂虫€?/td><td>91%</td></tr>
+        <tr><td>绮変笣鏉ユ簮-棣栭〉鎺ㄨ崘</td><td>41.24%</td></tr>
+        <tr><td>绮変笣鏉ユ簮-涓汉涓婚〉</td><td>27.84%</td></tr>
+        <tr><td>绮変笣鏉ユ簮-鎼滅储</td><td>24.74%</td></tr>
+        <tr><td>绮変笣鏉ユ簮-鍏朵粬</td><td>5.15%</td></tr>
+        <tr><td>绮変笣鏉ユ簮-瑙嗛鎺ㄨ崘</td><td>1.03%</td></tr>
+        <tr><td>绮変笣鏉ユ簮-鐩存挱</td><td>0%</td></tr>
+      </table>
+    </div>
+
+    <div class="section-title">馃搱 寰崥璇︾粏鏁版嵁</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">鏄ㄦ棩鍑€澧炵矇涓?/div>
+        <div class="card-value">4</div>
+        <div class="card-change up">+20%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">鏄ㄦ棩闃呰</div>
+        <div class="card-value">987</div>
+      </div>
+      <div class="card">
+        <div class="card-label">鏄ㄦ棩鍙戝崥</div>
+        <div class="card-value">2</div>
+      </div>
+      <div class="card">
+        <div class="card-label">瑙嗛鍙戝竷</div>
+        <div class="card-value">1</div>
+      </div>
+    </div>
+
+    <div class="section-title">馃搮 鍛ㄦ姤鏁版嵁姹囨€?(05.23-05.29)</div>
+    <div class="table-container">
+      <table>
+        <tr><th>骞冲彴</th><th>鎸囨爣</th><th>鏁板€?/th><th>鐜瘮</th></tr>
+        <tr><td>寰崥</td><td>鍑€澧炵矇涓?/td><td>34</td><td>--</td></tr>
+        <tr><td>寰崥</td><td>鏂板绮変笣</td><td>36</td><td>--</td></tr>
+        <tr><td>寰崥</td><td>鍑忓皯绮変笣</td><td>2</td><td>--</td></tr>
+        <tr><td>寰崥</td><td>寰崥闃呰鏁?/td><td>5,740</td><td>+41.62%</td></tr>
+        <tr><td>寰崥</td><td>杞瘎璧炴暟</td><td>109</td><td>+1262.5%</td></tr>
+        <tr><td>寰崥</td><td>鐐瑰嚮鏁?/td><td>40</td><td>-56.99%</td></tr>
+        <tr><td>寰崥</td><td>鍙戝崥鏁?/td><td>7</td><td>+75%</td></tr>
+        <tr><td>寰崥</td><td>鍘熷垱寰崥鏁?/td><td>7</td><td>+75%</td></tr>
+        <tr><td>寰崥</td><td>瑙嗛鍙戝竷鏁?/td><td>2</td><td>--</td></tr>
+        <tr><td>寰崥</td><td>瑙嗛鎾斁閲?/td><td>357</td><td>+27.05%</td></tr>
+        <tr><td>寰崥</td><td>瑙嗛杞瘎璧?/td><td>2</td><td>--</td></tr>
+        <tr><td>寰崥</td><td>鏂囩珷鍙戝竷鏁?/td><td>0</td><td>--</td></tr>
+        <tr><td>寰崥</td><td>鏂囩珷闃呰鏁?/td><td>3</td><td>0%</td></tr>
+      </table>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-container">
+        <h3>馃搳 寰崥鍛ㄨ秼鍔?/h3>
+        <canvas id="weiboWeekChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <h3>馃搱 鍏紬鍙疯繎鏈熷唴瀹归槄璇?/h3>
+        <canvas id="wechatContentChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Hi! Papa 娴烽緹鐖哥埜 | 鏁版嵁鐪嬫澘鑷姩鐢熸垚 | 鏁版嵁鏉ユ簮锛氬叕浼楀彿鍚庡彴/灏忕孩涔﹀垱浣滄湇鍔″钩鍙?寰崥鏁版嵁鍔╂墜</p>
+    <p>鏃犳硶楠岃瘉鐨勬暟鎹凡鏍囬粍鐣欑┖锛岀姝㈢紪閫?| 绔炲搧瀵规爣鍙斁鏂瑰悜鍒嗘瀽</p>
+  </div>
+</div>
+
+<script>
+function showTab(tabName) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById(tabName).classList.add('active');
+}
+
+// 涓夊钩鍙扮矇涓濆垎甯?new Chart(document.getElementById('fansChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['寰俊鍏紬鍙?218,414', '灏忕孩涔?56,199', '寰崥锛堜及绠楋級'],
+    datasets: [{
+      data: [218414, 56199, 5000],
+      backgroundColor: ['#07c160', '#ff2442', '#e6162d']
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom' } }
+  }
+});
+
+// 灏忕孩涔︾矇涓濇潵婧?new Chart(document.getElementById('sourceChart'), {
+  type: 'pie',
+  data: {
+    labels: ['棣栭〉鎺ㄨ崘 41.24%', '涓汉涓婚〉 27.84%', '鎼滅储 24.74%', '鍏朵粬 5.15%', '瑙嗛鎺ㄨ崘 1.03%', '鐩存挱 0%'],
+    datasets: [{
+      data: [41.24, 27.84, 24.74, 5.15, 1.03, 0],
+      backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#ffd700', '#c0c0c0']
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom' } }
+  }
+});
+
+// 寰崥鍛ㄨ秼鍔?new Chart(document.getElementById('weiboWeekChart'), {
+  type: 'bar',
+  data: {
+    labels: ['鍑€澧炵矇涓?, '寰崥闃呰', '杞瘎璧?, '鍙戝崥鏁?, '瑙嗛鎾斁'],
+    datasets: [{
+      label: '鏈懆鏁板€?,
+      data: [34, 5740, 109, 7, 357],
+      backgroundColor: '#e6162d'
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: { y: { beginAtZero: true } }
+  }
+});
+
+// 鍏紬鍙峰唴瀹归槄璇?new Chart(document.getElementById('wechatContentChart'), {
+  type: 'bar',
+  data: {
+    labels: ['灏忓厜鐩惧師鏂?, '閬垮潙鎸囧崡', '瑗胯棌杩藉厜', '濂芥湅鍙嬫潵淇?, '姣嶄翰鑺?, '鍏卞垱钀?, '闃叉檼璇尯', '2D鎴愬垎'],
+    datasets: [{
+      label: '闃呰閲?,
+      data: [792, 713, 668, 529, 1202, 260, 76, 109],
+      backgroundColor: '#07c160'
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: { y: { beginAtZero: true } }
+  }
+});
+</script>
 </body>
 </html>
