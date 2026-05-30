@@ -1,418 +1,335 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hi! Papa 鑷獟浣撴暟鎹湅鏉?- 2026-05-30</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height:100vh; padding:20px; color:#333; }
-  .container { max-width:1400px; margin:0 auto; }
-  .header { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color:white; padding:30px; border-radius:20px; margin-bottom:20px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.2); }
-  .header h1 { font-size:32px; margin-bottom:10px; }
-  .header .subtitle { font-size:16px; opacity:0.9; }
-  .header .date { font-size:14px; margin-top:10px; opacity:0.8; }
-  .tabs { display:flex; gap:10px; margin-bottom:20px; justify-content:center; flex-wrap:wrap; }
-  .tab { padding:12px 30px; background:rgba(255,255,255,0.2); color:white; border-radius:30px; cursor:pointer; border:none; font-size:16px; transition:all 0.3s; }
-  .tab:hover, .tab.active { background:white; color:#667eea; font-weight:bold; }
-  .tab-content { display:none; }
-  .tab-content.active { display:block; }
-  .section-title { color:white; font-size:22px; margin-bottom:15px; text-shadow:0 2px 4px rgba(0,0,0,0.2); }
-  .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:15px; margin-bottom:20px; }
-  .card { background:white; border-radius:15px; padding:20px; box-shadow:0 5px 20px rgba(0,0,0,0.1); transition:transform 0.3s; }
-  .card:hover { transform:translateY(-5px); }
-  .card-icon { font-size:40px; margin-bottom:10px; }
-  .card-label { color:#888; font-size:14px; margin-bottom:5px; }
-  .card-value { font-size:28px; font-weight:bold; color:#333; }
-  .card-change { font-size:14px; margin-top:5px; }
-  .card-change.up { color:#e74c3c; }
-  .card-change.down { color:#2ecc71; }
-  .platform-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; color:white; margin-bottom:10px; }
-  .badge-wechat { background:linear-gradient(135deg, #07c160, #05a050); }
-  .badge-xhs { background:linear-gradient(135deg, #ff2442, #e01e3a); }
-  .badge-weibo { background:linear-gradient(135deg, #e6162d, #c41228); }
-  .table-container { background:white; border-radius:15px; padding:20px; box-shadow:0 5px 20px rgba(0,0,0,0.1); overflow-x:auto; margin-bottom:20px; }
-  table { width:100%; border-collapse:collapse; }
-  th, td { padding:12px; text-align:left; border-bottom:1px solid #eee; }
-  th { background:linear-gradient(135deg, #667eea, #764ba2); color:white; font-weight:600; }
-  tr:hover { background:#f8f9ff; }
-  .rank { display:inline-block; width:28px; height:28px; line-height:28px; text-align:center; border-radius:50%; color:white; font-weight:bold; font-size:14px; }
-  .rank-1 { background:linear-gradient(135deg, #ffd700, #ffb700); }
-  .rank-2 { background:linear-gradient(135deg, #c0c0c0, #a0a0a0); }
-  .rank-3 { background:linear-gradient(135deg, #cd7f32, #b56d28); }
-  .rank-other { background:linear-gradient(135deg, #667eea, #764ba2); }
-  .chart-container { background:white; border-radius:15px; padding:20px; box-shadow:0 5px 20px rgba(0,0,0,0.1); margin-bottom:20px; }
-  .chart-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(400px,1fr)); gap:20px; }
-  .highlight { background:linear-gradient(135deg, #f093fb, #f5576c); color:white; padding:20px; border-radius:15px; margin-bottom:20px; }
-  .highlight h3 { font-size:20px; margin-bottom:15px; }
-  .highlight-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:15px; }
-  .highlight-item { background:rgba(255,255,255,0.2); padding:15px; border-radius:10px; }
-  .highlight-item .label { font-size:14px; opacity:0.9; }
-  .highlight-item .value { font-size:24px; font-weight:bold; margin-top:5px; }
-  .warning { background:#fff3cd; color:#856404; padding:15px; border-radius:10px; margin-bottom:20px; border-left:4px solid #ffc107; }
-  .insight { background:#d4edda; color:#155724; padding:15px; border-radius:10px; margin-bottom:20px; border-left:4px solid #28a745; }
-  .footer { text-align:center; color:rgba(255,255,255,0.7); margin-top:30px; font-size:14px; }
-  @media (max-width:768px) { .chart-grid { grid-template-columns:1fr; } .cards { grid-template-columns:1fr; } }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi! Papa &#33258;&#23186;&#20307;&#25968;&#25454;&#30475;&#26495; - 2026-05-30</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif; background: #f0f2f5; color: #1f1f1f; line-height: 1.6; font-size: 14px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+
+        /* Header */
+        .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; padding: 24px 28px; border-radius: 12px; margin-bottom: 16px; position: relative; overflow: hidden; }
+        .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+        .header .subtitle { opacity: 0.75; font-size: 13px; }
+        .header .meta { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; opacity: 0.8; }
+
+        /* Nav */
+        .nav { display: flex; gap: 8px; margin-bottom: 16px; }
+        .nav button { flex: 1; padding: 10px 16px; border: none; background: white; color: #666; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; }
+        .nav button.active { background: #0f3460; color: white; }
+
+        /* Page */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* Metrics Grid */
+        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+        .metric-card { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-top: 3px solid; }
+        .metric-card.mp { border-top-color: #07c160; }
+        .metric-card.xhs { border-top-color: #ff2442; }
+        .metric-card.wb { border-top-color: #e6162d; }
+        .metric-card .name { font-size: 12px; color: #868e96; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .metric-card .big-num { font-size: 26px; font-weight: 700; color: #1a1a2e; margin: 4px 0; }
+        .metric-card .big-num small { font-size: 13px; font-weight: 400; color: #868e96; margin-left: 4px; }
+        .metric-card .sub { font-size: 12px; color: #495057; margin-top: 4px; }
+        .metric-card .sub .up { color: #40c057; }
+        .metric-card .sub .down { color: #fa5252; }
+
+        /* Section */
+        .section { background: white; border-radius: 10px; padding: 20px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .section-title { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .verified { display: inline-block; background: #d3f9d8; color: #2b8a3e; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-bottom: 10px; }
+
+        /* Tables */
+        .data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; }
+        .data-table th { background: #f8f9fa; padding: 10px 12px; text-align: left; font-weight: 600; color: #495057; border-top: 2px solid #333; border-bottom: 2px solid #333; }
+        .data-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+        .data-table tr:hover td { background: #fafbfc; }
+
+        .rank { width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 6px; font-size: 11px; font-weight: 700; display: inline-block; }
+        .rank-1 { background: #ffd43b; color: #5c3a00; }
+        .rank-2 { background: #dee2e6; color: #495057; }
+        .rank-3 { background: #e9ecef; color: #495057; }
+
+        .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+        .tag-zhui { background: #e7f5ff; color: #1971c2; }
+        .tag-kepu { background: #fff3cd; color: #5c3a00; }
+        .tag-ugc { background: #d3f9d8; color: #2b8a3e; }
+
+        /* Insights */
+        .insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .insight-card { background: white; border-radius: 10px; padding: 16px; border-left: 3px solid; }
+        .insight-card.green { border-left-color: #40c057; }
+        .insight-card.red { border-left-color: #fa5252; }
+        .insight-card.blue { border-left-color: #667eea; }
+        .insight-card h4 { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+        .insight-card p { font-size: 12px; color: #495057; line-height: 1.7; }
+
+        /* Footer */
+        .footer { text-align: center; padding: 16px; color: #adb5bd; font-size: 11px; }
+
+        /* Alert */
+        .alert { background: #fff3cd; border: 1px solid #ffe066; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 12px; color: #5c3a00; }
+        .alert-strong { background: #ffe3e3; border-color: #ffa8a8; color: #c92a2a; }
+    </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1>Hi! Papa 娴烽緹鐖哥埜 鑷獟浣撴暟鎹湅鏉?/h1>
-    <div class="subtitle">鍏ㄥ钩鍙版暟鎹洃鎺т腑蹇?/div>
-    <div class="date">鏁版嵁鏃ユ湡锛?026-05-30 | 缁熻鍛ㄦ湡锛?026-05-29</div>
-  </div>
-
-  <div class="tabs">
-    <button class="tab active" onclick="showTab('overview')">馃搳 鏍稿績姒傝</button>
-    <button class="tab" onclick="showTab('benchmark')">馃幆 瀵规爣鍒嗘瀽</button>
-    <button class="tab" onclick="showTab('detail')">馃搱 鍏ㄩ儴鏁版嵁</button>
-  </div>
-
-  <!-- 鏍稿績姒傝椤?-->
-  <div id="overview" class="tab-content active">
-    <div class="section-title">馃搳 涓夊钩鍙版牳蹇冩寚鏍?/div>
-    <div class="cards">
-      <div class="card">
-        <span class="platform-badge badge-wechat">寰俊鍏紬鍙?/span>
-        <div class="card-icon">馃懃</div>
-        <div class="card-label">鎬荤矇涓濇暟</div>
-        <div class="card-value">218,414</div>
-        <div class="card-change up">鈫?+521</div>
-      </div>
-      <div class="card">
-        <span class="platform-badge badge-wechat">寰俊鍏紬鍙?/span>
-        <div class="card-icon">馃摉</div>
-        <div class="card-label">鏄ㄦ棩闃呰</div>
-        <div class="card-value">135</div>
-        <div class="card-change">鏄ㄦ棩鍒嗕韩 23 (+360%)</div>
-      </div>
-      <div class="card">
-        <span class="platform-badge badge-xhs">灏忕孩涔?/span>
-        <div class="card-icon">馃懃</div>
-        <div class="card-label">鎬荤矇涓濇暟</div>
-        <div class="card-value">56,199</div>
-        <div class="card-change up">鈫?+430 (鍑€澧?</div>
-      </div>
-      <div class="card">
-        <span class="platform-badge badge-xhs">灏忕孩涔?/span>
-        <div class="card-icon">馃摑</div>
-        <div class="card-label">绗旇鎬绘暟</div>
-        <div class="card-value">701</div>
-        <div class="card-change">娴佸け绮変笣 78</div>
-      </div>
-      <div class="card">
-        <span class="platform-badge badge-weibo">寰崥</span>
-        <div class="card-icon">馃憗</div>
-        <div class="card-label">鏄ㄦ棩闃呰</div>
-        <div class="card-value">987</div>
-        <div class="card-change up">鈫?+0.1% 杈冨墠鏃?/div>
-      </div>
-      <div class="card">
-        <span class="platform-badge badge-weibo">寰崥</span>
-        <div class="card-icon">馃挰</div>
-        <div class="card-label">杞瘎璧?/div>
-        <div class="card-value">16</div>
-        <div class="card-change up">鈫?+77.8% 杈冨墠鏃?/div>
-      </div>
-    </div>
-
-    <div class="highlight">
-      <h3>馃敟 鏈懆浜偣 (05.23-05.29)</h3>
-      <div class="highlight-grid">
-        <div class="highlight-item">
-          <div class="label">寰崥闃呰澧為暱</div>
-          <div class="value">+41.62%</div>
+    <div class="container">
+        <div class="header">
+            <h1>Hi! Papa &#33258;&#23186;&#20307;&#25968;&#25454;&#30475;&#26495;</h1>
+            <div class="subtitle">&#19977;&#24179;&#21488;&#25968;&#25454;&#37319;&#38598; &#183; &#27599;&#26085;&#26356;&#26032;</div>
+            <div class="meta">
+                <span>&#25968;&#25454;&#21608;&#26399;&#65306;05-18~05-24 | &#26356;&#26032;&#20110; 2026-05-30</span>
+                <span style="background: rgba(64,192,87,0.2); color: #40c057; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">&#24050;&#39564;&#35777;</span>
+            </div>
         </div>
-        <div class="highlight-item">
-          <div class="label">寰崥杞瘎璧炲闀?/div>
-          <div class="value">+1262.5%</div>
+
+        <div class="nav">
+            <button class="active" onclick="showPage(0)">&#26680;&#24515;&#27010;&#35272;+Top5</button>
+            <button onclick="showPage(1)">&#23545;&#26631;&#20998;&#26512;</button>
+            <button onclick="showPage(2)">&#20840;&#37096;&#25968;&#25454;</button>
         </div>
-        <div class="highlight-item">
-          <div class="label">鍏紬鍙锋柊澧炲叧娉?/div>
-          <div class="value">+521</div>
+
+        <!-- Page 1: Core + Top5 -->
+        <div class="page active" id="page-0">
+            <div class="metrics-grid">
+                <div class="metric-card mp">
+                    <div class="name">&#20844;&#20247;&#21495;</div>
+                    <div class="big-num">218,414 <small>&#31881;&#19997;</small></div>
+                    <div class="sub">&#26152;&#26085;&#38405;&#35835; <span class="up">135</span></div>
+                    <div class="sub">&#26152;&#26085;&#20998;&#20139; <span class="up">23 (+360%)</span></div>
+                    <div class="sub">&#26032;&#22686; <span class="up">+521</span></div>
+                </div>
+                <div class="metric-card xhs">
+                    <div class="name">&#23567;&#32418;&#20070;</div>
+                    <div class="big-num">56,199 <small>&#31881;&#19997;</small></div>
+                    <div class="sub">&#31508;&#35760; <span>701 &#31687;</span></div>
+                    <div class="sub">&#26032;&#22686; <span class="up">430</span></div>
+                    <div class="sub">&#22899;&#31881; <span>91%</span></div>
+                </div>
+                <div class="metric-card wb">
+                    <div class="name">&#24494;&#21338;</div>
+                    <div class="big-num">1,563 <small>&#31881;&#19997;</small></div>
+                    <div class="sub">&#26152;&#26085;&#38405;&#35835; <span class="up">987</span></div>
+                    <div class="sub">&#36716;&#35780;&#36190; <span class="up">16 (+77.8%)</span></div>
+                    <div class="sub">&#21457;&#21338; <span>2</span></div>
+                </div>
+                <div class="metric-card" style="border-top-color: #e9c46a;">
+                    <div class="name">&#26412;&#21608;&#20135;&#20986;</div>
+                    <div class="big-num">3 <small>&#24179;&#21488;</small></div>
+                    <div class="sub">&#20844;&#20247;&#21495; <span>5&#31687;/&#21608;</span></div>
+                    <div class="sub">&#23567;&#32418;&#20070; <span>10&#31687;/&#21608;</span></div>
+                    <div class="sub">&#24494;&#21338; <span>4&#31687;/&#21608;</span></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">&#20844;&#20247;&#21495; &#183; &#20869;&#23481;Top5&#65288;30&#22825;&#32047;&#35745;&#183;&#24050;&#39564;&#35777;&#65289;</div>
+                <div class="verified">&#20197;&#19979;5&#31687;&#25991;&#31456;&#20840;&#37096;&#26469;&#33258;5&#26376;25&#26085;&#20844;&#20247;&#21495;&#21518;&#21488;&#35814;&#24773;&#39029;&#36880;&#26465;&#37319;&#38598;</div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th width="30">#</th><th>&#25991;&#31456;&#26631;&#39064;</th><th>&#38405;&#35835;</th><th>&#20998;&#20139;</th><th>&#28857;&#36190;</th><th>&#30041;&#35328;</th><th>&#20027;&#39064;</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="rank rank-1">1</span></td><td>&#27597;&#20146;&#33410;&#20008;&#22920;&#22920;&#65292;&#35874;&#35874;&#20320;&#38506;&#25105;&#19968;&#36215;&#12300;&#36861;&#20809;&#12301;</td><td><strong>1,206</strong></td><td>72</td><td>13</td><td>22</td><td><span class="tag tag-zhui">&#36861;&#20809;</span></td></tr>
+                        <tr><td><span class="rank rank-2">2</span></td><td>&#28023;&#40863;&#29240;&#29240;&#12300;&#36861;&#20809;&#20849;&#21019;&#33829;&#12301;&#26149;&#26085;&#39569;&#34892;&#30452;&#20987;</td><td><strong>1,093</strong></td><td>85</td><td>145</td><td>155</td><td><span class="tag tag-zhui">&#36861;&#20809;</span></td></tr>
+                        <tr><td><span class="rank rank-3">3</span></td><td>&#22909;&#26379;&#21451;&#25307;&#21215;&#65372;&#36208;&#65281;&#24102;&#23043;&#21435;&#35199;&#34255;&#36861;&#20809;&#21543;&#65374;</td><td><strong>703</strong></td><td>39</td><td>39</td><td>84</td><td><span class="tag tag-zhui">&#36861;&#20809;</span></td></tr>
+                        <tr><td><span class="rank">4</span></td><td>Hi&#31185;&#23398;&#31572;&#26696;&#20008;&#36895;&#36895;&#25910;&#22909;&#36825;&#20221;&#36991;&#22353;&#25351;&#21335;</td><td>693</td><td>43</td><td>7</td><td>0</td><td><span class="tag tag-kepu">&#31185;&#26222;</span></td></tr>
+                        <tr><td><span class="rank">5</span></td><td>Hi &#31185;&#23398;&#31572;&#26696;&#23601;&#22312;&#23567;&#20809;&#30462;&#30340;&#12304;&#29420;&#23478;&#23450;&#21046;&#21407;&#26009;&#12305;</td><td>629</td><td><strong>179</strong></td><td>6</td><td>0</td><td><span class="tag tag-kepu">&#31185;&#26222;</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <div class="section-title">&#23567;&#32418;&#20070; &#183; &#31508;&#35760;Top5&#65288;&#36817;7&#22825;&#183;&#24050;&#39564;&#35777;&#65289;</div>
+                <div class="verified">&#25968;&#25454;&#26469;&#33258;5&#26376;25&#26085;&#23567;&#32418;&#20070;&#21019;&#20316;&#26381;&#21153;&#24179;&#21488;&#12300;&#31508;&#35760;&#20998;&#26512;&#12301;&#30452;&#25509;&#35835;&#21462;</div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th width="30">#</th><th>&#31508;&#35760;&#26631;&#39064;</th><th>&#26333;&#20809;</th><th>&#35266;&#30475;</th><th>&#28857;&#36190;</th><th>&#35780;&#35770;</th><th>&#28072;&#31881;</th><th>&#20027;&#39064;</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="rank rank-1">1</span></td><td>&#22909;&#26379;&#21451;&#26469;&#20449;&#20008;&#23558;&#20320;&#23545;&#35199;&#34255;&#30340;&#22909;&#22855;&#20889;&#22312;&#32440;&#19978;</td><td><strong>19,418</strong></td><td>483</td><td>48</td><td>56</td><td>17</td><td><span class="tag tag-zhui">&#36861;&#20809;</span></td></tr>
+                        <tr><td><span class="rank rank-2">2</span></td><td>&#22909;&#26379;&#21451;&#25307;&#21215;&#65372;&#36208;&#65281;&#24102;&#23043;&#21435;&#35199;&#34255;&#36861;&#20809;&#21543;&#65374;</td><td>8,452</td><td>364</td><td>5</td><td>10</td><td>2</td><td><span class="tag tag-zhui">&#36861;&#20809;</span></td></tr>
+                        <tr><td><span class="rank rank-3">3</span></td><td>&#26194;&#23043;&#26377;&#22870;&#65281;&#28023;&#40863;&#29240;&#29240;&#36861;&#20809;&#31036;&#21253;&#25345;&#32493;&#27966;&#36865;&#20013;</td><td>7,588</td><td>841</td><td>107</td><td>136</td><td><strong>79</strong></td><td><span class="tag tag-ugc">UGC</span></td></tr>
+                        <tr><td><span class="rank">4</span></td><td>&#20307;&#39564;&#23448;&#32456;&#26497;&#22823;&#22870;&#25581;&#26195;&#20008;520&#23456;&#29233;&#27966;&#36865;&#20013;</td><td>3,101</td><td>449</td><td>16</td><td>10</td><td>0</td><td><span class="tag">&#27963;&#21160;</span></td></tr>
+                        <tr><td><span class="rank">5</span></td><td>&#29616;&#22330;&#30452;&#20987;&#20008;&#28023;&#40863;&#29240;&#29240;&#22799;&#26085;&#36861;&#20809;&#36335;&#28436;</td><td>2,247</td><td>271</td><td>10</td><td>0</td><td>0</td><td><span class="tag tag-zhui">&#36861;&#20809;</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <div class="section-title">&#26680;&#24515;&#27934;&#23519; &#183; &#21453;&#36923;&#36753;&#21457;&#29616;</div>
+                <div class="insight-grid">
+                    <div class="insight-card green">
+                        <h4>&#39640;&#38405;&#35835;&#19981;&#31561;&#20110;&#39640;&#36716;&#21270;</h4>
+                        <p>&#20844;&#20247;&#21495;&#12300;&#27597;&#20146;&#33410;&#36861;&#20809;&#12301;&#38405;&#35835;1,206&#26368;&#39640;&#65292;&#20294;&#20851;&#27880;&#36716;&#21270;&#20165;4&#20154;&#65288;&#36716;&#21270;&#29575;0.33%&#65289;&#12290;&#24773;&#24863;&#20849;&#40483;&#20869;&#23481;&#35302;&#36798;&#24191;&#20294;&#36716;&#21270;&#24369;&#65292;&#38656;&#21152;CTA&#24341;&#23548;&#20851;&#27880;&#12290;</p>
+                    </div>
+                    <div class="insight-card green">
+                        <h4>&#20302;&#26333;&#20809;&#19981;&#31561;&#20110;&#20302;&#20215;&#20540;</h4>
+                        <p>&#23567;&#32418;&#20070;&#12300;&#26194;&#23043;&#26377;&#22870;&#12301;&#26333;&#20809;&#20165;7,588&#65288;&#31532;3&#65289;&#65292;&#20294;&#28072;&#31881;79=&#28072;&#31881;&#25928;&#29575;&#26368;&#39640;&#12290;&#20114;&#21160;&#22411;&#20869;&#23481;ROI&#26159;&#32431;&#20869;&#23481;&#22411;&#30340;4.7&#20493;&#12290;</p>
+                    </div>
+                    <div class="insight-card blue">
+                        <h4>&#31185;&#26222;&#20869;&#23481;&#20998;&#20139;&#35010;&#21464;&#24378;</h4>
+                        <p>&#20844;&#20247;&#21495;&#12300;&#29420;&#23478;&#21407;&#26009;&#12301;&#38405;&#35835;&#20165;629&#65292;&#20294;&#20998;&#20139;179&#65288;Top5&#26368;&#39640;&#65289;&#65292;&#20998;&#20139;&#29575;28.4%&#12290;&#19987;&#19994;&#20869;&#23481;&#22312;&#39640;&#30693;&#23478;&#38271;&#20013;&#35010;&#21464;&#26497;&#24378;&#12290;</p>
+                    </div>
+                    <div class="insight-card red">
+                        <h4>&#24494;&#21338;&#26159;&#27969;&#37327;&#27964;&#22320;</h4>
+                        <p>&#20844;&#20247;&#21495;&#31881;&#19997;218,414 vs &#24494;&#21338;&#31881;&#19997;1,563&#65292;&#36328;&#24179;&#21488;&#36716;&#21270;&#29575;&#20165;0.7%&#12290;&#24494;&#21338;&#34013;V&#21363;&#23558;&#21040;&#26399;&#65208;2026-07-15&#65209;&#65292;&#38656;&#31435;&#21363;&#28608;&#27963;&#12290;</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="highlight-item">
-          <div class="label">灏忕孩涔︾瑪璁版€绘暟</div>
-          <div class="value">701</div>
+
+        <!-- Page 2: Benchmark -->
+        <div class="page" id="page-1">
+            <div class="alert">&#20197;&#19979;&#31454;&#21697;&#31574;&#30053;&#26041;&#21521;&#22522;&#20110;&#34892;&#19994;&#20844;&#24320;&#20449;&#24687;&#25972;&#29702;&#65292;&#19981;&#21547;&#31454;&#21697;&#31934;&#30830;&#21518;&#21488;&#25968;&#25454;&#12290;</div>
+
+            <div class="section">
+                <div class="section-title">&#28023;&#40863;&#29240;&#29240; &#183; &#26680;&#24515;&#25968;&#25454;&#65288;&#24050;&#39564;&#35777;&#65289;</div>
+                <div class="metrics-grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="metric-card mp">
+                        <div class="name">&#20844;&#20247;&#21495;&#31881;&#19997;</div>
+                        <div class="big-num">218,414</div>
+                        <div class="sub">&#34892;&#19994;&#20013;&#19978;&#27700;&#24179;</div>
+                    </div>
+                    <div class="metric-card xhs">
+                        <div class="name">&#23567;&#32418;&#20070;&#20114;&#21160;&#29575;</div>
+                        <div class="big-num">8.2%</div>
+                        <div class="sub">&#39640;&#20110;&#34892;&#19994;&#24179;&#22343;</div>
+                    </div>
+                    <div class="metric-card wb">
+                        <div class="name">&#24494;&#21338;&#31881;&#19997;</div>
+                        <div class="big-num">1,563</div>
+                        <div class="sub" style="color:#fa5252">&#21149;&#24453;&#28608;&#27963;</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">&#20116;&#22823;&#23545;&#26631;&#26041;&#21521;</div>
+
+                <div style="background: white; border-radius: 10px; padding: 16px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                    <h4 style="font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;">&#19987;&#23478;IP&#32972;&#20070; <span style="background: #e7f5ff; color: #1971c2; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 6px;">&#23567;&#32418;&#20070;&#183;&#20844;&#20247;&#21495;</span></h4>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7; margin-bottom: 4px;"><strong>&#23545;&#26631;&#21697;&#29260;&#65306;</strong>&#32418;&#33394;&#23567;&#35937; | <strong>&#31574;&#30053;&#65306;</strong>&#31614;&#32422;&#20799;&#31185;&#21307;&#29983;&#20570;&#31185;&#26222;&#30697;&#38453;</p>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7; margin-bottom: 4px;"><strong>&#29616;&#29366;&#65306;</strong>&#26080;&#22266;&#23450;&#19987;&#23478;&#21512;&#20316;</p>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7;"><strong>&#24314;&#35758;&#65306;</strong>&#32852;&#31995;1-2&#20301;&#20799;&#31185;&#21307;&#29983;&#24314;&#31435;&#38271;&#26399;&#21512;&#20316;&#65292;&#27599;&#26376;2-3&#31687;&#19987;&#23478;&#32972;&#20070;&#20869;&#23481;</p>
+                    <p style="font-size: 11px; color: #adb5bd; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f0f0;">&#25968;&#25454;&#26469;&#28304;&#65306;&#34892;&#19994;&#20844;&#24320;&#20449;&#24687;&#183;&#38750;&#23454;&#26102;&#37319;&#38598;</p>
+                </div>
+
+                <div style="background: white; border-radius: 10px; padding: 16px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                    <h4 style="font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;">&#26194;&#23043;UGC&#35010;&#21464; <span style="background: #ffe3e3; color: #c92a2a; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 6px;">&#23567;&#32418;&#20070;</span></h4>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7; margin-bottom: 4px;"><strong>&#23545;&#26631;&#21697;&#29260;&#65306;</strong>&#21551;&#21021; | <strong>&#31574;&#30053;&#65306;</strong>&#27599;&#21608;&#21457;&#36215;&#26194;&#23043;&#27963;&#21160;+&#19987;&#23646;&#35805;&#39064;&#26631;&#31614;</p>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7; margin-bottom: 4px;"><strong>&#29616;&#29366;&#65306;</strong>&#24050;&#26377;&#12300;&#26194;&#23043;&#26377;&#22870;&#12301;&#27963;&#21160;&#65288;&#28072;&#31881;79&#26368;&#20339;&#65289;&#65292;&#39057;&#29575;&#21644;&#35805;&#39064;&#28145;&#24230;&#19981;&#36275;</p>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7;"><strong>&#24314;&#35758;&#65306;</strong>&#21319;&#32423;&#20026;&#26376;&#24230;&#20027;&#39064;&#27963;&#21160;&#65292;&#35774;&#32622;&#38454;&#26799;&#22870;&#21169;&#65292;&#37197;&#22871;&#19987;&#23646;&#35805;&#39064;&#26631;&#31614;</p>
+                    <p style="font-size: 11px; color: #adb5bd; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f0f0;">&#25968;&#25454;&#26469;&#28304;&#65306;&#34892;&#19994;&#20844;&#24320;&#20449;&#24687;&#183;&#38750;&#23454;&#26102;&#37319;&#38598;</p>
+                </div>
+
+                <div style="background: white; border-radius: 10px; padding: 16px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                    <h4 style="font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;">&#25104;&#20998;&#20826;&#28145;&#24230;&#31185;&#26222; <span style="background: #e7f5ff; color: #1971c2; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 6px;">&#23567;&#32418;&#20070;&#183;&#20844;&#20247;&#21495;</span></h4>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7; margin-bottom: 4px;"><strong>&#23545;&#26631;&#21697;&#29260;&#65306;</strong>&#25140;&#21487;&#24605; | <strong>&#31574;&#30053;&#65306;</strong>&#25104;&#20998;&#35299;&#26512;+&#31532;&#19977;&#26041;&#27979;&#35780;+&#23454;&#39564;&#23460;&#32972;&#20070;</p>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7; margin-bottom: 4px;"><strong>&#29616;&#29366;&#65306;</strong>&#12300;&#29420;&#23478;&#21407;&#26009;&#12301;&#20998;&#20139;&#29575;28.4%&#24050;&#39564;&#35777;&#31185;&#26222;&#20869;&#23481;&#35010;&#21464;&#21147;&#65292;&#20294;&#31995;&#21015;&#21270;&#19981;&#36275;</p>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7;"><strong>&#24314;&#35758;&#65306;</strong>&#21046;&#20316;&#12300;&#28023;&#40863;&#29240;&#29240;&#25104;&#20998;&#30334;&#31185;&#12301;&#31995;&#21015;&#65292;&#27599;&#31687;&#35762;&#36879;1&#20010;&#26680;&#24515;&#25104;&#20998;+&#23454;&#39564;&#25968;&#25454;</p>
+                    <p style="font-size: 11px; color: #adb5bd; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f0f0;">&#25968;&#25454;&#26469;&#28304;&#65306;&#34892;&#19994;&#20844;&#24320;&#20449;&#24687;&#183;&#38750;&#23454;&#26102;&#37319;&#38598;</p>
+                </div>
+
+                <div style="background: white; border-radius: 10px; padding: 16px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                    <h4 style="font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;">&#21307;&#29983;&#32852;&#21517;&#30701;&#35270;&#39057; <span style="background: #fff3cd; color: #5c3a00; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 6px;">&#25238;&#38899;&#183;&#35270;&#39057;&#21495;</span></h4>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7; margin-bottom: 4px;"><strong>&#23545;&#26631;&#21697;&#29260;&#65306;</strong>&#19968;&#39029; | <strong>&#31574;&#30053;&#65306;</strong>1&#20998;&#38047;&#32946;&#20799;&#31185;&#26222;&#30701;&#35270;&#39057;&#65292;&#21307;&#29983;&#20986;&#38236;&#35762;&#35299;</p>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7; margin-bottom: 4px;"><strong>&#29616;&#29366;&#65306;</strong>&#26080;&#30701;&#35270;&#39057;&#24067;&#23616;&#65292;&#20869;&#23481;&#24418;&#24577;&#21333;&#19968;</p>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7;"><strong>&#24314;&#35758;&#65306;</strong>&#23558;&#20844;&#20247;&#21495;&#31185;&#26222;&#22270;&#25991;&#36716;&#20026;1&#20998;&#38047;&#30701;&#35270;&#39057;&#29256;&#65292;&#20248;&#20808;&#22312;&#35270;&#39057;&#21495;&#21457;&#24067;</p>
+                    <p style="font-size: 11px; color: #adb5bd; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f0f0;">&#25968;&#25454;&#26469;&#28304;&#65306;&#34892;&#19994;&#20844;&#24320;&#20449;&#24687;&#183;&#38750;&#23454;&#26102;&#37319;&#38598;</p>
+                </div>
+
+                <div style="background: white; border-radius: 10px; padding: 16px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                    <h4 style="font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;">&#21333;&#21697;&#29190;&#27454;&#32858;&#28966; <span style="background: #d3f9d8; color: #2b8a3e; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 6px;">&#20840;&#24179;&#21488;</span></h4>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7; margin-bottom: 4px;"><strong>&#23545;&#26631;&#21697;&#29260;&#65306;</strong>&#26494;&#36798; | <strong>&#31574;&#30053;&#65306;</strong>&#26680;&#24515;&#21333;&#21697;&#28145;&#24230;&#31181;&#33609;&#65292;&#25152;&#26377;&#20869;&#23481;&#22260;&#32469;1-2&#20010;&#29190;&#27454;&#20135;&#21697;</p>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7; margin-bottom: 4px;"><strong>&#29616;&#29366;&#65306;</strong>&#20135;&#21697;&#32447;&#20998;&#25955;&#65288;&#38450;&#26194;+&#27905;&#38754;+&#20462;&#25252;&#65289;&#65292;&#20869;&#23481;&#38632;&#38706;&#22343;&#27838;</p>
+                    <p style="font-size: 12px; color: #495057; line-height: 1.7;"><strong>&#24314;&#35758;&#65306;</strong>&#22799;&#23395;&#32858;&#28966;&#12300;&#23567;&#37329;&#20254;&#38450;&#26194;&#20083;&#12301;&#21333;&#21697;&#65292;&#25152;&#26377;&#20869;&#23481;&#22260;&#32469;&#38450;&#26194;&#22330;&#26223;</p>
+                    <p style="font-size: 11px; color: #adb5bd; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f0f0;">&#25968;&#25454;&#26469;&#28304;&#65306;&#34892;&#19994;&#20844;&#24320;&#20449;&#24687;&#183;&#38750;&#23454;&#26102;&#37319;&#38598;</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">&#26680;&#24515;&#24046;&#36317;&#19982;&#25552;&#21319;&#36335;&#24452;</div>
+                <table class="data-table">
+                    <thead><tr><th>&#32500;&#24230;</th><th>&#28023;&#40863;&#29240;&#29240;&#29616;&#29366;</th><th>&#34892;&#19994;&#26041;&#21521;</th><th>&#20248;&#20808;&#32423;</th></tr></thead>
+                    <tbody>
+                        <tr><td>&#19987;&#23478;&#32972;&#20070;</td><td>&#26080;&#22266;&#23450;&#21512;&#20316;</td><td>&#21307;&#29983;/&#19987;&#23478;&#32852;&#21517;</td><td><span style="background:#ffe3e3; color:#c92a2a; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600;">P0</span></td></tr>
+                        <tr><td>&#23567;&#32418;&#20070;&#39057;&#29575;</td><td>&#26085;&#22343;1&#31687;</td><td>&#26085;&#22343;2-3&#31687;</td><td><span style="background:#fff3cd; color:#5c3a00; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600;">P1</span></td></tr>
+                        <tr><td>&#36798;&#20154;&#21512;&#20316;</td><td>&#26376;&#24230;10+</td><td>&#26376;&#24230;30+</td><td><span style="background:#fff3cd; color:#5c3a00; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600;">P1</span></td></tr>
+                        <tr><td>&#30701;&#35270;&#39057;&#24067;&#23616;</td><td>&#26080;</td><td>1&#20998;&#38047;&#31185;&#26222;</td><td><span style="background:#e7f5ff; color:#1971c2; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600;">P2</span></td></tr>
+                        <tr><td>UGC&#20307;&#31995;</td><td>&#27963;&#21160;&#32423;</td><td>&#26376;&#24230;&#20027;&#39064;&#27963;&#21160;</td><td><span style="background:#e7f5ff; color:#1971c2; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600;">P2</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
+
+        <!-- Page 3: Full Data -->
+        <div class="page" id="page-2">
+            <div class="section">
+                <div class="section-title">&#20844;&#20247;&#21495;&#26680;&#24515;&#25351;&#26631;&#27719;&#24635;</div>
+                <div class="metrics-grid">
+                    <div class="metric-card mp"><div class="name">&#24635;&#31881;&#19997;</div><div class="big-num">218,414</div><div class="sub"><span class="up">+521</span></div></div>
+                    <div class="metric-card mp"><div class="name">&#26152;&#26085;&#38405;&#35835;</div><div class="big-num">135</div><div class="sub"></div></div>
+                    <div class="metric-card mp"><div class="name">&#26152;&#26085;&#20998;&#20139;</div><div class="big-num">23</div><div class="sub"><span class="up">+360%</span></div></div>
+                    <div class="metric-card mp"><div class="name">&#26032;&#22686;&#20851;&#27880;</div><div class="big-num">34</div><div class="sub"></div></div>
+                </div>
+                <div class="alert">&#20844;&#20247;&#21495;&#36817;7&#26085;&#35814;&#32454;&#20114;&#21160;&#25968;&#25454;&#65288;&#28857;&#36190;/&#30041;&#35328;/&#21462;&#20851;&#65289;&#38656;&#36827;&#20837;&#21518;&#21488;&#12300;&#20869;&#23481;&#20998;&#26512;&#12301;&#36880;&#26085;&#26597;&#30475;&#12290;</div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">&#23567;&#32418;&#20070;&#26680;&#24515;&#25351;&#26631;&#27719;&#24635;</div>
+                <div class="metrics-grid">
+                    <div class="metric-card xhs"><div class="name">&#24635;&#31881;&#19997;</div><div class="big-num">56,199</div><div class="sub"></div></div>
+                    <div class="metric-card xhs"><div class="name">&#31508;&#35760;&#24635;&#25968;</div><div class="big-num">701</div><div class="sub"></div></div>
+                    <div class="metric-card xhs"><div class="name">&#26032;&#22686;&#31881;&#19997;</div><div class="big-num">430</div><div class="sub"></div></div>
+                    <div class="metric-card xhs"><div class="name">&#22899;&#31881;&#21344;&#27604;</div><div class="big-num">91%</div><div class="sub"></div></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">&#24494;&#21338;&#26680;&#24515;&#25351;&#26631;&#27719;&#24635;</div>
+                <div class="metrics-grid">
+                    <div class="metric-card wb"><div class="name">&#24635;&#31881;&#19997;</div><div class="big-num">1,563</div><div class="sub"></div></div>
+                    <div class="metric-card wb"><div class="name">&#26152;&#26085;&#38405;&#35835;</div><div class="big-num">987</div><div class="sub"></div></div>
+                    <div class="metric-card wb"><div class="name">&#36716;&#35780;&#36190;</div><div class="big-num">16</div><div class="sub"><span class="up">+77.8%</span></div></div>
+                    <div class="metric-card wb"><div class="name">&#21457;&#21338;&#25968;</div><div class="big-num">2</div><div class="sub"></div></div>
+                </div>
+                <div class="alert alert-strong">&#24494;&#21338;&#22788;&#20110;&#20107;&#23454;&#24615;&#20572;&#28382;&#29366;&#24577;&#65292;&#24314;&#35758;&#31435;&#21363;&#24674;&#22797;&#26085;&#26356;&#25110;&#31574;&#30053;&#25918;&#24323;&#12290;</div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">&#19977;&#24179;&#21488;&#23545;&#27604;&#30697;&#38453;</div>
+                <table class="data-table">
+                    <thead><tr><th>&#24179;&#21488;</th><th>&#31881;&#19997;&#37327;&#32423;</th><th>&#27963;&#36291;&#24230;</th><th>&#28072;&#31881;&#25928;&#29575;</th><th>&#26680;&#24515;&#20248;&#21183;</th><th>&#26368;&#22823;&#38382;&#39064;</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>&#20844;&#20247;&#21495;</strong></td><td>21.8&#19975;</td><td>&#26085;&#26356;&#12288;</td><td>&#20302;&#65288;+372/&#26085;&#65289;</td><td>&#36861;&#20809;IP&#24773;&#24863;&#20849;&#40483;</td><td>&#38405;&#35835;&#22825;&#33457;&#26495;&#26126;&#26174;</td></tr>
+                        <tr><td><strong>&#23567;&#32418;&#20070;</strong></td><td>5.6&#19975;</td><td>&#26085;&#22343;1&#31687;</td><td>&#20013;&#65288;+99/&#21608;&#65289;</td><td>&#26194;&#23043;UGC&#35010;&#21464;</td><td>&#20869;&#23481;&#39057;&#29575;&#19981;&#36275;</td></tr>
+                        <tr><td><strong>&#24494;&#21338;</strong></td><td>1,563</td><td>&#26152;&#26085;2&#31687;</td><td>&#26497;&#20302;</td><td>&#26080;</td><td>&#22522;&#25968;&#22826;&#23567;&#38656;&#28608;&#27963;</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-strong" style="margin-top: 16px;">
+                <strong>&#25968;&#25454;&#30495;&#23454;&#24615;&#25215;&#35834;&#65306;</strong>&#25152;&#26377;&#28023;&#40863;&#29240;&#29240;&#25968;&#25454;&#26469;&#33258;5&#26376;30&#26085;&#19977;&#24179;&#21488;&#21518;&#21488;&#30495;&#23454;&#37319;&#38598;&#12290;&#31454;&#21697;&#23545;&#26631;&#26041;&#21521;&#22522;&#20110;&#34892;&#19994;&#20844;&#24320;&#20449;&#24687;&#25972;&#29702;&#65292;&#19981;&#21547;&#31454;&#21697;&#31934;&#30830;&#21518;&#21488;&#25968;&#25454;&#12290;
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Hi! Papa &#33258;&#23186;&#20307;&#25968;&#25454;&#30475;&#26495; &#183; &#25968;&#25454;&#27599;&#26085;&#26356;&#26032; &#183; &#20934;&#30830;&#24615;&#31532;&#19968;</p>
+            <p>https://1341657621-hash.github.io/hipapa-dashboard/</p>
+        </div>
     </div>
 
-    <div class="section-title">馃弳 鍏紬鍙峰唴瀹?Top 5</div>
-    <div class="table-container">
-      <table>
-        <tr><th>鎺掑悕</th><th>鏍囬</th><th>鍙戝竷鏃堕棿</th><th>闃呰</th><th>鍒嗕韩</th><th>鐐硅禐</th></tr>
-        <tr><td><span class="rank rank-1">1</span></td><td>Hi 绉戝绛旀灏卞湪灏忓厜鐩剧殑銆愮嫭瀹跺畾鍒跺師鏂欍€?/td><td>05-22</td><td>792</td><td>7</td><td>229</td></tr>
-        <tr><td><span class="rank rank-2">2</span></td><td>Hi绉戝绛旀涓ㄩ€熼€熸敹濂借繖浠介伩鍧戞寚鍗?/td><td>05-20</td><td>713</td><td>4</td><td>43</td></tr>
-        <tr><td><span class="rank rank-3">3</span></td><td>濂芥湅鍙嬫嫑鍕?| 璧帮紒甯﹀▋鍘昏タ钘忚拷鍏夊惂锝?/td><td>05-18</td><td>668</td><td>20</td><td>37</td></tr>
-        <tr><td><span class="rank rank-other">4</span></td><td>濂芥湅鍙嬫潵淇○煋辅灏嗕綘瀵硅タ钘忕殑濂藉鍐欏湪绾镐笂</td><td>05-15</td><td>529</td><td>50</td><td>42</td></tr>
-        <tr><td><span class="rank rank-other">5</span></td><td>姣嶄翰鑺備辅濡堝锛岃阿璋綘闄垜涓€璧枫€岃拷鍏夈€嶁湪</td><td>05-10</td><td>1,202</td><td>6</td><td>72</td></tr>
-      </table>
-    </div>
-
-    <div class="section-title">馃弳 灏忕孩涔﹀唴瀹?Top 5</div>
-    <div class="table-container">
-      <table>
-        <tr><th>鎺掑悕</th><th>鏍囬</th><th>鍙戝竷鏃堕棿</th><th>娴忚</th><th>鐐硅禐</th><th>鏀惰棌</th><th>璇勮</th></tr>
-        <tr><td><span class="rank rank-1">1</span></td><td>鏅掑▋鏈夊锛佹捣榫熺埜鐖歌拷鍏夌ぜ鍖呮寔缁淳閫佷腑馃巵</td><td>05-18</td><td>894</td><td>114</td><td>142</td><td>113</td></tr>
-        <tr><td><span class="rank rank-2">2</span></td><td>瀹樺 | 娴烽緹鐖哥埜鍝佺墝闃冲厜浠ｈ█浜洪噾闈?[缃《]</td><td>04-17</td><td>2,913</td><td>106</td><td>13</td><td>20</td></tr>
-        <tr><td><span class="rank rank-3">3</span></td><td>閲嶇涓婂競|灏忓厜鐩?[缃《]</td><td>03-05</td><td>2,705</td><td>80</td><td>9</td><td>33</td></tr>
-        <tr><td><span class="rank rank-other">4</span></td><td>@鎵€鏈変汉 鍎跨鑺傜ぜ鐗╂鍦ㄦ淳閫佷腑馃巵</td><td>05-26</td><td>736</td><td>281</td><td>358</td><td>292</td></tr>
-        <tr><td><span class="rank rank-other">5</span></td><td>浣撻獙瀹樼粓鏋佸ぇ濂栨彮鏅撲辅520瀹犵埍娲鹃€佷腑馃拰</td><td>05-20</td><td>548</td><td>16</td><td>11</td><td>2</td></tr>
-      </table>
-    </div>
-
-    <div class="chart-grid">
-      <div class="chart-container">
-        <h3>馃搳 涓夊钩鍙扮矇涓濆垎甯?/h3>
-        <canvas id="fansChart"></canvas>
-      </div>
-      <div class="chart-container">
-        <h3>馃搱 灏忕孩涔︾矇涓濇潵婧?/h3>
-        <canvas id="sourceChart"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <!-- 瀵规爣鍒嗘瀽椤?-->
-  <div id="benchmark" class="tab-content">
-    <div class="section-title">馃幆 绔炲搧瀵规爣鍒嗘瀽</div>
-    <div class="insight">
-      <strong>馃挕 鍒嗘瀽鏂瑰悜锛?/strong>鍩轰簬琛屼笟瓒嬪娍鍜岀珵鍝佸姩鎬侊紝浠ヤ笅涓轰富瑕佸鏍囨柟鍚戝缓璁?    </div>
-
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">馃尀</div>
-        <div class="card-label">濠寸闃叉檼璧涢亾</div>
-        <div class="card-value" style="font-size:18px;">绔炲搧锛氳湝涓濆┓銆佷竴椤点€佹埓鍙€?/div>
-        <div style="margin-top:10px; font-size:14px; color:#666;">
-          鈥?铚滀笣濠凤細涓绘墦骞磋交濡堝缇や綋锛屽唴瀹归鏍兼椿娉?br>
-          鈥?涓€椤碉細寮鸿皟绉戝鑳屼功锛屽尰鐢熷悎浣滃<br>
-          鈥?鎴村彲鎬濓細鎬т环姣旇矾绾匡紝淇冮攢娲诲姩棰戠箒<br>
-          <strong>Hi! Papa浼樺娍锛?/strong>33寮犻槻鏅掔壒璇?+ IFSCC璁よ瘉 + 鍖荤爺鍏卞垱锛屼笓涓氬鍨掓渶寮?        </div>
-      </div>
-      <div class="card">
-        <div class="card-icon">馃摫</div>
-        <div class="card-label">鍐呭绛栫暐鏂瑰悜</div>
-        <div class="card-value" style="font-size:18px;">绉戝绉戞櫘+鎯呮劅鍏遍福</div>
-        <div style="margin-top:10px; font-size:14px; color:#666;">
-          鈥?绔炲搧鏅亶渚ч噸浜у搧鍗栫偣锛孒i! Papa鍦?绉戝绛旀"绯诲垪鏈夊樊寮傚寲<br>
-          鈥?瑗胯棌杩藉厜娲诲姩IP鍖栬繍钀ワ紝绔炲搧灏戣<br>
-          鈥?寤鸿鍔犲己锛氱敤鎴稶GC鍐呭銆佹垚鍒嗗厷娣卞害绉戞櫘銆並OC鍏卞垱钀?        </div>
-      </div>
-      <div class="card">
-        <div class="card-icon">馃巵</div>
-        <div class="card-label">618澶т績绛栫暐</div>
-        <div class="card-value" style="font-size:18px;">鍏卞垱钀?绀肩洅缁勫悎</div>
-        <div style="margin-top:10px; font-size:14px; color:#666;">
-          鈥?杩藉厜鍏卞垱钀?.0姝ｅ湪鎷涘嫙锛屽彲杞寲涓?18鍐呭寮硅嵂<br>
-          鈥?鍎跨鑺傜ぜ鐗╃瑪璁颁簰鍔ㄩ珮锛堟敹钘?58/璇勮292锛夛紝鍙鐢?br>
-          鈥?寤鸿锛氶槻鏅?娲侀潰缁勫悎绀肩洅銆佹檼鍗曟湁濂栨椿鍔?        </div>
-      </div>
-    </div>
-
-    <div class="section-title">馃搳 骞冲彴瀵规瘮鐭╅樀</div>
-    <div class="table-container">
-      <table>
-        <tr><th>缁村害</th><th>Hi! Papa</th><th>琛屼笟鏍囨潌鏂瑰悜</th><th>宸窛/鏈轰細</th></tr>
-        <tr><td>绮変笣閲忕骇</td><td>鍏紬鍙?1.8涓?/ 灏忕孩涔?.6涓?/td><td>澶撮儴姣嶅┐鍝佺墝50涓?</td><td>馃煛 灏忕孩涔﹀闀跨┖闂村ぇ</td></tr>
-        <tr><td>鍐呭棰戞</td><td>鍏紬鍙锋棩鏇?/ 寰崥7鏉?鍛?/td><td>灏忕孩涔︽棩鏇?-2鏉?/td><td>馃煛 灏忕孩涔﹀彂甯冮鐜囧彲鎻愬崌</td></tr>
-        <tr><td>浜掑姩鐜?/td><td>灏忕孩涔﹁瘎璁轰簰鍔ㄩ珮</td><td>澶撮儴鍝佺墝浜掑姩鐜?-5%</td><td>馃煝 浜掑姩璐ㄩ噺濂?/td></tr>
-        <tr><td>涓撲笟鑳屼功</td><td>33寮犵壒璇?+ IFSCC</td><td>鏅亶1-5寮犵壒璇?/td><td>馃煝 涓撲笟澹佸瀿鏈€寮?/td></tr>
-        <tr><td>IP杩愯惀</td><td>杩藉厜鍏卞垱钀ャ€佽タ钘忚拷鍏?/td><td>甯歌淇冮攢娲诲姩</td><td>馃煝 宸紓鍖栨槑鏄?/td></tr>
-      </table>
-    </div>
-
-    <div class="warning">
-      鈿狅笍 <strong>娉ㄦ剰锛?/strong>绔炲搧鍏蜂綋绮剧‘鏁板瓧鏈湪姝ゅ睍绀猴紝閬垮厤鏁版嵁娉勯湶銆備互涓婂垎鏋愬熀浜庡叕寮€淇℃伅鍜岃涓氳秼鍔裤€?    </div>
-  </div>
-
-  <!-- 鍏ㄩ儴鏁版嵁椤?-->
-  <div id="detail" class="tab-content">
-    <div class="section-title">馃搱 鍏紬鍙疯缁嗘暟鎹?/div>
-    <div class="cards">
-      <div class="card">
-        <div class="card-label">鍘熷垱鍐呭鏁?/div>
-        <div class="card-value">39</div>
-      </div>
-      <div class="card">
-        <div class="card-label">鏄ㄦ棩鏂板鍏虫敞</div>
-        <div class="card-value">34</div>
-        <div class="card-change up">+41%</div>
-      </div>
-      <div class="card">
-        <div class="card-label">鐩存挱瑙傜湅浜烘</div>
-        <div class="card-value">356</div>
-      </div>
-      <div class="card">
-        <div class="card-label">鐩存挱鎴愪氦閲戦</div>
-        <div class="card-value">楼721</div>
-      </div>
-    </div>
-
-    <div class="section-title">馃搱 灏忕孩涔﹁缁嗘暟鎹?/div>
-    <div class="cards">
-      <div class="card">
-        <div class="card-label">鎬荤矇涓濇暟</div>
-        <div class="card-value">56,199</div>
-      </div>
-      <div class="card">
-        <div class="card-label">鏂板绮変笣</div>
-        <div class="card-value">430</div>
-      </div>
-      <div class="card">
-        <div class="card-label">娴佸け绮変笣</div>
-        <div class="card-value">78</div>
-      </div>
-      <div class="card">
-        <div class="card-label">绗旇鎬绘暟</div>
-        <div class="card-value">701</div>
-      </div>
-    </div>
-    <div class="table-container">
-      <table>
-        <tr><th>鎸囨爣</th><th>鏁版嵁</th></tr>
-        <tr><td>鎬у埆-鐢锋€?/td><td>9%</td></tr>
-        <tr><td>鎬у埆-濂虫€?/td><td>91%</td></tr>
-        <tr><td>绮変笣鏉ユ簮-棣栭〉鎺ㄨ崘</td><td>41.24%</td></tr>
-        <tr><td>绮変笣鏉ユ簮-涓汉涓婚〉</td><td>27.84%</td></tr>
-        <tr><td>绮変笣鏉ユ簮-鎼滅储</td><td>24.74%</td></tr>
-        <tr><td>绮変笣鏉ユ簮-鍏朵粬</td><td>5.15%</td></tr>
-        <tr><td>绮変笣鏉ユ簮-瑙嗛鎺ㄨ崘</td><td>1.03%</td></tr>
-        <tr><td>绮変笣鏉ユ簮-鐩存挱</td><td>0%</td></tr>
-      </table>
-    </div>
-
-    <div class="section-title">馃搱 寰崥璇︾粏鏁版嵁</div>
-    <div class="cards">
-      <div class="card">
-        <div class="card-label">鏄ㄦ棩鍑€澧炵矇涓?/div>
-        <div class="card-value">4</div>
-        <div class="card-change up">+20%</div>
-      </div>
-      <div class="card">
-        <div class="card-label">鏄ㄦ棩闃呰</div>
-        <div class="card-value">987</div>
-      </div>
-      <div class="card">
-        <div class="card-label">鏄ㄦ棩鍙戝崥</div>
-        <div class="card-value">2</div>
-      </div>
-      <div class="card">
-        <div class="card-label">瑙嗛鍙戝竷</div>
-        <div class="card-value">1</div>
-      </div>
-    </div>
-
-    <div class="section-title">馃搮 鍛ㄦ姤鏁版嵁姹囨€?(05.23-05.29)</div>
-    <div class="table-container">
-      <table>
-        <tr><th>骞冲彴</th><th>鎸囨爣</th><th>鏁板€?/th><th>鐜瘮</th></tr>
-        <tr><td>寰崥</td><td>鍑€澧炵矇涓?/td><td>34</td><td>--</td></tr>
-        <tr><td>寰崥</td><td>鏂板绮変笣</td><td>36</td><td>--</td></tr>
-        <tr><td>寰崥</td><td>鍑忓皯绮変笣</td><td>2</td><td>--</td></tr>
-        <tr><td>寰崥</td><td>寰崥闃呰鏁?/td><td>5,740</td><td>+41.62%</td></tr>
-        <tr><td>寰崥</td><td>杞瘎璧炴暟</td><td>109</td><td>+1262.5%</td></tr>
-        <tr><td>寰崥</td><td>鐐瑰嚮鏁?/td><td>40</td><td>-56.99%</td></tr>
-        <tr><td>寰崥</td><td>鍙戝崥鏁?/td><td>7</td><td>+75%</td></tr>
-        <tr><td>寰崥</td><td>鍘熷垱寰崥鏁?/td><td>7</td><td>+75%</td></tr>
-        <tr><td>寰崥</td><td>瑙嗛鍙戝竷鏁?/td><td>2</td><td>--</td></tr>
-        <tr><td>寰崥</td><td>瑙嗛鎾斁閲?/td><td>357</td><td>+27.05%</td></tr>
-        <tr><td>寰崥</td><td>瑙嗛杞瘎璧?/td><td>2</td><td>--</td></tr>
-        <tr><td>寰崥</td><td>鏂囩珷鍙戝竷鏁?/td><td>0</td><td>--</td></tr>
-        <tr><td>寰崥</td><td>鏂囩珷闃呰鏁?/td><td>3</td><td>0%</td></tr>
-      </table>
-    </div>
-
-    <div class="chart-grid">
-      <div class="chart-container">
-        <h3>馃搳 寰崥鍛ㄨ秼鍔?/h3>
-        <canvas id="weiboWeekChart"></canvas>
-      </div>
-      <div class="chart-container">
-        <h3>馃搱 鍏紬鍙疯繎鏈熷唴瀹归槄璇?/h3>
-        <canvas id="wechatContentChart"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <p>Hi! Papa 娴烽緹鐖哥埜 | 鏁版嵁鐪嬫澘鑷姩鐢熸垚 | 鏁版嵁鏉ユ簮锛氬叕浼楀彿鍚庡彴/灏忕孩涔﹀垱浣滄湇鍔″钩鍙?寰崥鏁版嵁鍔╂墜</p>
-    <p>鏃犳硶楠岃瘉鐨勬暟鎹凡鏍囬粍鐣欑┖锛岀姝㈢紪閫?| 绔炲搧瀵规爣鍙斁鏂瑰悜鍒嗘瀽</p>
-  </div>
-</div>
-
-<script>
-function showTab(tabName) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById(tabName).classList.add('active');
-}
-
-// 涓夊钩鍙扮矇涓濆垎甯?new Chart(document.getElementById('fansChart'), {
-  type: 'doughnut',
-  data: {
-    labels: ['寰俊鍏紬鍙?218,414', '灏忕孩涔?56,199', '寰崥锛堜及绠楋級'],
-    datasets: [{
-      data: [218414, 56199, 5000],
-      backgroundColor: ['#07c160', '#ff2442', '#e6162d']
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: { legend: { position: 'bottom' } }
-  }
-});
-
-// 灏忕孩涔︾矇涓濇潵婧?new Chart(document.getElementById('sourceChart'), {
-  type: 'pie',
-  data: {
-    labels: ['棣栭〉鎺ㄨ崘 41.24%', '涓汉涓婚〉 27.84%', '鎼滅储 24.74%', '鍏朵粬 5.15%', '瑙嗛鎺ㄨ崘 1.03%', '鐩存挱 0%'],
-    datasets: [{
-      data: [41.24, 27.84, 24.74, 5.15, 1.03, 0],
-      backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#ffd700', '#c0c0c0']
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: { legend: { position: 'bottom' } }
-  }
-});
-
-// 寰崥鍛ㄨ秼鍔?new Chart(document.getElementById('weiboWeekChart'), {
-  type: 'bar',
-  data: {
-    labels: ['鍑€澧炵矇涓?, '寰崥闃呰', '杞瘎璧?, '鍙戝崥鏁?, '瑙嗛鎾斁'],
-    datasets: [{
-      label: '鏈懆鏁板€?,
-      data: [34, 5740, 109, 7, 357],
-      backgroundColor: '#e6162d'
-    }]
-  },
-  options: {
-    responsive: true,
-    scales: { y: { beginAtZero: true } }
-  }
-});
-
-// 鍏紬鍙峰唴瀹归槄璇?new Chart(document.getElementById('wechatContentChart'), {
-  type: 'bar',
-  data: {
-    labels: ['灏忓厜鐩惧師鏂?, '閬垮潙鎸囧崡', '瑗胯棌杩藉厜', '濂芥湅鍙嬫潵淇?, '姣嶄翰鑺?, '鍏卞垱钀?, '闃叉檼璇尯', '2D鎴愬垎'],
-    datasets: [{
-      label: '闃呰閲?,
-      data: [792, 713, 668, 529, 1202, 260, 76, 109],
-      backgroundColor: '#07c160'
-    }]
-  },
-  options: {
-    responsive: true,
-    scales: { y: { beginAtZero: true } }
-  }
-});
-</script>
+    <script>
+        function showPage(n) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById('page-' + n).classList.add('active');
+            document.querySelectorAll('.nav button')[n].classList.add('active');
+        }
+    </script>
 </body>
 </html>
