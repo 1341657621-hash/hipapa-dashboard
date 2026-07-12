@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{e('Hi! Papa 品牌前沿资讯知识库看板')}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif; background: #f0f2f5; color: #1f1f1f; line-height: 1.6; font-size: 14px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white; padding: 32px 40px; border-radius: 16px; margin-bottom: 24px;
+            position: relative; overflow: hidden;
+        }
+        .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; }
+        .header .subtitle { opacity: 0.75; font-size: 15px; }
+        .header .meta {
+            display: flex; justify-content: space-between; align-items: center; margin-top: 20px;
+            padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; opacity: 0.8;
+        }
+        .header .badge {
+            background: rgba(64,192,87,0.25); color: #40c057; padding: 4px 12px; border-radius: 6px;
+            font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .header .badge::before {
+            content: ''; width: 8px; height: 8px; background: #40c057; border-radius: 50%; display: inline-block;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;
+        }
+        .stat-card {
+            background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border-left: 4px solid; transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .stat-card.blue { border-left-color: #667eea; }
+        .stat-card.green { border-left-color: #40c057; }
+        .stat-card.orange { border-left-color: #f76707; }
+        .stat-card.purple { border-left-color: #845ef7; }
+        .stat-card .num { font-size: 32px; font-weight: 700; color: #1a1a2e; margin: 8px 0; }
+        .stat-card .num small { font-size: 14px; font-weight: 400; color: #868e96; }
+        .stat-card .label { font-size: 12px; color: #868e96; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+        .stat-card .change {
+            font-size: 12px; margin-top: 4px; font-weight: 600;
+        }
+        .stat-card .change.up { color: #40c057; }
+        .stat-card .change.down { color: #fa5252; }
+
+        /* Category Nav */
+        .category-nav {
+            display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap;
+        }
+        .cat-btn {
+            padding: 10px 20px; border: none; background: white; color: #495057;
+            border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;
+            transition: all 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .cat-btn:hover { background: #e7f5ff; color: #1971c2; }
+        .cat-btn.active { background: #0f3460; color: white; }
+        .cat-btn .count {
+            background: rgba(0,0,0,0.1); padding: 2px 8px; border-radius: 12px;
+            font-size: 11px; margin-left: 6px;
+        }
+        .cat-btn.active .count { background: rgba(255,255,255,0.2); }
+
+        /* Search */
+        .search-box {
+            width: 100%; padding: 14px 20px; border: 2px solid #e9ecef; border-radius: 10px;
+            font-size: 14px; margin-bottom: 24px; transition: border-color 0.2s;
+            font-family: inherit;
+        }
+        .search-box:focus { outline: none; border-color: #667eea; }
+
+        /* Timeline */
+        .timeline {
+            position: relative; padding-left: 32px;
+        }
+        .timeline::before {
+            content: ''; position: absolute; left: 11px; top: 0; bottom: 0;
+            width: 2px; background: #dee2e6;
+        }
+        .timeline-item {
+            position: relative; margin-bottom: 20px; opacity: 1; transition: all 0.3s;
+        }
+        .timeline-item.hidden { display: none; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -26px; top: 18px;
+            width: 12px; height: 12px; border-radius: 50%; background: #667eea;
+            border: 3px solid white; box-shadow: 0 0 0 2px #dee2e6;
+        }
+        .timeline-item.p0::before { background: #fa5252; box-shadow: 0 0 0 2px #ffa8a8; }
+        .timeline-item.p1::before { background: #f76707; box-shadow: 0 0 0 2px #ffd8a8; }
+        .timeline-item.p2::before { background: #40c057; box-shadow: 0 0 0 2px #b2f2bb; }
+
+        .timeline-card {
+            background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            cursor: pointer; transition: all 0.2s;
+        }
+        .timeline-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateX(4px); }
+        .timeline-card .date {
+            font-size: 12px; color: #868e96; font-weight: 600; margin-bottom: 4px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .timeline-card .date .tag {
+            background: #e7f5ff; color: #1971c2; padding: 2px 10px; border-radius: 4px; font-size: 11px;
+        }
+        .timeline-card .title {
+            font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;
+        }
+        .timeline-card .summary {
+            font-size: 13px; color: #495057; line-height: 1.7; margin-bottom: 12px;
+        }
+        .timeline-card .tags {
+            display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;
+        }
+        .timeline-card .tag-item {
+            padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 600;
+        }
+        .tag-industry { background: #e7f5ff; color: #1971c2; }
+        .tag-competitor { background: #fff3cd; color: #5c3a00; }
+        .tag-case { background: #d3f9d8; color: #2b8a3e; }
+        .tag-celebrity { background: #ffe3e3; color: #c92a2a; }
+        .tag-platform { background: #f3d9fa; color: #862e9c; }
+        .tag-policy { background: #ffe8cc; color: #d9480f; }
+        .tag-capital { background: #c5f6fa; color: #0b7285; }
+        .timeline-card .link {
+            display: inline-flex; align-items: center; gap: 6px; color: #667eea;
+            font-size: 13px; font-weight: 600; text-decoration: none;
+        }
+        .timeline-card .link:hover { text-decoration: underline; }
+
+        /* Category Detail Panels */
+        .panel {
+            display: none; background: white; border-radius: 12px; padding: 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 20px;
+        }
+        .panel.active { display: block; }
+        .panel h2 {
+            font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .panel h2 .icon { font-size: 24px; }
+        .insight-card {
+            background: #f8f9fa; border-radius: 10px; padding: 16px; margin-bottom: 12px;
+            border-left: 4px solid; transition: all 0.2s;
+        }
+        .insight-card:hover { transform: translateX(4px); }
+        .insight-card.blue { border-left-color: #667eea; }
+        .insight-card.green { border-left-color: #40c057; }
+        .insight-card.orange { border-left-color: #f76707; }
+        .insight-card.red { border-left-color: #fa5252; }
+        .insight-card h3 {
+            font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px;
+        }
+        .insight-card p {
+            font-size: 13px; color: #495057; line-height: 1.7;
+        }
+        .insight-card .source {
+            font-size: 11px; color: #868e96; margin-top: 8px; font-style: italic;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center; padding: 24px; color: #868e96; font-size: 12px; margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .header { padding: 20px 24px; }
+            .header h1 { font-size: 20px; }
+            .timeline { padding-left: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>{e('Hi! Papa 品牌前沿资讯知识库')}</h1>
+            <div class="subtitle">{e('行业动态 · 竞品情报 · 营销案例 · 艺人代言 · 平台趋势 · 政策监管')}</div>
+            <div class="meta">
+                <span>{e('数据周期：2026.06.02 - 2026.06.27')}</span>
+                <span class="badge">{e('每周四更新')}</span>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card blue">
+                <div class="label">{e('归档日报')}</div>
+                <div class="num">11 <small>{e('份')}</small></div>
+                <div class="change up">{e('6.02-6.27 全覆盖')}</div>
+            </div>
+            <div class="stat-card green">
+                <div class="label">{e('行业趋势')}</div>
+                <div class="num">8 <small>{e('大分类')}</small></div>
+                <div class="change up">{e('防晒/青少年/婴童/无水美妆/情绪美容')}</div>
+            </div>
+            <div class="stat-card orange">
+                <div class="label">{e('竞品追踪')}</div>
+                <div class="num">6 <small>{e('品牌')}</small></div>
+                <div class="change up">{e('安热沙/戴可思/润本/moodytiger/一页/珀莱雅')}</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="label">{e('代言动态')}</div>
+                <div class="num">15+ <small>{e('位艺人')}</small></div>
+                <div class="change up">{e('体育明星代言美妆成新趋势')}</div>
+            </div>
+        </div>
+
+        <!-- Category Nav -->
+        <div class="category-nav">
+            <button class="cat-btn active" onclick="showView('timeline')">{e('全部时间线')} <span class="count">11</span></button>
+            <button class="cat-btn" onclick="showView('industry')">{e('行业动态')} <span class="count">7</span></button>
+            <button class="cat-btn" onclick="showView('competitor')">{e('竞品动态')} <span class="count">6</span></button>
+            <button class="cat-btn" onclick="showView('case')">{e('营销案例')} <span class="count">6</span></button>
+            <button class="cat-btn" onclick="showView('celebrity')">{e('艺人代言')} <span class="count">15+</span></button>
+            <button class="cat-btn" onclick="showView('platform')">{e('平台趋势')} <span class="count">5</span></button>
+            <button class="cat-btn" onclick="showView('policy')">{e('政策监管')} <span class="count">4</span></button>
+            <button class="cat-btn" onclick="showView('capital')">{e('资本市场')} <span class="count">4</span></button>
+        </div>
+
+        <!-- Search -->
+        <input type="text" class="search-box" id="searchBox" placeholder="{e('搜索关键词：防晒、海龟爸爸、618、代言...')}" oninput="doSearch()">
+
+        <!-- Timeline View -->
+        <div id="timeline-view" class="view">
+            <div class="timeline">
+
+                <div class="timeline-item p0" data-category="industry platform case">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/ZWKyd4TvVonxkgxwaexcACnln6e', '_blank')">
+                        <div class="date">
+                            <span>06月06-27日 周五</span>
+                            <span class="tag">日报</span>
+                        </div>
+                        <div class="title">&#32654;&#21338;&#20250;&#24320;&#24149; + 05&#21518;&#28040;&#36153;&#24515;&#26234; + AI&#38450;&#26194;/&#26080;&#27700;&#32654;&#22918;</div>
+                        <div class="summary">2026&#19978;&#28023;&#32654;&#21338;&#20250;&#65288;15&#19975;&#13217;/1500+&#23637;&#21830;/40&#19975;+&#35266;&#20247;&#65289;&#65307;&#32654;&#21147;&#36291;&#36827;&#20808;&#38155;&#23545;&#35805;&#65307;05&#21518;&#32654;&#22918;&#28040;&#36153;621&#20159;&#20803;&#8594;2030&#30772;&#21315;&#20159;&#65307;&#28023;&#40863;&#29240;&#29240;&#23569;&#20799;&#30382;&#32932;&#25968;&#25454;&#24211;&#65307;AI&#38450;&#26194;/&#21307;&#32654;&#26415;&#21518;/&#26080;&#27700;&#32654;&#22918;&#36235;&#21183;</div>
+                        <div class="tags"><span class="tag-item industry">&#34892;&#19994;&#21160;&#24577;</span><span class="tag-item platform">&#24179;&#21488;&#36235;&#21183;</span><span class="tag-item case">&#33829;&#38144;&#26696;&#20363;</span></div>
+                        <a href="https://www.feishu.cn/docx/ZWKyd4TvVonxkgxwaexcACnln6e" target="_blank" class="link" onclick="event.stopPropagation()">
+                            &#26597;&#30475;&#39134;&#20070;&#25991;&#26723; →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="timeline-item p0" data-category="industry competitor">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/Qh2YdLJHholkwKx7v36c98TFnwP', '_blank')">
+                        <div class="date">
+                            <span>06月06-24日 周二</span>
+                            <span class="tag">日报</span>
+                        </div>
+                        <div class="title">&#38745;&#23433;&#32654;&#22918;IP&#39318;&#30331;&#20013;&#22269; + &#38450;&#26194;&#24418;&#24577;&#21019;&#26032; + &#38738;&#23569;&#24180;&#31067;&#30168;&#22242;&#26631;</div>
+                        <div class="summary">&#19978;&#28023;&#38745;&#23433;&#20840;&#29699;&#39030;&#32423;&#32654;&#22918;IP&#39318;&#30331;&#20013;&#22269;&#65307;05&#21518;&#32654;&#22918;&#28040;&#36153;621&#20159;&#20803;&#65307;&#38450;&#26194;&#24418;&#24577;&#21019;&#26032;&#65288;&#26834;/&#27700;/&#31881;&#39292;&#65289;&#65307;&#28023;&#40863;&#29240;&#29240;&#23567;&#34013;&#29942;&#39046;&#36305;&#65307;&#29301;&#22836;&#21046;&#23450;&#20840;&#22269;&#39318;&#20010;&#38738;&#23569;&#24180;&#31067;&#30168;&#22242;&#26631;</div>
+                        <div class="tags"><span class="tag-item industry">&#34892;&#19994;&#21160;&#24577;</span><span class="tag-item competitor">&#31454;&#21697;&#21160;&#24577;</span></div>
+                        <a href="https://www.feishu.cn/docx/Qh2YdLJHholkwKx7v36c98TFnwP" target="_blank" class="link" onclick="event.stopPropagation()">
+                            &#26597;&#30475;&#39134;&#20070;&#25991;&#26723; →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="timeline-item p0" data-category="industry celebrity case">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/RwMQdPKoaosuYlxBzBicbDKOnuf', '_blank')">
+                        <div class="date">
+                            <span>06月06-23日 周一</span>
+                            <span class="tag">日报</span>
+                        </div>
+                        <div class="title">&#32654;&#21338;&#20250;&#24320;&#24149; + MISTINE&#32493;&#32422;&#29579;&#26970;&#38054; + 618&#36328;&#22659;&#25968;&#25454;</div>
+                        <div class="summary">&#32654;&#21338;&#20250;&#24320;&#24149;&#65307;MISTINE&#32493;&#32422;&#29579;&#26970;&#38054;&#21319;&#32423;&#20840;&#29699;&#39318;&#24109;&#38450;&#26194;&#20195;&#35328;&#20154;&#65307;618&#36328;&#22659;&#36827;&#21475;&#25968;&#25454;&#65307;&#38738;&#30524;&#38450;&#26194;&#24066;&#22330;&#27934;&#23519;&#65307;ICIC&#32852;&#21512;&#21033;&#21326;&#33719;4&#22870;&#65307;&#33453;&#22958;&#20848;&#30333;&#40575;&#65307;adidas&#26446;&#29616;&#19990;&#30028;&#26479;</div>
+                        <div class="tags"><span class="tag-item industry">&#34892;&#19994;&#21160;&#24577;</span><span class="tag-item celebrity">&#33402;&#20154;&#20195;&#35328;</span><span class="tag-item case">&#33829;&#38144;&#26696;&#20363;</span></div>
+                        <a href="https://www.feishu.cn/docx/RwMQdPKoaosuYlxBzBicbDKOnuf" target="_blank" class="link" onclick="event.stopPropagation()">
+                            &#26597;&#30475;&#39134;&#20070;&#25991;&#26723; →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="timeline-item p0" data-category="industry capital policy">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/V8x8d03zEoafCJxLvv0cB86hnbm', '_blank')">
+                        <div class="date">
+                            <span>06月06-22日 周日</span>
+                            <span class="tag">日报</span>
+                        </div>
+                        <div class="title">&#32654;&#21338;&#20250;&#20170;&#26085;&#24320;&#24149; + &#33509;&#32701;&#33251;&#25910;&#36141; + 05&#21518;&#28040;&#36153;&#25253;&#21578;</div>
+                        <div class="summary">&#32654;&#21338;&#20250;&#20170;&#26085;&#24320;&#24149;&#65288;6.24-26&#65289;&#65307;&#33509;&#32701;&#33251;2.99&#20159;&#25910;&#36141;&#22885;&#20262;&#32435;&#32032;&#65307;&#38738;&#30524;05&#21518;&#32654;&#22918;&#28040;&#36153;&#24515;&#26234;&#25253;&#21578;&#65288;621&#20159;&#20803;&#65289;&#65307;&#23567;&#32418;&#20070;&#20551;&#36135;&#20135;&#19994;&#38142;&#26333;&#20809;&#65307;&#21270;&#22918;&#21697;&#39318;&#27425;&#32435;&#20837;&#25919;&#24220;&#34917;&#36148;</div>
+                        <div class="tags"><span class="tag-item industry">&#34892;&#19994;&#21160;&#24577;</span><span class="tag-item capital">&#36164;&#26412;&#24066;&#22330;</span><span class="tag-item policy">&#25919;&#31574;&#30417;&#31649;</span></div>
+                        <a href="https://www.feishu.cn/docx/V8x8d03zEoafCJxLvv0cB86hnbm" target="_blank" class="link" onclick="event.stopPropagation()">
+                            &#26597;&#30475;&#39134;&#20070;&#25991;&#26723; →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="timeline-item p0" data-category="industry celebrity">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/UiHcdpRCRok8ddxmck8cgF9pnFg', '_blank')">
+                        <div class="date">
+                            <span>06月06-20日 周五</span>
+                            <span class="tag">日报</span>
+                        </div>
+                        <div class="title">&#38450;&#26194;&#38646;&#21806;&#39069;&#38477;7.8% + &#20307;&#32946;&#26126;&#26143;&#20195;&#35328; + &#28023;&#40863;&#29240;&#29240;&#30382;&#32932;&#25968;&#25454;&#24211;</div>
+                        <div class="summary">&#38450;&#26194;&#38646;&#21806;&#39069;274.5&#20159;&#20803;&#65288;&#21516;&#27604;&#38477;7.8%&#65289;&#65307;&#20307;&#32946;&#26126;&#26143;&#25104;&#32654;&#22918;&#20195;&#35328;&#26032;&#39030;&#27969;&#65288;&#34588;&#19997;&#23159;&#29579;&#26970;&#38054;/&#22958;&#32500;&#38597;&#23385;&#39062;&#33678;&#65289;&#65307;&#28023;&#40863;&#29240;&#29240;&#21551;&#21160;&#20122;&#27954;&#39318;&#20010;&#23569;&#20799;&#30382;&#32932;&#25968;&#25454;&#24211;&#65307;&#27431;&#30591;&#35748;&#35777;&#20122;&#27954;&#31532;&#19968;&#23156;&#31461;&#38450;&#26194;&#21697;&#29260;</div>
+                        <div class="tags"><span class="tag-item industry">&#34892;&#19994;&#21160;&#24577;</span><span class="tag-item celebrity">&#33402;&#20154;&#20195;&#35328;</span></div>
+                        <a href="https://www.feishu.cn/docx/UiHcdpRCRok8ddxmck8cgF9pnFg" target="_blank" class="link" onclick="event.stopPropagation()">
+                            &#26597;&#30475;&#39134;&#20070;&#25991;&#26723; →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="timeline-item p0" data-category="policy industry celebrity">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/LkWCdFUbPoYYWNxblaxcfXlBned', '_blank')">
+                        <div class="date">
+                            <span>06月06-19日 周四</span>
+                            <span class="tag">日报</span>
+                        </div>
+                        <div class="title">&#23567;&#37329;&#30462;&#30417;&#31649; + &#28023;&#40863;&#29240;&#29240;GMV 8.2&#20159; + &#33487;&#28851;&#28155;&#20195;&#35328;</div>
+                        <div class="summary">&#20799;&#31461;&#38450;&#26194;&#24066;&#22330;&#30417;&#31649;&#36235;&#20005;&#65288;"&#23567;&#37329;&#30462;"&#28966;&#28857;&#65289;&#65307;&#28023;&#40863;&#29240;&#29240;2025&#24180;GMV&#36798;8.2&#20159;&#65307;&#23448;&#23459;&#33487;&#28851;&#28155;&#20195;&#35328;&#65307;&#38738;&#23569;&#24180;&#25252;&#32932;&#36187;&#36947;&#23835;&#36215;&#65307;&#20998;&#40836;/&#20998;&#32932;&#36136;/&#20998;&#22330;&#26223;&#25252;&#29702;&#25104;&#24046;&#24322;&#21270;&#20851;&#38190;</div>
+                        <div class="tags"><span class="tag-item policy">&#25919;&#31574;&#30417;&#31649;</span><span class="tag-item industry">&#34892;&#19994;&#21160;&#24577;</span><span class="tag-item celebrity">&#33402;&#20154;&#20195;&#35328;</span></div>
+                        <a href="https://www.feishu.cn/docx/LkWCdFUbPoYYWNxblaxcfXlBned" target="_blank" class="link" onclick="event.stopPropagation()">
+                            &#26597;&#30475;&#39134;&#20070;&#25991;&#26723; →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="timeline-item p1" data-category="industry platform">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/HtIddsFH6oCLC9xpkjZcR1DKnUd', '_blank')">
+                        <div class="date">
+                            <span>06月06-18日 周三</span>
+                            <span class="tag">日报</span>
+                        </div>
+                        <div class="title">618&#25910;&#23448; + &#38450;&#26194;&#24213;&#22918;&#22686;&#38271;5&#20493; + AI&#36171;&#33021;&#38450;&#26194;</div>
+                        <div class="summary">618&#24180;&#20013;&#22823;&#20419;&#25910;&#23448;&#65307;&#38450;&#26194;&#24213;&#22918;&#21697;&#31867;&#22686;&#38271;&#36229;5&#20493;&#65307;AI&#36171;&#33021;&#38450;&#26194;&#65288;MISTINE/&#36164;&#29983;&#22530;&#65289;&#65307;&#23156;&#31461;&#38450;&#26194;&#35748;&#30693;&#35273;&#37266;&#65307;&#28023;&#40863;&#29240;&#29240;&#23567;&#34013;&#29942;&#38754;&#38684;SGS&#26816;&#27979;&#39046;&#36305;</div>
+                        <div class="tags"><span class="tag-item industry">&#34892;&#19994;&#21160;&#24577;</span><span class="tag-item platform">&#24179;&#21488;&#36235;&#21183;</span></div>
+                        <a href="https://www.feishu.cn/docx/HtIddsFH6oCLC9xpkjZcR1DKnUd" target="_blank" class="link" onclick="event.stopPropagation()">
+                            &#26597;&#30475;&#39134;&#20070;&#25991;&#26723; →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="timeline-item p0" data-category="case celebrity policy">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/R1iedTnXBoEkqqxYZ5IcN26knPh', '_blank')">
+                        <div class="date">
+                            <span>06月06-17日 周二</span>
+                            <span class="tag">日报</span>
+                        </div>
+                        <div class="title">&#27431;&#33713;&#38597;&#215;OpenAI + &#32918;&#25112;&#36229;&#33021;&#20195;&#35328; + &#32418;&#20043;&#215;&#29579;&#28304;</div>
+                        <div class="summary">&#27431;&#33713;&#38597;&#215;OpenAI&#25112;&#30053;&#21512;&#20316;&#65307;&#36229;&#33021;&#23448;&#23459;&#32918;&#25112;&#20840;&#29699;&#20195;&#35328;&#20154;&#65307;&#32418;&#20043;&#215;&#29579;&#28304;&#20108;&#24230;&#21512;&#20316;&#65307;&#23433;&#21807;&#20234;CIC&#35748;&#35777;&#65307;&#36130;&#25919;&#37096;&#32946;&#20799;&#34917;&#36148;999&#20159;&#20803;&#65288;+10.6%&#65289;</div>
+                        <div class="tags"><span class="tag-item case">&#33829;&#38144;&#26696;&#20363;</span><span class="tag-item celebrity">&#33402;&#20154;&#20195;&#35328;</span><span class="tag-item policy">&#25919;&#31574;&#30417;&#31649;</span></div>
+                        <a href="https://www.feishu.cn/docx/R1iedTnXBoEkqqxYZ5IcN26knPh" target="_blank" class="link" onclick="event.stopPropagation()">
+                            &#26597;&#30475;&#39134;&#20070;&#25991;&#26723; →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="timeline-item p1" data-category="industry competitor">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/TOjyd5jfOoQVC0xOnBcc292EnVe', '_blank')">
+                        <div class="date">
+                            <span>06月06-05日 周五</span>
+                            <span class="tag">日报</span>
+                        </div>
+                        <div class="title">&#39640;&#31471;&#32654;&#22918;&#26432;&#22238;&#25238;&#38899; + &#38450;&#26194;&#32463;&#27982;&#21319;&#28201; + &#38738;&#23569;&#24180;&#31067;&#30168;</div>
+                        <div class="summary">&#39640;&#31471;&#32654;&#22918;&#26432;&#22238;&#25238;&#38899;&#65288;&#36203;&#33714;&#23068;&#30331;&#39030;TOP1&#65289;&#65307;&#38450;&#26194;&#32463;&#27982;&#21319;&#28201;&#65307;&#38738;&#23569;&#24180;&#31067;&#30168;&#26684;&#23616;&#65307;&#28023;&#40863;&#29240;&#29240;&#23567;&#34013;&#29942;SGS&#25968;&#25454;&#39046;&#20808;&#65307;&#26943;&#33609;/&#29577;&#27901;/&#24742;&#33433;&#23198;/&#34955;&#40736;&#22920;&#22920;&#32439;&#32439;&#20837;&#23616;</div>
+                        <div class="tags"><span class="tag-item industry">&#34892;&#19994;&#21160;&#24577;</span><span class="tag-item competitor">&#31454;&#21697;&#21160;&#24577;</span></div>
+                        <a href="https://www.feishu.cn/docx/TOjyd5jfOoQVC0xOnBcc292EnVe" target="_blank" class="link" onclick="event.stopPropagation()">
+                            &#26597;&#30475;&#39134;&#20070;&#25991;&#26723; →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="timeline-item p1" data-category="celebrity industry">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/BHVgdcOhUo6gTMxgGrccN59bn22', '_blank')">
+                        <div class="date">
+                            <span>06月06-04日 周四</span>
+                            <span class="tag">日报</span>
+                        </div>
+                        <div class="title">MISTINE&#29579;&#26970;&#38054; + &#38450;&#26194;&#36187;&#36947;30+&#21697;&#29260;&#19978;&#26032;</div>
+                        <div class="summary">MISTINE&#23448;&#23459;&#29579;&#26970;&#38054;&#20840;&#29699;&#39318;&#24109;&#38450;&#26194;&#20195;&#35328;&#20154;&#65307;&#28023;&#40863;&#29240;&#29240;&#26368;&#26032;&#25253;&#36947;&#65307;&#38450;&#26194;&#36187;&#36947;30+&#21697;&#29260;&#19978;&#26032;&#65307;&#38738;&#23569;&#24180;&#25252;&#32932;&#24066;&#22330;&#21319;&#28201;&#65307;&#23156;&#31461;&#25239;&#25935;&#24863;&#20462;&#25252;&#36187;&#36947;</div>
+                        <div class="tags"><span class="tag-item celebrity">&#33402;&#20154;&#20195;&#35328;</span><span class="tag-item industry">&#34892;&#19994;&#21160;&#24577;</span></div>
+                        <a href="https://www.feishu.cn/docx/BHVgdcOhUo6gTMxgGrccN59bn22" target="_blank" class="link" onclick="event.stopPropagation()">
+                            &#26597;&#30475;&#39134;&#20070;&#25991;&#26723; →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="timeline-item p0" data-category="platform competitor case">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/DjcUdvlIAoZXo7x9lgacEk1Qnye', '_blank')">
+                        <div class="date">
+                            <span>06月06-02日 周二</span>
+                            <span class="tag">日报</span>
+                        </div>
+                        <div class="title">Redshop&#19978;&#32447; + moodytiger&#22686;&#38271;142% + &#20140;&#19996;&#21548;&#21149;&#33829;&#38144;</div>
+                        <div class="summary">&#23567;&#32418;&#20070;&#36328;&#22659;&#30005;&#21830;&#24179;&#21488;Redshop6&#26376;&#19978;&#32447;&#65307;moodytiger&#20799;&#31461;&#38450;&#26194;&#26381;&#35746;&#21333;&#22686;&#38271;142%&#65307;&#20140;&#19996;&#21548;&#21149;&#24335;&#33829;&#38144;&#65288;&#29482;&#29482;&#20384;&#32852;&#21517;+&#24800;&#33521;&#32418;&#20195;&#35328;&#65289;&#65292;APP&#19979;&#36733;&#37327;+156%</div>
+                        <div class="tags"><span class="tag-item platform">&#24179;&#21488;&#36235;&#21183;</span><span class="tag-item competitor">&#31454;&#21697;&#21160;&#24577;</span><span class="tag-item case">&#33829;&#38144;&#26696;&#20363;</span></div>
+                        <a href="https://www.feishu.cn/docx/DjcUdvlIAoZXo7x9lgacEk1Qnye" target="_blank" class="link" onclick="event.stopPropagation()">
+                            &#26597;&#30475;&#39134;&#20070;&#25991;&#26723; →
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Industry Panel -->
+        <div id="industry-view" class="panel">
+            <h2><span class="icon">📊</span> &#34892;&#19994;&#21160;&#24577;</h2>
+
+            <div class="insight-card blue">
+                <h3>&#38450;&#26194;&#36187;&#36947; &#183; 2025&#24180;&#38646;&#21806;&#39069;274.5&#20159;&#20803;&#65288;&#21516;&#27604;&#38477;7.8%&#65289;</h3>
+                <p>&#24066;&#22330;&#38598;&#20013;&#24230;&#25345;&#32493;&#25552;&#21319;&#65292;TOP5&#36798;36.51%&#12290;&#24418;&#24577;&#21019;&#26032;&#25104;&#30772;&#23616;&#20851;&#38190;&#65306;&#38450;&#26194;&#26834;/&#38450;&#26194;&#27700;/&#38450;&#26194;&#31881;&#39292;/&#27668;&#22443;&#31561;&#26032;&#21697;&#31867;&#28044;&#29616;&#12290;AI&#36171;&#33021;&#38450;&#26194;&#25104;&#20026;&#25216;&#26415;&#20998;&#27700;&#23725;&#65306;MISTINE&#31532;&#19971;&#20195;&#23567;&#40644;&#24125;&#25645;&#36733;AI&#32447;&#31890;&#20307;&#32423;&#25239;&#20809;&#25439;&#31185;&#25216;&#65307;&#36164;&#29983;&#22530;AI&#37197;&#26041;&#24179;&#21488;&#30740;&#21457;&#39321;&#27675;&#21943;&#38654;&#38450;&#26194;&#12290;&#23156;&#31461;&#38450;&#26194;"&#23567;&#37329;&#30462;"&#26631;&#35782;&#25104;&#28966;&#28857;&#65292;&#30417;&#31649;&#36235;&#20005;&#21033;&#22909;&#21512;&#35268;&#21697;&#29260;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#38738;&#30524;&#24773;&#25253; / 2026&#38450;&#26194;&#24066;&#22330;&#27934;&#23519;</div>
+            </div>
+
+            <div class="insight-card green">
+                <h3>&#38738;&#23569;&#24180;&#25252;&#32932; &#183; 05&#21518;&#28040;&#36153;&#35268;&#27169;621&#20159;&#20803;&#65288;2030&#24180;&#30772;&#21315;&#20159;&#65289;</h3>
+                <p>05&#21518;&#32422;5,691&#19975;&#20154;&#65292;&#28040;&#36153;&#38142;&#36335;&#20174;"&#25628;&#32034;&#20808;&#34892;"&#8594;"&#20869;&#23481;&#31181;&#33609;&#8594;&#39564;&#35777;&#8594;&#19979;&#21333;"&#12290;&#28023;&#40863;&#29240;&#29240;&#23567;&#34013;&#29942;&#38754;&#38684;SGS&#26816;&#27979;28&#22825;&#30168;&#30168;-54.83%&#12289;&#38381;&#21475;-67.96%&#65292;&#29301;&#22836;&#21046;&#23450;&#20840;&#22269;&#39318;&#20010;&#38738;&#23569;&#24180;&#31067;&#30168;&#22242;&#26631;&#12290;&#26943;&#33609;/&#29577;&#27901;/&#24742;&#33433;&#23198;/&#34955;&#40736;&#22920;&#22920;&#32439;&#32439;&#20837;&#23616;&#65292;"&#20197;&#37238;&#25239;&#30168;"&#27604;&#21047;&#37240;&#26356;&#28201;&#21644;&#25104;&#36235;&#21183;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#38738;&#30524;&#24773;&#25253; / &#28023;&#40863;&#29240;&#29240;SGS&#26816;&#27979;&#25253;&#21578;</div>
+            </div>
+
+            <div class="insight-card orange">
+                <h3>&#23156;&#31461;&#25239;&#25935;&#24863; &#183; &#21307;&#30740;&#20849;&#21019; + &#25104;&#20998;&#31934;&#20934;&#21270;</h3>
+                <p>&#28023;&#40863;&#29240;&#29240;&#24314;&#31435;&#20122;&#27954;&#39318;&#20010;&#23569;&#20799;&#30382;&#32932;&#25968;&#25454;&#24211;&#65292;&#35206;&#30422;&#20840;&#24180;&#40836;&#27573;&#32908;&#32932;&#30171;&#28857;&#65292;&#19977;&#22823;&#26680;&#24515;&#31995;&#21015;&#65288;&#25239;&#20809;&#25439;&#12289;&#25239;&#25935;&#24863;&#12289;&#25239;&#27833;&#30168;&#65289;&#35206;&#30422;&#20840;&#21608;&#26399;&#12290;&#23433;&#21807;&#20234;&#33719;CIC"&#23156;&#31461;&#32974;&#33026;&#38754;&#38684;&#20840;&#32593;&#38144;&#21806;&#39069;&#31532;&#19968;"&#21452;&#35748;&#35777;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;CIC&#28796;&#35782; / &#28023;&#40863;&#29240;&#29240;&#21697;&#29260;&#21457;&#24067;</div>
+            </div>
+
+            <div class="insight-card blue">
+                <h3>&#26080;&#27700;&#32654;&#22918; &#183; 2025&#24180;65.8&#20159;&#8594;2028&#24180;&#39044;&#35745;205.63&#20159;&#20803;</h3>
+                <p>CAGR&#32422;46%&#65292;&#20174;&#23548;&#20837;&#26399;&#36808;&#21521;&#25104;&#38271;&#26399;&#12290;"&#39640;&#35748;&#30693;&#20302;&#28183;&#36879;"&#33853;&#24046;&#36798;70&#20010;&#30334;&#20998;&#28857;&#65292;&#24066;&#22330;&#25945;&#32946;&#31354;&#38388;&#24040;&#22823;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#38738;&#30524;&#24773;&#25253; / &#32654;&#22918;&#22836;&#26465;</div>
+            </div>
+
+            <div class="insight-card green">
+                <h3>&#24773;&#32490;&#32654;&#23481; &#183; &#22269;&#20869;&#39318;&#37096;T/SHRH068-2024&#26631;&#20934;&#21457;&#24067;</h3>
+                <p>&#946;-&#20869;&#21857;&#32957;/&#30382;&#36136;&#37255;&#25104;&#21407;&#26009;&#24040;&#22836;&#24067;&#23616;&#37325;&#28857;&#12290;"&#38271;&#23551;&#25252;&#32932;"&#25104;2026&#39030;&#27969;&#28909;&#35789;&#65306;&#20848;&#34107;&#33729;&#32431;&#38271;&#23551;&#31995;&#21015;&#65292;&#31859;&#25176;&#28006;&#23572;&#27963;&#24615;&#25104;&#20998;&#21152;&#36895;&#32447;&#31890;&#20307;&#26356;&#26032;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;T/SHRH068-2024 / &#32654;&#22918;&#34892;&#19994;&#35266;&#23519;</div>
+            </div>
+
+            <div class="insight-card orange">
+                <h3>&#29100;&#22812;&#25252;&#32932; &#183; 2025&#24180;48.70&#20159;&#20803;&#65292;&#21516;&#27604;+24.17%</h3>
+                <p>&#39044;&#35745;2026&#24180;53.57&#20159;&#20803;&#12290;"&#29100;&#22812;&#20462;&#22797;"&#22330;&#26223;&#32454;&#20998;&#65292;&#20174;"&#24613;&#25937;"&#21040;"&#26085;&#24120;&#20462;&#25252;"&#30340;&#36716;&#21270;&#36335;&#24452;&#34987;&#21697;&#29260;&#37325;&#35270;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#34892;&#19994;&#30740;&#25253; / 2026&#32654;&#22918;&#36235;&#21183;</div>
+            </div>
+        </div>
+
+        <!-- Competitor Panel -->
+        <div id="competitor-view" class="panel">
+            <h2><span class="icon">🎯</span> &#31454;&#21697;&#21160;&#24577;</h2>
+
+            <div class="insight-card red">
+                <h3>&#23433;&#28909;&#27801;&#65288;&#36164;&#29983;&#22530;&#65289;&#183; &#39318;&#27425;&#24067;&#23616;&#27597;&#23156;&#36187;&#36947;</h3>
+                <p>2026&#24180;3&#26376;&#25512;&#20986;&#12300;&#20840;&#26032;&#34013;&#23453;&#29942;&#12301;&#20799;&#31461;&#38450;&#26194;&#65292;&#20027;&#25171;"&#38750;&#32435;&#31859;&#25216;&#26415;"+"&#23567;&#37329;&#30462;"&#26631;&#24535;&#12290;&#37319;&#21462;"&#32447;&#19978;&#25945;&#32946;&#24341;&#27969;&#32447;&#19979;&#20307;&#39564;&#12289;&#32447;&#19979;&#20307;&#39564;&#21453;&#21754;&#32447;&#19978;&#22797;&#36141;"&#21452;&#21521;&#36171;&#33021;&#38381;&#29615;&#31574;&#30053;&#12290;&#22269;&#38469;&#22823;&#29260;&#20837;&#23616;&#20799;&#31461;&#38450;&#26194;&#65292;&#23545;&#28023;&#40863;&#29240;&#29240;&#24418;&#25104;&#30452;&#25509;&#31454;&#20105;&#21387;&#21147;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#32463;&#27982;&#26202;&#25253;&#32593; / 2026&#21992;&#21019;&#21608;</div>
+            </div>
+
+            <div class="insight-card orange">
+                <h3>moodytiger &#183; &#20799;&#31461;&#38450;&#26194;&#26381;&#35746;&#21333;&#22686;&#38271;142%</h3>
+                <p>&#20197;"&#20937;&#24863;+&#20146;&#23376;&#24773;&#24863;"&#37325;&#26032;&#23450;&#20041;&#38450;&#26194;&#65292;&#23558;&#38450;&#26194;&#22330;&#26223;&#19982;&#20146;&#23376;&#36816;&#21160;&#28145;&#24230;&#32465;&#23450;&#65292;&#24378;&#35843;"&#33258;&#22312;&#30340;&#31461;&#24180;"&#24773;&#24863;&#20215;&#20540;&#12290;&#25143;&#22806;&#22330;&#26223;&#31454;&#20105;&#32500;&#24230;&#20174;&#25252;&#32932;&#21697;&#25193;&#22823;&#33267;&#26381;&#39280;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#33406;&#29790;&#21672;&#35810; / &#34633;&#39764;&#26041;</div>
+            </div>
+
+            <div class="insight-card blue">
+                <h3>&#25140;&#21487;&#24605; &#183; &#24180;&#24230;&#38144;&#21806;&#39069;3.74&#20159;&#39046;&#36305;&#22825;&#29483;&#23156;&#31461;&#25252;&#32932;</h3>
+                <p>&#21344;&#27604;7.8%&#12290;&#25345;&#32493;&#24378;&#21270;"&#25104;&#20998;&#20826;"&#24515;&#26234;&#65292;&#32852;&#21512;&#31532;&#19977;&#26041;&#23454;&#39564;&#23460;&#20570;&#20135;&#21697;&#27979;&#35780;&#12290;618&#31574;&#30053;&#32858;&#28966;&#29190;&#21697;+&#28508;&#21147;&#27454;&#32452;&#21512;&#65292;&#25628;&#32034;&#21345;&#20301;"&#20799;&#31461;&#38754;&#38684;""&#23156;&#20799;&#27927;&#25252;"&#31561;&#26680;&#24515;&#21697;&#31867;&#35789;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#39764;&#38236;&#25968;&#25454; / &#22825;&#29483;&#27036;&#21333;</div>
+            </div>
+
+            <div class="insight-card green">
+                <h3>&#28070;&#26412; &#183; Q1&#19994;&#32489;&#20142;&#30524;&#65292;&#38450;&#26194;&#21867;&#21937;+&#27668;&#22443;&#26032;&#21697;&#21345;&#20301;&#22799;&#23395;</h3>
+                <p>2025&#24180;&#25512;&#20986;&#20799;&#31461;&#38450;&#26194;&#21867;&#21937;&#12289;&#31461;&#38145;&#23450;&#26102;&#21152;&#28909;&#22120;&#12289;&#38738;&#23569;&#24180;&#31995;&#21015;&#31561;60&#20313;&#27454;&#21333;&#21697;&#12290;2026&#24180;&#26149;&#22799;&#23395;&#25512;&#20986;&#20799;&#31461;&#38450;&#26194;&#20445;&#28287;&#26085;&#38684;&#12289;&#38450;&#26194;&#27668;&#22443;&#31561;&#26032;&#21697;&#65292;&#31934;&#20934;&#21345;&#20301;&#22799;&#26085;&#20799;&#31461;&#38450;&#26194;&#38656;&#27714;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#24320;&#28304;&#35777;&#21048;&#30740;&#25253; / 2026-05-24</div>
+            </div>
+
+            <div class="insight-card orange">
+                <h3>&#19968;&#39029; &#183; &#38738;&#23569;&#24180;&#25252;&#32932;&#32447;&#25345;&#32493;&#21457;&#21147;</h3>
+                <p>&#38738;&#23569;&#24180;&#25252;&#32932;&#36187;&#36947;&#31454;&#20105;&#32773;&#65292;&#20998;&#40836;/&#20998;&#32932;&#36136;/&#20998;&#22330;&#26223;&#25252;&#29702;&#24046;&#24322;&#21270;&#24067;&#23616;&#12290;</p>
+            </div>
+
+            <div class="insight-card blue">
+                <h3>&#29632;&#33713;&#38597; &#183; &#25910;&#36141;&#33457;&#30693;&#26195;&#65292;&#21152;&#30721;&#24425;&#22918;&#21697;&#31867;</h3>
+                <p>618&#32654;&#22918;&#34920;&#29616;&#20142;&#30524;&#65292;&#21516;&#26102;&#21152;&#30721;&#25910;&#36141;&#24425;&#22918;&#21697;&#29260;&#33457;&#30693;&#26195;&#65292;&#36827;&#19968;&#27493;&#25299;&#23637;&#24425;&#22918;&#21697;&#31867;&#24067;&#23616;&#65292;&#23436;&#21892;&#22810;&#21697;&#29260;&#30697;&#38453;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#19996;&#26041;&#36130;&#23500; / &#34892;&#19994;&#30740;&#25253;</div>
+            </div>
+        </div>
+
+        <!-- Case Panel -->
+        <div id="case-view" class="panel">
+            <h2><span class="icon">💡</span> &#33829;&#38144;&#26696;&#20363;</h2>
+
+            <div class="insight-card green">
+                <h3>&#20140;&#19996; &#183; &#21548;&#21149;&#24335;&#33829;&#38144;&#36830;&#25171;&#20004;&#24352;&#29579;&#29260;</h3>
+                <p>&#12304;&#26696;&#20363;&#19968;&#12305;&#21016;&#24378;&#19996;&#20307;&#39564;&#22806;&#21334;&#37197;&#36865;&#65292;&#24037;&#26381;&#24418;&#35937;&#34987;&#32593;&#21451;&#21457;&#29616;&#19982;&#12298;&#29482;&#29482;&#20384;&#12299;&#20027;&#35282;&#39640;&#24230;&#30456;&#20284;&#65292;&#20140;&#19996;&#22806;&#21334;&#36805;&#36895;&#21709;&#24212;&#65292;&#25968;&#26085;&#21518;&#23448;&#23459;&#29482;&#29482;&#20384;&#20197;"&#34394;&#25311;&#39569;&#25163;"&#36523;&#20221;&#20837;&#32844;&#65292;&#20140;&#19996;APP&#24403;&#26085;&#19979;&#36733;&#37327;&#29615;&#27604;+156%&#12290;&#12304;&#26696;&#20363;&#20108;&#12305;&#32593;&#21451;&#21628;&#21505;"&#32418;&#30340;&#20250;&#36194;"&#65292;&#20140;&#19996;&#19981;&#20037;&#21518;&#23448;&#23459;&#24800;&#33521;&#32418;&#25285;&#20219;&#25163;&#26426;&#36890;&#35759;&#25512;&#24191;&#22823;&#20351;&#12290;&#26680;&#24515;&#36923;&#36753;&#65306;&#23558;UGC&#21453;&#39304;&#36716;&#21270;&#20026;&#23448;&#26041;&#21160;&#20316;&#65292;&#29992;"&#21548;&#21149;"&#20154;&#35774;&#25289;&#36817;&#21697;&#29260;&#19982;&#29992;&#25143;&#36317;&#31163;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#20844;&#24320;&#25253;&#36947; / &#31038;&#20132;&#23186;&#20307;&#30417;&#27979;</div>
+            </div>
+
+            <div class="insight-card blue">
+                <h3>&#20234;&#21033; &#183; "&#39532;&#24180;&#25214;&#39532;&#20234;&#29709;"&#21548;&#21149;+&#21019;&#24847;&#21472;&#21152;</h3>
+                <p>2026&#39532;&#24180;&#65292;&#32593;&#21451;&#24314;&#35758;"&#22312;&#39532;&#24180;&#25214;&#39532;&#20234;&#29709;&#20195;&#35328;"&#65292;&#20234;&#21033;&#20808;&#23448;&#23459;&#39532;&#24605;&#32431;&#24182;&#25512;&#20986;slogan"&#39532;&#24180;&#24605;&#24565;&#32431;&#29275;&#22902;"&#65292;&#32487;&#32780;&#31574;&#21010;&#20197;"&#23547;&#25214;&#39532;&#20234;&#29709;"&#20026;&#20027;&#32447;&#30340;&#24191;&#21578;&#29255;&#65292;&#22312;&#29255;&#23614;&#25581;&#26195;&#39532;&#20234;&#29709;&#30340;&#20195;&#35328;&#20154;&#36523;&#20221;&#65292;&#32532;&#36896;&#24320;&#24180;&#29190;&#27454;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#20234;&#21033;&#21697;&#29260;&#33829;&#38144; / &#31038;&#20132;&#23186;&#20307;</div>
+            </div>
+
+            <div class="insight-card orange">
+                <h3>&#36229;&#33021; &#183; &#23448;&#23459;&#32918;&#25112;&#20026;&#20840;&#29699;&#21697;&#29260;&#20195;&#35328;&#20154;</h3>
+                <p>&#23478;&#28165;&#36187;&#36947;"&#19977;&#39030;&#37197;"&#32452;&#21512;&#65292;&#35206;&#30422;&#19977;&#21494;&#33609;&#12289;&#19977;&#26465;&#32441;&#12289;Y3&#20840;&#20135;&#21697;&#32447;&#12290;&#21697;&#29260;&#36827;&#20837;&#20013;&#22269;&#24066;&#22330;&#20197;&#26469;&#32597;&#35265;&#20840;&#21697;&#31867;&#39640;&#35268;&#26684;&#21512;&#20316;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#21697;&#29260;&#23448;&#26041; / &#24494;&#21338;</div>
+            </div>
+
+            <div class="insight-card green">
+                <h3>&#32418;&#20043; &#183; &#215;&#29579;&#28304;&#20108;&#24230;&#21512;&#20316;&#21319;&#32423;</h3>
+                <p>&#20174;&#21368;&#22918;&#25299;&#23637;&#33267;&#38754;&#37096;&#28165;&#27905;&#20840;&#21697;&#31867;&#65292;&#20840;&#21608;&#26399;&#20195;&#35328;&#36816;&#33829;&#26696;&#20363;&#65288;&#39044;&#28909;&#8594;&#23448;&#23459;&#8594;&#20849;&#21019;&#8594;&#38271;&#32447;&#65289;&#12290;&#35206;&#30422;&#27905;&#38754;/&#21368;&#22918;/&#25252;&#32932;&#22810;&#21697;&#31867;&#65292;&#21697;&#29260;&#35748;&#30693;&#20174;"&#21368;&#22918;"&#25193;&#23637;&#21040;"&#38754;&#37096;&#28165;&#27905;&#19987;&#23478;"&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#21697;&#29260;&#26143;&#29699; / &#32418;&#20043;&#23448;&#26041;</div>
+            </div>
+
+            <div class="insight-card blue">
+                <h3>MISTINE &#183; &#31532;&#19971;&#20195;AI&#32447;&#31890;&#20307;&#25239;&#20809;&#25439;&#31185;&#25216;</h3>
+                <p>&#25645;&#36733;AI&#36171;&#33021;&#38450;&#26194;&#25216;&#26415;&#65292;&#32493;&#32422;&#29579;&#26970;&#38054;&#21319;&#32423;"&#20840;&#29699;&#39318;&#24109;&#38450;&#26194;&#20195;&#35328;&#20154;"&#12290;&#20174;&#27969;&#37327;&#25910;&#21106;&#21040;&#39118;&#26684;&#29983;&#24577;&#20849;&#24314;&#65292;&#20307;&#32946;&#26126;&#26143;"&#23433;&#20840;&#29260;"&#23646;&#24615;&#21463;&#21697;&#29260;&#38738;&#30544;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;MISTINE&#23448;&#26041; / &#21697;&#29260;&#26143;&#29699;</div>
+            </div>
+
+            <div class="insight-card orange">
+                <h3>&#36164;&#29983;&#22530; &#183; AI&#37197;&#26041;&#24179;&#21488;&#30740;&#21457;&#39321;&#27675;&#21943;&#38654;&#38450;&#26194;</h3>
+                <p>AI&#36171;&#33021;&#38450;&#26194;&#25216;&#26415;&#36335;&#32447;&#65292;&#19982;MISTINE&#24418;&#25104;&#25216;&#26415;&#31454;&#20105;&#12290;&#24046;&#24322;&#21270;&#31383;&#21475;&#26399;&#26377;&#38480;&#65292;&#38656;&#20851;&#27880;&#21518;&#32493;&#25216;&#26415;&#33853;&#22320;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#36164;&#29983;&#22530;&#23448;&#26041; / &#38738;&#30524;&#24773;&#25253;</div>
+            </div>
+        </div>
+
+        <!-- Celebrity Panel -->
+        <div id="celebrity-view" class="panel">
+            <h2><span class="icon">⭐</span> &#33402;&#20154;&#20195;&#35328;&#65288;&#36817;3&#21608;&#65289;</h2>
+
+            <div class="insight-card blue">
+                <h3>95&#33457;&#39046;&#36305; &#183; &#36213;&#38706;&#24605;&#24320;&#24180;6&#39033;&#20840;&#29699;&#20195;&#35328;</h3>
+                <p>&#21830;&#21153;&#33410;&#22863;&#39046;&#36305;95&#33457;&#65292;&#28085;&#30422;&#32654;&#22918;/&#25252;&#32932;/&#26102;&#23578;/&#29983;&#27963;&#26041;&#24335;&#22810;&#21697;&#31867;&#12290;</p>
+            </div>
+
+            <div class="insight-card purple">
+                <h3>&#21452;&#22882;&#36827;&#38454; &#183; &#21333;&#20381;&#32431;40&#22825;&#21452;&#22882;&#36827;&#38454;&#65288;&#39321;&#22856;&#20799;+&#34107;&#39536;&#65289;</h3>
+                <p>&#39321;&#22856;&#20799;&#21697;&#29260;&#21490;&#19978;&#39318;&#20301;00&#21518;&#21326;&#20154;&#27468;&#25163;&#20195;&#35328;&#20154;&#65307;&#34107;&#39536;&#20840;&#29699;&#20195;&#35328;&#20154;&#12290;40&#22825;&#20869;&#23436;&#25104;&#21452;&#22882;&#36827;&#38454;&#12290;</p>
+            </div>
+
+            <div class="insight-card green">
+                <h3>&#20840;&#21697;&#31867;&#39640;&#35268;&#26684; &#183; &#29579;&#40548;&#26851;&#38463;&#36842;&#36798;&#26031;&#20840;&#31995;&#20195;&#35328;&#20154;</h3>
+                <p>&#35206;&#30422;&#19977;&#21494;&#33609;&#12289;&#19977;&#26465;&#32441;&#12289;Y3&#20840;&#20135;&#21697;&#32447;&#12290;&#21697;&#29260;&#36827;&#20837;&#20013;&#22269;&#24066;&#22330;&#20197;&#26469;&#32597;&#35265;&#20840;&#21697;&#31867;&#39640;&#35268;&#26684;&#21512;&#20316;&#12290;</p>
+            </div>
+
+            <div class="insight-card orange">
+                <h3>1+N&#30697;&#38453;&#21270; &#183; &#30333;&#40575;11&#20010;&#26376;&#21319;&#20219;Jimmy Choo&#20840;&#29699;&#20195;&#35328;&#20154;</h3>
+                <p>&#22823;&#20013;&#21326;&#21306;&#38144;&#21806;&#39069;&#22686;34%&#65292;"1+N"&#30697;&#38453;&#21270;&#20195;&#35328;&#25104;&#34892;&#19994;&#26631;&#37197;&#12290;&#20174;&#20248;&#37239;&#36229;&#37239;&#25512;&#33616;&#23448;&#21040;&#22269;&#27665;&#36816;&#21160;&#21697;&#29260;&#65292;&#21830;&#21153;&#30424;&#36234;&#38138;&#36234;&#22823;&#12290;</p>
+            </div>
+
+            <div class="insight-card red">
+                <h3>&#20307;&#32946;&#26126;&#26143;&#20195;&#35328;&#32654;&#22918;&#25104;&#26032;&#36235;&#21183;</h3>
+                <p>&#23385;&#39062;&#33678;&#215;&#21322;&#20137;&#33457;&#30000;&#65288;&#27927;&#25252;&#21457;&#65289;&#12289;&#29579;&#26970;&#38054;&#215;&#20248;&#26102;&#39068;/MISTINE&#12289;&#27146;&#25391;&#19996;&#215;&#24247;&#22914;&#12289;&#29579;&#26970;&#38054;&#215;MISTINE&#65288;&#20840;&#29699;&#39318;&#24109;&#38450;&#26194;&#20195;&#35328;&#20154;&#65289;&#12289;&#23385;&#39062;&#33678;&#215;&#22958;&#32500;&#38597;&#12290;&#36816;&#21160;&#21592;"&#23433;&#20840;&#24615;""&#19987;&#19994;&#24418;&#35937;""&#22269;&#27665;&#24433;&#21709;&#21147;"&#39640;&#24230;&#22865;&#21512;&#21697;&#29260;&#38656;&#27714;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#21697;&#29260;&#23448;&#26041; / &#31038;&#20132;&#23186;&#20307;&#30417;&#27979;</div>
+            </div>
+
+            <div class="insight-card blue">
+                <h3>&#20854;&#20182;&#37325;&#28857;&#20195;&#35328;</h3>
+                <p>&#8226; &#32918;&#25112;&#215;&#36229;&#33021;&#65288;&#20840;&#29699;&#21697;&#29260;&#20195;&#35328;&#20154;&#65289;
+&#8226; &#26446;&#29616;&#215;adidas&#65288;&#19990;&#30028;&#26479;&#24320;&#29699;&#65292;&#20013;&#22269;&#20869;&#22320;&#39318;&#20363;&#65289;
+&#8226; &#29579;&#28304;&#215;&#32418;&#20043;&#65288;&#20108;&#24230;&#21512;&#20316;&#21319;&#32423;&#65289;
+&#8226; &#29579;&#22025;&#23572;&#215;&#38889;&#26463;
+&#8226; &#38472;&#26122;&#23431;&#215;Augustinus Bader&#65288;6/3&#65289;
+&#8226; &#24464;&#26790;&#27905;&#215;&#26412;&#26469;BENLAI&#65288;6/2&#65289;
+&#8226; &#26472;&#32043;&#215;&#33609;&#26412;&#21021;&#33394;&#65288;&#20840;&#29699;&#20195;&#35328;&#20154;&#65289;
+&#8226; &#19969;&#31161;&#20846;&#215;&#34588;&#19997;&#23159;&#65288;&#20840;&#29699;&#38450;&#26194;&#20195;&#35328;&#20154;&#65289;</p>
+            </div>
+        </div>
+
+        <!-- Platform Panel -->
+        <div id="platform-view" class="panel">
+            <h2><span class="icon">📱</span> &#24179;&#21488;&#36235;&#21183;</h2>
+
+            <div class="insight-card red">
+                <h3>&#23567;&#32418;&#20070; &#183; 05&#21518;&#28040;&#36153;&#24515;&#26234; + &#20551;&#36135;&#39118;&#27874;</h3>
+                <p>Redshop&#36328;&#22659;&#30005;&#21830;&#24179;&#21488;6&#26376;&#27491;&#24335;&#19978;&#32447;&#65292;&#20174;"&#21830;&#23478;&#20986;&#28023;"&#21040;"&#24179;&#21488;&#20986;&#28023;"&#25112;&#30053;&#21319;&#32423;&#12290;05&#21518;&#28040;&#36153;&#38142;&#36335;&#20174;"&#25628;&#32034;&#20808;&#34892;"&#8594;"&#20869;&#23481;&#31181;&#33609;&#8594;&#39564;&#35777;&#8594;&#19979;&#21333;"&#65292;&#20449;&#20219;&#26426;&#21046;&#20174;"&#20449;&#36798;&#20154;"&#8594;"&#20449;&#30495;&#23454;&#21453;&#39304;"&#12290;&#20294;&#24191;&#19996;315&#26202;&#20250;&#26333;&#20809;&#24179;&#21488;&#36164;&#36136;&#23457;&#26680;&#28431;&#27934;&#65292;AKF/&#27224;&#26421;/&#37237;&#33394;&#31561;&#22269;&#36135;&#21697;&#29260;&#21457;&#24067;&#25171;&#20551;&#22768;&#26126;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#23567;&#32418;&#20070;&#21830;&#19994; / &#24191;&#19996;315&#26202;&#20250;</div>
+            </div>
+
+            <div class="insight-card blue">
+                <h3>&#25238;&#38899; &#183; &#39640;&#31471;&#32654;&#22918;&#26432;&#22238; + 618&#29190;&#21457;</h3>
+                <p>5&#26376;&#25238;&#38899;&#21270;&#22918;&#21697;GMV&#36798;284.58&#20159;&#20803;&#65292;&#36203;&#33714;&#23068;&#30331;&#39030;TOP1&#65292;&#30333;&#29260;&#24443;&#24213;&#28040;&#22833;&#20110;TOP20&#12290;618&#32654;&#23481;&#21697;&#29260;&#30772;&#20159;&#25968;&#37327;&#21516;&#27604;&#22686;&#38271;75%&#65292;&#22836;&#37096;&#21697;&#29260;&#30697;&#38453;&#36235;&#20110;&#31283;&#23450;&#12290;&#22799;&#23395;&#22330;&#26223;&#21270;&#33829;&#38144;&#25104;&#20851;&#38190;&#65306;&#31461;&#35013;/&#23156;&#20799;&#35013;&#38450;&#26194;&#26381;&#29615;&#27604;&#22686;&#24133;&#31361;&#20986;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#25238;&#38899;&#30005;&#21830; / AgeClub</div>
+            </div>
+
+            <div class="insight-card green">
+                <h3>&#22825;&#29483; &#183; 618&#21270;&#22918;&#21697;&#39318;&#27425;&#32435;&#20837;&#25919;&#24220;&#34917;&#36148;</h3>
+                <p>12%-20%&#34917;&#36148;&#21147;&#24230;&#12290;&#26446;&#20339;&#29734;&#30452;&#25773;&#38388;54&#27454;&#21333;&#21697;GMV&#30772;&#21315;&#19975;&#65292;&#29632;&#33713;&#38597;19&#26465;&#38142;&#25509;&#23621;&#22269;&#36135;&#31532;&#19968;&#12290;&#26102;&#38388;&#33410;&#28857;&#65306;5.25&#25250;&#20808;&#36141;&#8594;6.1-3&#31532;&#19968;&#27874;&#8594;6.4-15&#34892;&#19994;&#36718;&#21160;&#8594;6.16-18&#20840;&#22495;&#29378;&#27426;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#28120;&#23453;&#22823;&#23398; / 618&#27963;&#21160;&#26085;&#21382;</div>
+            </div>
+
+            <div class="insight-card orange">
+                <h3>&#20140;&#19996; &#183; 618&#27597;&#23156;&#24067;&#23616; + &#21363;&#26102;&#38646;&#21806;</h3>
+                <p>5&#26376;20&#26085;&#24320;&#21551;&#39044;&#21806;&#65292;6.1&#20799;&#31461;&#33410;&#26399;&#38388;&#25512;&#20986;&#20799;&#31461;&#29992;&#21697;&#19987;&#23646;&#20248;&#24800;&#12290;&#20140;&#19996;&#21040;&#23478;&#21516;&#27493;&#21152;&#30721;&#27597;&#23156;&#21363;&#26102;&#38646;&#21806;&#65292;&#28385;&#36275;&#24212;&#24613;&#37319;&#36141;&#38656;&#27714;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#20140;&#19996;&#27963;&#21160;&#26085;&#21382; / 2026-05</div>
+            </div>
+
+            <div class="insight-card purple">
+                <h3>&#23567;&#32418;&#20070;618&#31181;&#33609;&#20154;&#32676;&#25171;&#27036;&#36187;</h3>
+                <p>&#21830;&#23478;&#22312;5.13-6.21&#26399;&#38388;&#25237;&#25918;&#39640;&#33829;&#38144;&#20215;&#20540;&#20154;&#32676;&#21253;&#65292;&#21487;&#33719;&#24471;&#21315;&#19975;&#32423;&#27969;&#37327;&#21161;&#25512;&#12290;&#35206;&#30422;&#65306;&#24215;&#38138;&#28145;&#31181;&#33609;&#39640;&#20215;&#20540;&#20154;&#32676;&#21253; / &#31867;&#30446;&#31181;&#33609;&#39640;&#20215;&#20540;&#20154;&#32676;&#21253; / &#20799;&#31461;&#25143;&#22806;&#36816;&#21160;/&#27597;&#23156;&#31934;&#32454;&#20859;&#25252;&#31561;&#32454;&#20998;&#20154;&#32676;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#23567;&#32418;&#20070;&#21830;&#19994; / &#36784;&#26408;&#28023;&#24029;</div>
+            </div>
+        </div>
+
+        <!-- Policy Panel -->
+        <div id="policy-view" class="panel">
+            <h2><span class="icon">⚖️</span> &#25919;&#31574;&#30417;&#31649;</h2>
+
+            <div class="insight-card red">
+                <h3>&#22269;&#23478;&#33647;&#30417;&#23616; &#183; &#21270;&#22918;&#21697;&#19981;&#21512;&#26684;&#36890;&#25253;&#36235;&#20005;</h3>
+                <p>5&#26376;&#36890;&#25253;44&#25209;&#27425;&#19981;&#21512;&#26684;&#21270;&#22918;&#21697;&#65292;4&#26376;&#36890;&#25253;25&#25209;&#27425;&#26816;&#20986;&#31105;&#29992;&#21407;&#26009;&#12290;&#38450;&#26194;&#31867;&#38382;&#39064;&#21344;&#27604;47.5%&#65288;19&#25209;&#27425;/40&#25209;&#27425;&#65289;&#12290;&#30417;&#31649;&#36235;&#20005;&#21033;&#22909;&#21512;&#35268;&#21697;&#29260;&#65292;"&#23567;&#37329;&#30462;"&#26631;&#35782;&#25104;&#20026;&#23156;&#31461;&#38450;&#26194;&#30828;&#25351;&#26631;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#22269;&#23478;&#33647;&#30417;&#23616; / 2026&#24180;&#36890;&#25253;</div>
+            </div>
+
+            <div class="insight-card orange">
+                <h3>&#36130;&#25919;&#37096; &#183; 2026&#24180;&#32946;&#20799;&#34917;&#36148;999&#20159;&#20803;&#65288;&#21516;&#27604;+10.6%&#65289;</h3>
+                <p>&#21033;&#22909;&#27597;&#23156;&#22522;&#26412;&#30424;&#12290;&#34917;&#36148;&#25919;&#31574;&#30452;&#25509;&#21050;&#28608;&#27597;&#23156;&#28040;&#36153;&#65292;&#21697;&#29260;&#24212;&#20851;&#27880;&#25919;&#31574;&#32418;&#21033;&#26399;&#30340;&#33829;&#38144;&#31383;&#21475;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#36130;&#25919;&#37096; / 2026&#24180;&#39044;&#31639;</div>
+            </div>
+
+            <div class="insight-card blue">
+                <h3>&#23567;&#32418;&#20070;&#20551;&#36135;&#20135;&#19994;&#38142;&#26333;&#20809; &#183; &#24191;&#19996;315&#26202;&#20250;</h3>
+                <p>&#26333;&#20809;&#24179;&#21488;&#23384;&#22312;&#23436;&#25972;&#36896;&#20551;&#38142;&#26465;&#65306;&#39640;&#20223;&#29983;&#20135;&#8594;&#22238;&#25910;&#29942;&#32592;&#35013;&#8594;&#20266;&#36896;&#20445;&#31246;&#20179;&#21457;&#36135;&#12290;&#28023;&#34013;&#20043;&#35868;&#20215;&#24046;&#36229;19&#20493;&#65292;7&#20010;&#26679;&#21697;&#20840;&#37096;&#38750;&#27491;&#21697;&#12290;AKF/&#27224;&#26421;/&#37237;&#33394;&#31561;&#22269;&#36135;&#21697;&#29260;&#24050;&#21457;&#24067;&#25171;&#20551;&#22768;&#26126;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#24191;&#19996;315&#26202;&#20250; / &#26032;&#20140;&#25253;</div>
+            </div>
+
+            <div class="insight-card green">
+                <h3>&#21270;&#22918;&#21697;&#21512;&#35268; &#183; 262&#25209;&#27425;&#29190;&#38647;</h3>
+                <p>2026&#24180;&#21270;&#22918;&#21697;&#21512;&#35268;&#30417;&#31649;&#25345;&#32493;&#25910;&#32039;&#65292;&#38450;&#26194;&#21697;&#31867;&#38382;&#39064;&#31361;&#20986;&#12290;&#21512;&#35268;&#21697;&#29260;&#38656;&#20027;&#21160;&#20844;&#31034;&#26816;&#27979;&#25253;&#21578;&#65292;&#24314;&#31435;&#28040;&#36153;&#32773;&#20449;&#20219;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#22269;&#23478;&#33647;&#30417;&#23616; / &#34892;&#19994;&#21512;&#35268;&#25253;&#21578;</div>
+            </div>
+        </div>
+
+        <!-- Capital Panel -->
+        <div id="capital-view" class="panel">
+            <h2><span class="icon">💰</span> &#36164;&#26412;&#24066;&#22330;</h2>
+
+            <div class="insight-card blue">
+                <h3>&#33509;&#32701;&#33251; &#183; 2.99&#20159;&#20803;&#20840;&#36164;&#25910;&#36141;&#22885;&#20262;&#32435;&#32032;</h3>
+                <p>1927&#24180;&#32445;&#32422;&#39640;&#31471;&#25252;&#32932;&#21697;&#29260;&#65292;&#26790;&#38706;/&#36203;&#26412;&#26366;&#38738;&#30544;&#12290;&#22269;&#36135;&#21697;&#29260;&#25910;&#36141;&#22269;&#38469;&#39640;&#31471;&#21697;&#29260;&#30340;&#26696;&#20363;&#22686;&#22810;&#65292;&#21697;&#29260;&#30697;&#38453;&#21319;&#32423;&#36235;&#21183;&#26126;&#26174;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#36130;&#26032;&#32593; / &#33509;&#32701;&#33251;&#20844;&#21578;</div>
+            </div>
+
+            <div class="insight-card green">
+                <h3>&#30334;&#29790;&#21513; &#183; Q1&#33829;&#25910;9102&#19975;&#20803;&#65288;+26%&#65289;</h3>
+                <p>&#37325;&#32452;&#33014;&#21407;&#34507;&#30333;&#21407;&#26009;&#25345;&#32493;&#25918;&#37327;&#65292;&#21307;&#32654;&#19978;&#28216;&#21407;&#26009;&#20225;&#19994;&#21463;&#30410;&#20110;&#34892;&#19994;&#22686;&#38271;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#30334;&#29790;&#21513;&#36130;&#25253; / 2026-Q1</div>
+            </div>
+
+            <div class="insight-card orange">
+                <h3>&#32654;&#22918;&#36164;&#26412;&#24066;&#22330; &#183; "9&#36864;30&#36827;"</h3>
+                <p>&#36164;&#26412;&#20174;&#27969;&#37327;&#25925;&#20107;&#36716;&#21521;&#31185;&#25216;&#25925;&#20107;&#12290;Ulta Beauty Q1 2026&#20928;&#38144;&#21806;&#39069;31.64&#20159;&#32654;&#20803;&#65288;+11.1%&#65289;&#65292;&#19978;&#35843;&#30408;&#21033;&#39044;&#26399;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;Ulta Beauty&#36130;&#25253; / &#34892;&#19994;&#30740;&#25253;</div>
+            </div>
+
+            <div class="insight-card blue">
+                <h3>&#21033;&#28070;&#20998;&#37197;&#26684;&#23616; &#183; &#22269;&#36135;&#20221;&#39069;&#25552;&#21319;&#20294;&#22806;&#36164;&#20027;&#23548;&#39640;&#31471;</h3>
+                <p>&#30028;&#38754;&#26032;&#38395;&#65306;&#21322;&#24180;500&#20159;&#32654;&#22918;&#34892;&#19994;&#21033;&#28070;&#20998;&#37197;&#26684;&#23616;&#20998;&#26512;&#65292;&#22269;&#36135;&#20221;&#39069;&#25552;&#21319;&#20294;&#39640;&#31471;&#24066;&#22330;&#20173;&#30001;&#22806;&#36164;&#20027;&#23548;&#12290;&#21697;&#29260;&#21319;&#32423;&#21644;&#39640;&#31471;&#21270;&#26159;&#38271;&#26399;&#35838;&#39064;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#30028;&#38754;&#26032;&#38395; / 2026&#24180;6&#26376;</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Hi! Papa 品牌前沿资讯知识库看板 · 每周四更新</p>
+            <p>出品：品牌小龙虾 + Kimi | 维护：璐婷 Routine</p>
+            <p>GitHub 知识库：https://github.com/1341657621-hash/Routine-s-document/tree/main/品牌前沿资讯</p>
+        </div>
+    </div>
+
+    <script>
+        // 视图切换
+        function showView(viewId) {
+            // 隐藏所有视图
+            document.querySelectorAll('.view, .panel').forEach(el => el.classList.remove('active'));
+            document.getElementById(viewId + '-view').classList.add('active');
+
+            // 更新按钮状态
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // 搜索功能
+        function doSearch() {
+            const query = document.getElementById('searchBox').value.toLowerCase();
+            const timelineItems = document.querySelectorAll('.timeline-item');
+
+            timelineItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        // 初始化：显示时间线视图
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('timeline-view').classList.add('active');
+        });
+    </script>
+</body>
+</html>
