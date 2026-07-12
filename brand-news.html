@@ -5,48 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{e('Hi! Papa 品牌前沿资讯知识库看板')}</title>
     <style>
-        /* ===== 基础变量 ===== */
         :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #0f3460;
-            --text: #1f1f1f;
-            --text-secondary: #495057;
-            --text-muted: #868e96;
-            --bg: #f0f2f5;
-            --card-bg: #ffffff;
-            --border: #e9ecef;
-            --blue: #667eea;
-            --green: #40c057;
-            --orange: #f76707;
-            --red: #fa5252;
-            --purple: #845ef7;
-            --yellow: #fcc419;
-            --radius: 12px;
-            --radius-sm: 8px;
-            --shadow: 0 1px 4px rgba(0,0,0,0.06);
-            --shadow-hover: 0 4px 16px rgba(0,0,0,0.1);
+            --primary: #1a1a2e; --secondary: #16213e; --accent: #0f3460;
+            --text: #1f1f1f; --text-secondary: #495057; --text-muted: #868e96;
+            --bg: #f0f2f5; --card-bg: #ffffff; --border: #e9ecef;
+            --blue: #667eea; --green: #40c057; --orange: #f76707; --red: #fa5252; --purple: #845ef7;
+            --radius: 12px; --shadow: 0 1px 4px rgba(0,0,0,0.06); --shadow-hover: 0 4px 16px rgba(0,0,0,0.1);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            font-size: 14px;
-            -webkit-font-smoothing: antialiased;
-            -webkit-tap-highlight-color: transparent;
+            background: var(--bg); color: var(--text); line-height: 1.6; font-size: 14px;
+            -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
         }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 12px; }
 
-        /* ===== 头部 ===== */
+        /* 头部 */
         .header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
-            color: white; padding: 24px 20px; border-radius: var(--radius); margin-bottom: 16px;
-            position: relative; overflow: hidden;
+            color: white; padding: 28px 20px; border-radius: var(--radius); margin-bottom: 16px;
         }
         .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; letter-spacing: 1px; }
         .header .subtitle { opacity: 0.75; font-size: 13px; line-height: 1.5; }
@@ -59,17 +36,13 @@
             background: rgba(64,192,87,0.25); color: #40c057; padding: 4px 10px; border-radius: 6px;
             font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;
         }
-        .header .badge::before {
-            content: ''; width: 6px; height: 6px; background: #40c057; border-radius: 50%; display: inline-block;
-        }
+        .header .badge::before { content: ''; width: 6px; height: 6px; background: #40c057; border-radius: 50%; }
 
-        /* ===== 统计卡片 ===== */
+        /* 统计卡片 */
         .stats-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px;
         }
-        @media (min-width: 768px) {
-            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
-        }
+        @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; } }
         .stat-card {
             background: var(--card-bg); border-radius: var(--radius); padding: 16px;
             box-shadow: var(--shadow); border-left: 3px solid; transition: transform 0.2s, box-shadow 0.2s;
@@ -82,35 +55,34 @@
         .stat-card .num { font-size: 26px; font-weight: 700; color: var(--primary); margin: 6px 0; }
         .stat-card .num small { font-size: 12px; font-weight: 400; color: var(--text-muted); }
         .stat-card .label { font-size: 11px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; }
-        .stat-card .change {
-            font-size: 11px; margin-top: 4px; font-weight: 600;
-        }
+        .stat-card .change { font-size: 11px; margin-top: 4px; font-weight: 600; }
         .stat-card .change.up { color: var(--green); }
         .stat-card .change.down { color: var(--red); }
 
-        /* ===== 分析洞察模块（新增） ===== */
+        /* 核心洞察模块 */
         .insight-section {
             background: var(--card-bg); border-radius: var(--radius); padding: 20px;
             box-shadow: var(--shadow); margin-bottom: 16px;
         }
         .insight-section h2 {
-            font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 16px;
-            display: flex; align-items: center; gap: 8px;
+            font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 16px;
+            display: flex; align-items: center; gap: 8px; padding-bottom: 10px; border-bottom: 2px solid #dee2e6;
         }
-        .insight-section h2 .icon { font-size: 20px; }
-
+        .insight-section h2 .icon { font-size: 22px; }
+        .insight-summary {
+            background: #f8f9fa; border-radius: 10px; padding: 16px; margin-bottom: 16px;
+            border-left: 4px solid var(--orange); font-size: 13px; color: var(--text-secondary); line-height: 1.8;
+        }
+        .insight-summary strong { color: var(--primary); }
         .insight-grid {
             display: grid; grid-template-columns: 1fr; gap: 12px;
         }
-        @media (min-width: 768px) {
-            .insight-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
+        @media (min-width: 768px) { .insight-grid { grid-template-columns: repeat(2, 1fr); } }
         .insight-card {
-            background: #f8f9fa; border-radius: var(--radius-sm); padding: 16px;
+            background: #f8f9fa; border-radius: 10px; padding: 16px;
             border-left: 3px solid; transition: all 0.2s;
         }
-        .insight-card:hover { transform: translateX(4px); }
+        .insight-card:hover { transform: translateX(4px); box-shadow: var(--shadow-hover); }
         .insight-card.blue { border-left-color: var(--blue); }
         .insight-card.green { border-left-color: var(--green); }
         .insight-card.orange { border-left-color: var(--orange); }
@@ -126,6 +98,7 @@
         .tag-hot { background: #ffe3e3; color: #c92a2a; }
         .tag-new { background: #e7f5ff; color: #1971c2; }
         .tag-trend { background: #d3f9d8; color: #2b8a3e; }
+        .tag-alert { background: #fff3cd; color: #5c3a00; }
         .insight-card p {
             font-size: 13px; color: var(--text-secondary); line-height: 1.7;
         }
@@ -133,16 +106,14 @@
             font-size: 11px; color: var(--text-muted); margin-top: 8px; font-style: italic;
         }
         .insight-card .metric {
-            display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap;
+            display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;
         }
         .insight-card .metric-item {
-            background: white; padding: 6px 12px; border-radius: 6px; font-size: 12px;
+            background: white; padding: 5px 10px; border-radius: 6px; font-size: 12px;
         }
-        .insight-card .metric-item strong {
-            color: var(--primary); font-size: 14px;
-        }
+        .insight-card .metric-item strong { color: var(--primary); font-size: 13px; }
 
-        /* ===== 趋势对比图（新增） ===== */
+        /* 趋势对比图 */
         .trend-chart {
             background: var(--card-bg); border-radius: var(--radius); padding: 20px;
             box-shadow: var(--shadow); margin-bottom: 16px; overflow-x: auto;
@@ -157,17 +128,14 @@
             display: flex; align-items: center; gap: 10px;
         }
         .bar-label {
-            font-size: 12px; color: var(--text-secondary); min-width: 80px; flex-shrink: 0;
-            text-align: right;
+            font-size: 12px; color: var(--text-secondary); min-width: 80px; flex-shrink: 0; text-align: right;
         }
         .bar-track {
-            flex: 1; height: 24px; background: #f0f0f0; border-radius: 12px; overflow: hidden;
-            position: relative;
+            flex: 1; height: 24px; background: #f0f0f0; border-radius: 12px; overflow: hidden; position: relative;
         }
         .bar-fill {
-            height: 100%; border-radius: 12px; display: flex; align-items: center;
-            justify-content: flex-end; padding-right: 8px; color: white; font-size: 11px;
-            font-weight: 600; transition: width 0.5s ease;
+            height: 100%; border-radius: 12px; display: flex; align-items: center; justify-content: flex-end;
+            padding-right: 8px; color: white; font-size: 11px; font-weight: 600; transition: width 0.5s ease;
         }
         .bar-fill.blue { background: var(--blue); }
         .bar-fill.green { background: var(--green); }
@@ -178,25 +146,77 @@
             font-size: 12px; color: var(--text-secondary); min-width: 50px; flex-shrink: 0;
         }
 
-        /* ===== 分类导航 ===== */
+        /* 启示卡片（新增） */
+        .implication-cards {
+            display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 16px;
+        }
+        @media (min-width: 768px) { .implication-cards { grid-template-columns: repeat(2, 1fr); } }
+        .implication-card {
+            background: white; border-radius: 10px; padding: 14px; border: 2px solid; transition: all 0.2s;
+        }
+        .implication-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+        .implication-card.action { border-color: var(--green); }
+        .implication-card.risk { border-color: var(--red); }
+        .implication-card.opportunity { border-color: var(--blue); }
+        .implication-card h4 {
+            font-size: 13px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+        }
+        .implication-card.action h4 { color: var(--green); }
+        .implication-card.risk h4 { color: var(--red); }
+        .implication-card.opportunity h4 { color: var(--blue); }
+        .implication-card p {
+            font-size: 12px; color: var(--text-secondary); line-height: 1.7;
+        }
+
+        /* 分类面板 */
+        .panel {
+            background: var(--card-bg); border-radius: var(--radius); padding: 20px;
+            box-shadow: var(--shadow); margin-bottom: 16px; display: none;
+        }
+        .panel.active { display: block; }
+        .panel h2 {
+            font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 16px;
+            display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 2px solid #dee2e6;
+        }
+        .panel h2 .icon { font-size: 22px; }
+        .cat-insight-card {
+            background: #f8f9fa; border-radius: 10px; padding: 16px; margin-bottom: 12px;
+            border-left: 3px solid; transition: all 0.2s;
+        }
+        .cat-insight-card:hover { transform: translateX(4px); box-shadow: var(--shadow-hover); }
+        .cat-insight-card.blue { border-left-color: var(--blue); }
+        .cat-insight-card.green { border-left-color: var(--green); }
+        .cat-insight-card.orange { border-left-color: var(--orange); }
+        .cat-insight-card.red { border-left-color: var(--red); }
+        .cat-insight-card.purple { border-left-color: var(--purple); }
+        .cat-insight-card h3 {
+            font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 6px;
+        }
+        .cat-insight-card p {
+            font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+        }
+        .cat-insight-card .source {
+            font-size: 11px; color: var(--text-muted); margin-top: 8px; font-style: italic;
+        }
+
+        /* 分类导航 */
         .category-nav {
             display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto;
             padding-bottom: 4px; -webkit-overflow-scrolling: touch;
         }
         .cat-btn {
             padding: 10px 16px; border: none; background: var(--card-bg); color: var(--text-secondary);
-            border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; font-weight: 600;
+            border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;
             transition: all 0.2s; box-shadow: var(--shadow); white-space: nowrap; flex-shrink: 0;
         }
         .cat-btn:hover { background: #e7f5ff; color: var(--blue); }
         .cat-btn.active { background: var(--accent); color: white; }
         .cat-btn .count {
-            background: rgba(0,0,0,0.08); padding: 2px 8px; border-radius: 10px;
-            font-size: 11px; margin-left: 4px;
+            background: rgba(0,0,0,0.08); padding: 2px 8px; border-radius: 10px; font-size: 11px; margin-left: 4px;
         }
         .cat-btn.active .count { background: rgba(255,255,255,0.2); }
 
-        /* ===== 搜索 ===== */
+        /* 搜索 */
         .search-box {
             width: 100%; padding: 14px 18px; border: 2px solid var(--border); border-radius: var(--radius);
             font-size: 14px; margin-bottom: 16px; transition: border-color 0.2s;
@@ -204,7 +224,15 @@
         }
         .search-box:focus { outline: none; border-color: var(--blue); }
 
-        /* ===== 时间线 ===== */
+        /* 时间线 */
+        .timeline-section {
+            background: var(--card-bg); border-radius: var(--radius); padding: 20px;
+            box-shadow: var(--shadow); margin-bottom: 16px;
+        }
+        .timeline-section h2 {
+            font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 16px;
+            display: flex; align-items: center; gap: 8px; padding-bottom: 10px; border-bottom: 2px solid #dee2e6;
+        }
         .timeline {
             position: relative; padding-left: 28px;
         }
@@ -224,10 +252,8 @@
         .timeline-item.p0::before { background: var(--red); box-shadow: 0 0 0 2px #ffa8a8; }
         .timeline-item.p1::before { background: var(--orange); box-shadow: 0 0 0 2px #ffd8a8; }
         .timeline-item.p2::before { background: var(--green); box-shadow: 0 0 0 2px #b2f2bb; }
-
         .timeline-card {
-            background: var(--card-bg); border-radius: var(--radius); padding: 16px;
-            box-shadow: var(--shadow); cursor: pointer; transition: all 0.2s;
+            background: #f8f9fa; border-radius: 10px; padding: 16px; cursor: pointer; transition: all 0.2s;
         }
         .timeline-card:hover { box-shadow: var(--shadow-hover); transform: translateX(4px); }
         .timeline-card .date {
@@ -238,8 +264,7 @@
             background: #e7f5ff; color: #1971c2; padding: 2px 8px; border-radius: 4px; font-size: 11px;
         }
         .timeline-card .title {
-            font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 8px;
-            line-height: 1.5;
+            font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 8px; line-height: 1.5;
         }
         .timeline-card .summary {
             font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px;
@@ -263,46 +288,32 @@
         }
         .timeline-card .link:hover { text-decoration: underline; }
 
-        /* ===== 分类面板 ===== */
-        .panel {
-            display: none; background: var(--card-bg); border-radius: var(--radius); padding: 20px;
-            box-shadow: var(--shadow); margin-bottom: 16px;
-        }
-        .panel.active { display: block; }
-        .panel h2 {
-            font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 16px;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .panel h2 .icon { font-size: 22px; }
-
-        /* ===== 底部 ===== */
+        /* 底部 */
         .footer {
             text-align: center; padding: 24px; color: var(--text-muted); font-size: 12px; margin-top: 32px;
         }
         .footer a { color: var(--blue); text-decoration: none; }
 
-        /* ===== 隐藏元素（用于移动端优化） ===== */
-        .desktop-only { display: none; }
-        @media (min-width: 768px) {
-            .desktop-only { display: block; }
-            .mobile-only { display: none; }
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .header { padding: 20px 16px; }
+            .header h1 { font-size: 18px; }
+            .timeline { padding-left: 24px; }
         }
 
-        /* ===== 滚动优化 ===== */
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in { animation: fadeIn 0.4s ease forwards; }
+
         .scroll-x {
             overflow-x: auto; -webkit-overflow-scrolling: touch;
             scrollbar-width: none; -ms-overflow-style: none;
         }
         .scroll-x::-webkit-scrollbar { display: none; }
-
-        /* ===== 动画 ===== */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-in {
-            animation: fadeIn 0.4s ease forwards;
-        }
     </style>
 </head>
 <body>
@@ -313,8 +324,8 @@
             <h1>Hi! Papa &#21697;&#29260;&#21069;&#27839;&#36164;&#35759;&#30693;&#35782;&#24211;</h1>
             <div class="subtitle">&#34892;&#19994;&#21160;&#24577; &#183; &#31454;&#21697;&#24773;&#25253; &#183; &#33829;&#38144;&#26696;&#20363; &#183; &#33402;&#20154;&#20195;&#35328; &#183; &#24179;&#21488;&#36235;&#21183; &#183; &#25919;&#31574;&#30417;&#31649; &#183; &#36164;&#26412;&#21160;&#21521;</div>
             <div class="meta">
-                <span>&#25968;&#25454;&#21608;&#26399;&#65306;2026.06.02 - 2026.07.11</span>
-                <span class="badge">&#27599;&#21608;&#22235;&#26356;&#26032;</span>
+                <span>&#25968;&#25454;&#21608;&#26399;&#65306;2026.05.01 - 2026.07.11&#65288;&#35206;&#30422;5&#26376;&#26376;&#25253;+6-7&#26376;&#21608;&#25253;&#65289;</span>
+                <span class="badge">&#27599;&#21608;&#26085;&#26356;&#26032;</span>
             </div>
         </div>
 
@@ -322,8 +333,8 @@
         <div class="stats-grid">
             <div class="stat-card blue">
                 <div class="label">&#24402;&#26723;&#25253;&#21578;</div>
-                <div class="num">13 <small>&#20221;</small></div>
-                <div class="change up">6.02-7.11 &#20840;&#35206;&#30422;</div>
+                <div class="num">14 <small>&#20221;</small></div>
+                <div class="change up">5&#26376;&#26376;&#25253;+6-7&#26376;&#21608;&#25253;</div>
             </div>
             <div class="stat-card green">
                 <div class="label">&#34892;&#19994;&#36235;&#21183;</div>
@@ -342,14 +353,18 @@
             </div>
         </div>
 
-        <!-- 分析洞察模块（新增） -->
+        <!-- 1. 核心洞察与启示分析（前置） -->
         <div class="insight-section">
-            <h2><span class="icon">🔍</span> &#26680;&#24515;&#27934;&#23519;&#19982;&#36235;&#21183;&#20998;&#26512;</h2>
+            <h2><span class="icon">🔍</span> &#26680;&#24515;&#27934;&#23519;&#19982;&#21551;&#31034;&#20998;&#26512;</h2>
+
+            <div class="insight-summary">
+                <strong>&#25972;&#20307;&#21028;&#26029;&#65306;</strong>2026&#24180;&#19978;&#21322;&#24180;&#21697;&#29260;&#21069;&#27839;&#36164;&#35759;&#21576;&#29616;&#19977;&#22823;&#20027;&#32447;&#8212;&#8212;(1)&#38450;&#26194;&#36187;&#36947;&#20174;"&#35268;&#27169;&#22686;&#38271;"&#36716;&#21521;"&#38598;&#20013;&#24230;&#31454;&#20105;+&#25216;&#26415;&#21019;&#26032;"&#65292;&#22836;&#37096;&#21697;&#29260;&#36890;&#36807;AI&#36171;&#33021;&#21644;&#24418;&#24577;&#21019;&#26032;&#24314;&#31435;&#22721;&#22418;&#65307;(2)&#38738;&#23569;&#24180;&#25252;&#32932;&#25104;&#20026;&#32487;&#23156;&#31461;&#25252;&#32932;&#21518;&#30340;&#31532;&#20108;&#22686;&#38271;&#26497;&#65292;05&#21518;&#28040;&#36153;&#24515;&#26234;&#27491;&#22312;&#24418;&#25104;&#65292;"&#20197;&#37238;&#25239;&#30168;"&#26367;&#20195;"&#21047;&#37240;"&#25104;&#25216;&#26415;&#36235;&#21183;&#65307;(3)&#20307;&#32946;&#26126;&#26143;&#20195;&#35328;&#32654;&#22918;&#20174;&#20010;&#26696;&#36208;&#21521;&#34892;&#19994;&#26631;&#37197;&#65292;&#21697;&#29260;&#20174;"&#27969;&#37327;&#25910;&#21106;"&#36716;&#21521;"&#39118;&#26684;&#29983;&#24577;"&#20849;&#24314;&#12290;&#23545;&#28023;&#40863;&#29240;&#29240;&#32780;&#35328;&#65292;&#38450;&#26194;&#22522;&#26412;&#30424;&#38754;&#20020;&#22269;&#38469;&#21697;&#29260;&#65288;&#23433;&#28909;&#27801;&#65289;&#21644;&#26032;&#38160;&#21697;&#29260;&#65288;moodytiger&#36328;&#30028;&#65289;&#21452;&#37325;&#25380;&#21387;&#65292;&#20294;&#38738;&#23569;&#24180;&#25252;&#32932;&#36187;&#36947;&#65288;&#23567;&#34013;&#29942;&#65289;&#21644;&#26631;&#20934;&#21046;&#23450;&#32773;&#36523;&#20221;&#25552;&#20379;&#20102;&#24046;&#24322;&#21270;&#31361;&#22260;&#36335;&#24452;&#12290;
+            </div>
 
             <div class="insight-grid">
                 <div class="insight-card red">
-                    <h3>&#38450;&#26194;&#24066;&#22330;&#26684;&#23616;&#37325;&#22609; <span class="tag tag-hot">&#20851;&#38190;&#21464;&#21270;</span></h3>
-                    <p>2025&#24180;&#38450;&#26194;&#38646;&#21806;&#39069;274.5&#20159;&#20803;&#65288;&#21516;&#27604;&#38477;7.8%&#65289;&#65292;&#20294;&#24066;&#22330;&#38598;&#20013;&#24230;&#25345;&#32493;&#25552;&#21319;&#65288;TOP5&#36798;36.51%&#65289;&#12290;&#28023;&#40863;&#29240;&#29240;&#20197;2025&#24180;GMV 8.2&#20159;&#20803;&#21344;&#25454;&#23156;&#31461;&#38450;&#26194;&#21322;&#22721;&#27743;&#23665;&#65292;&#33719;&#27431;&#30591;&#35748;&#35777;"&#20122;&#27954;&#31532;&#19968;&#23156;&#31461;&#38450;&#26194;&#21697;&#29260;"&#65292;&#20294;&#23433;&#28909;&#27801;&#65288;&#36164;&#29983;&#22530;&#65289;3&#26376;&#25512;&#20986;&#34013;&#23453;&#29942;&#20799;&#31461;&#38450;&#26194;&#39318;&#27425;&#20837;&#23616;&#27597;&#23156;&#36187;&#36947;&#65292;&#25658;&#22269;&#38469;&#21697;&#29260;&#32972;&#20070;+&#32447;&#19979;&#28192;&#36947;&#20248;&#21183;&#24418;&#25104;&#30452;&#25509;&#31454;&#20105;&#12290;</p>
+                    <h3>&#38450;&#26194;&#36187;&#36947;&#65306;&#20174;&#22686;&#38271;&#36716;&#21521;&#38598;&#20013;&#31454;&#20105;&#65292;&#25216;&#26415;&#22721;&#22418;&#20915;&#23450;&#29983;&#27515; <span class="tag tag-hot">&#20851;&#38190;&#21464;&#21270;</span></h3>
+                    <p>2025&#24180;&#38450;&#26194;&#38646;&#21806;&#39069;274.5&#20159;&#20803;&#65288;&#21516;&#27604;&#38477;7.8%&#65289;&#65292;&#20294;&#24066;&#22330;&#38598;&#20013;&#24230;&#25345;&#32493;&#25552;&#21319;&#65288;TOP5&#36798;36.51%&#65289;&#12290;&#36825;&#24847;&#21619;&#30528;"&#36827;&#22330;&#23601;&#33021;&#20998;&#34507;&#31957;"&#30340;&#26102;&#20195;&#32467;&#26463;&#65292;&#23384;&#37327;&#21338;&#24328;&#19979;&#25216;&#26415;&#22721;&#22418;&#20915;&#23450;&#21697;&#29260;&#29983;&#27515;&#12290;&#28023;&#40863;&#29240;&#29240;2025&#24180;GMV 8.2&#20159;&#20803;&#21344;&#25454;&#23156;&#31461;&#38450;&#26194;&#21322;&#22721;&#27743;&#23665;&#65292;&#33719;&#27431;&#30591;&#35748;&#35777;"&#20122;&#27954;&#31532;&#19968;"&#65292;&#20294;&#23433;&#28909;&#27801;&#65288;&#36164;&#29983;&#22530;&#65289;3&#26376;&#25512;&#20986;&#34013;&#23453;&#29942;&#20799;&#31461;&#38450;&#26194;&#39318;&#27425;&#20837;&#23616;&#27597;&#23156;&#36187;&#36947;&#65292;&#25658;&#22269;&#38469;&#21697;&#29260;&#32972;&#20070;+&#32447;&#19979;&#28192;&#36947;&#20248;&#21183;&#24418;&#25104;&#30452;&#25509;&#31454;&#20105;&#12290;MISTINE&#12289;&#36164;&#29983;&#22530;&#31454;&#30456;&#25512;&#20986;AI&#36171;&#33021;&#38450;&#26194;&#25216;&#26415;&#65292;&#25216;&#26415;&#31383;&#21475;&#26399;&#26377;&#38480;&#65292;&#20808;&#21457;&#20248;&#21183;&#32773;&#23558;&#21344;&#25454;&#22721;&#22418;&#12290;</p>
                     <div class="metric">
                         <div class="metric-item"><strong>274.5亿</strong> &#38450;&#26194;&#38646;&#21806;&#39069;</div>
                         <div class="metric-item"><strong>-7.8%</strong> &#21516;&#27604;&#22686;&#36895;</div>
@@ -359,8 +374,8 @@
                 </div>
 
                 <div class="insight-card blue">
-                    <h3>&#38738;&#23569;&#24180;&#25252;&#32932;&#25104;&#20026;&#26032;&#22686;&#38271;&#26497; <span class="tag tag-new">&#26032;&#36187;&#36947;</span></h3>
-                    <p>05&#21518;&#32422;5,691&#19975;&#20154;&#65292;2025&#24180;&#32654;&#22918;&#28040;&#36153;&#35268;&#27169;621&#20159;&#20803;&#65288;2030&#24180;&#26377;&#26395;&#30772;&#21315;&#20159;&#65289;&#12290;&#38738;&#23569;&#24180;&#25252;&#32932;&#35805;&#39064;&#22768;&#37327;&#28608;&#22686;445%&#65292;"&#20197;&#37238;&#25239;&#30168;"&#27604;&#21047;&#37240;&#26356;&#28201;&#21644;&#25104;&#36235;&#21183;&#12290;&#28023;&#40863;&#29240;&#29240;&#23567;&#34013;&#29942;&#38754;&#38684;SGS&#26816;&#27979;28&#22825;&#30168;&#30168;-54.83%&#12289;&#38381;&#21475;-67.96%&#65292;&#29301;&#22836;&#21046;&#23450;&#20840;&#22269;&#39318;&#20010;&#38738;&#23569;&#24180;&#31067;&#30168;&#22242;&#26631;&#65292;&#22312;&#36187;&#36947;&#20013;&#21344;&#25454;&#25216;&#26415;&#21644;&#26631;&#20934;&#21452;&#37325;&#20248;&#21183;&#12290;</p>
+                    <h3>&#38738;&#23569;&#24180;&#25252;&#32932;&#65306;05&#21518;&#28040;&#36153;&#24515;&#26234;&#27491;&#22312;&#24418;&#25104;&#65292;&#20808;&#20837;&#23616;&#32773;&#23450;&#20041;&#26631;&#20934; <span class="tag tag-new">&#26032;&#36187;&#36947;</span></h3>
+                    <p>05&#21518;&#32422;5,691&#19975;&#20154;&#65292;2025&#24180;&#32654;&#22918;&#28040;&#36153;&#35268;&#27169;621&#20159;&#20803;&#65288;2030&#24180;&#26377;&#26395;&#30772;&#21315;&#20159;&#65289;&#12290;&#28040;&#36153;&#38142;&#36335;&#20174;"&#25628;&#32034;&#20808;&#34892;"&#8594;"&#20869;&#23481;&#31181;&#33609;&#8594;&#39564;&#35777;&#8594;&#19979;&#21333;"&#65292;&#20449;&#20219;&#26426;&#21046;&#20174;"&#20449;&#36798;&#20154;"&#8594;"&#20449;&#30495;&#23454;&#21453;&#39304;"&#12290;&#38738;&#23569;&#24180;&#25252;&#32932;&#35805;&#39064;&#22768;&#37327;&#28608;&#22686;445%&#65292;"&#20197;&#37238;&#25239;&#30168;"&#27604;&#21047;&#37240;&#26356;&#28201;&#21644;&#25104;&#25216;&#26415;&#36235;&#21183;&#12290;&#28023;&#40863;&#29240;&#29240;&#23567;&#34013;&#29942;&#38754;&#38684;SGS&#26816;&#27979;28&#22825;&#30168;&#30168;-54.83%&#12289;&#38381;&#21475;-67.96%&#65292;&#29301;&#22836;&#21046;&#23450;&#20840;&#22269;&#39318;&#20010;&#38738;&#23569;&#24180;&#31067;&#30168;&#22242;&#26631;&#8212;&#8212;&#22312;&#36187;&#36947;&#26089;&#26399;&#20197;"&#26631;&#20934;&#21046;&#23450;&#32773;"&#36523;&#20221;&#20837;&#23616;&#65292;&#20855;&#22791;&#23450;&#20041;&#21697;&#31867;&#35805;&#35821;&#26435;&#30340;&#25112;&#30053;&#20248;&#21183;&#12290;&#26943;&#33609;/&#29577;&#27901;/&#24742;&#33433;&#23198;/&#34955;&#40736;&#22920;&#22920;&#32439;&#32439;&#20837;&#23616;&#65292;&#31383;&#21475;&#26399;&#27491;&#22312;&#32553;&#23567;&#12290;</p>
                     <div class="metric">
                         <div class="metric-item"><strong>621亿</strong> 05&#21518;&#28040;&#36153;&#35268;&#27169;</div>
                         <div class="metric-item"><strong>+445%</strong> &#35805;&#39064;&#22768;&#37327;&#22686;&#38271;</div>
@@ -370,19 +385,19 @@
                 </div>
 
                 <div class="insight-card green">
-                    <h3>&#20307;&#32946;&#26126;&#26143;&#20195;&#35328;&#32654;&#22918;&#25104;&#20026;&#34892;&#19994;&#26631;&#37197; <span class="tag tag-trend">&#36235;&#21183;</span></h3>
-                    <p>&#20174;"&#27969;&#37327;&#25910;&#21106;"&#36716;&#21521;"&#39118;&#26684;&#29983;&#24577;"&#20849;&#24314;&#12290;&#23385;&#39062;&#33678;&#215;&#21322;&#20137;&#33457;&#30000;&#12289;&#29579;&#26970;&#38054;&#215;MISTINE/&#20248;&#26102;&#39068;&#12289;&#27146;&#25391;&#19996;&#215;&#24247;&#22914;&#12289;&#36213;&#20029;&#39062;&#215;&#32426;&#26805;&#24076;&#20840;&#29699;&#21452;&#32447;&#31561;&#26696;&#20363;&#34920;&#26126;&#65306;&#36816;&#21160;&#21592;"&#23433;&#20840;&#24615;""&#19987;&#19994;&#24418;&#35937;""&#22269;&#27665;&#24433;&#21709;&#21147;"&#39640;&#24230;&#22865;&#21512;&#21697;&#29260;&#38656;&#27714;&#12290;6&#26376;-7&#26376;&#20307;&#32946;/&#24433;&#35270;&#26126;&#26143;&#23494;&#38598;&#23448;&#23459;&#65292;&#24418;&#25104;&#21697;&#29260;&#20195;&#35328;&#30697;&#38453;&#21270;&#31454;&#20105;&#12290;</p>
+                    <h3>&#20307;&#32946;&#26126;&#26143;&#20195;&#35328;&#65306;&#20174;&#20010;&#26696;&#21040;&#34892;&#19994;&#26631;&#37197;&#65292;&#23156;&#31461;&#36187;&#36947;&#23578;&#26410;&#34987;&#20805;&#20998;&#24320;&#21457; <span class="tag tag-trend">&#36235;&#21183;</span></h3>
+                    <p>&#36817;3&#26376;20+&#20301;&#33402;&#20154;&#20195;&#35328;&#20013;&#65292;6&#20301;&#20026;&#20307;&#32946;&#26126;&#26143;&#65288;&#23385;&#39062;&#33678;&#12289;&#29579;&#26970;&#38054;&#12289;&#27146;&#25391;&#19996;&#31561;&#65289;&#65292;&#35206;&#30422;&#27927;&#25252;&#21457;&#12289;&#38450;&#26194;&#12289;&#25252;&#32932;&#31561;&#22810;&#21697;&#31867;&#12290;&#21697;&#29260;&#36923;&#36753;&#20174;"&#27969;&#37327;&#25910;&#21106;"&#36716;&#21521;"&#39118;&#26684;&#29983;&#24577;"&#20849;&#24314;&#8212;&#8212;&#36816;&#21160;&#21592;"&#23433;&#20840;&#24615;""&#19987;&#19994;&#24418;&#35937;""&#22269;&#27665;&#24433;&#21709;&#21147;"&#39640;&#24230;&#22865;&#21512;&#27597;&#23156;/&#25252;&#32932;&#21697;&#29260;&#38656;&#27714;&#12290;&#36213;&#20029;&#39062;&#215;&#32426;&#26805;&#24076;&#20840;&#29699;&#21452;&#32447;&#12289;&#30333;&#40575;Jimmy Choo&#20840;&#29699;&#20195;&#35328;&#20154;&#31561;&#26696;&#20363;&#34920;&#26126;"1+N&#30697;&#38453;&#21270;"&#20195;&#35328;&#25104;&#34892;&#19994;&#26631;&#37197;&#12290;&#23545;&#28023;&#40863;&#29240;&#29240;&#32780;&#35328;&#65292;&#23156;&#31461;/&#38738;&#23569;&#24180;&#25252;&#32932;&#36187;&#36947;&#23578;&#26410;&#20986;&#29616;&#20307;&#32946;&#26126;&#26143;&#20195;&#35328;&#26696;&#20363;&#65292;&#23384;&#22312;&#20808;&#21457;&#21344;&#20301;&#26426;&#20250;&#12290;</p>
                     <div class="metric">
                         <div class="metric-item"><strong>20+</strong> &#36817;3&#26376;&#20195;&#35328;</div>
                         <div class="metric-item"><strong>6位</strong> &#20307;&#32946;&#26126;&#26143;</div>
-                        <div class="metric-item"><strong>2位</strong> &#20840;&#29699;&#21452;&#32447;</div>
+                        <div class="metric-item"><strong>0</strong> &#23156;&#31461;&#36187;&#36947;&#20307;&#32946;&#20195;&#35328;</div>
                     </div>
                     <div class="source">&#26469;&#28304;&#65306;&#21697;&#29260;&#23448;&#26041; / &#31038;&#20132;&#23186;&#20307;&#30417;&#27979; / 2026.06-07</div>
                 </div>
 
                 <div class="insight-card orange">
-                    <h3>AI&#36171;&#33021;&#38450;&#26194;&#25104;&#20026;&#25216;&#26415;&#20998;&#27700;&#23725; <span class="tag tag-new">&#25216;&#26415;</span></h3>
-                    <p>MISTINE&#31532;&#19971;&#20195;&#23567;&#40644;&#24125;&#25645;&#36733;AI&#32447;&#31890;&#20307;&#32423;&#25239;&#20809;&#25439;&#31185;&#25216;&#65307;&#36164;&#29983;&#22530;AI&#37197;&#26041;&#24179;&#21488;&#30740;&#21457;&#39321;&#27675;&#21943;&#38654;&#38450;&#26194;&#12290;&#27431;&#33713;&#38597;&#215;OpenAI&#25112;&#30053;&#21512;&#20316;&#35206;&#30422;&#23545;&#35805;&#24335;&#35797;&#22918;&#12289;&#30740;&#21457;&#24494;&#29983;&#29289;&#32452;&#22270;&#35889;&#12289;AIGC&#20869;&#23481;&#24179;&#21488;&#20840;&#38142;&#36335;&#12290;AI&#20174;&#33829;&#38144;&#24037;&#20855;&#21319;&#32423;&#20026;&#20135;&#21697;&#30740;&#21457;&#26680;&#24515;&#39537;&#21160;&#21147;&#65292;&#24046;&#24322;&#21270;&#31383;&#21475;&#26399;&#26377;&#38480;&#65292;&#20808;&#21457;&#20248;&#21183;&#32773;&#23558;&#21344;&#25454;&#25216;&#26415;&#22721;&#22418;&#12290;</p>
+                    <h3>AI&#36171;&#33021;&#65306;&#20174;&#33829;&#38144;&#22129;&#22836;&#21040;&#20135;&#21697;&#30740;&#21457;&#26680;&#24515;&#39537;&#21160;&#21147; <span class="tag tag-new">&#25216;&#26415;</span></h3>
+                    <p>MISTINE&#31532;&#19971;&#20195;&#23567;&#40644;&#24125;&#25645;&#36733;AI&#32447;&#31890;&#20307;&#32423;&#25239;&#20809;&#25439;&#31185;&#25216;&#65307;&#36164;&#29983;&#22530;AI&#37197;&#26041;&#24179;&#21488;&#30740;&#21457;&#39321;&#27675;&#21943;&#38654;&#38450;&#26194;&#65307;&#27431;&#33713;&#38597;&#215;OpenAI&#25112;&#30053;&#21512;&#20316;&#35206;&#30422;&#23545;&#35805;&#24335;&#35797;&#22918;&#12289;&#30740;&#21457;&#24494;&#29983;&#29289;&#32452;&#22270;&#35889;&#12289;AIGC&#20869;&#23481;&#24179;&#21488;&#20840;&#38142;&#36335;&#12290;AI&#20174;&#33829;&#38144;&#24037;&#20855;&#21319;&#32423;&#20026;&#20135;&#21697;&#30740;&#21457;&#26680;&#24515;&#39537;&#21160;&#21147;&#65292;&#24046;&#24322;&#21270;&#31383;&#21475;&#26399;&#26377;&#38480;&#12290;&#23545;&#28023;&#40863;&#29240;&#29240;&#32780;&#35328;&#65292;"&#32690;&#21644;&#23454;&#39564;&#23460;"&#30340;&#25216;&#26415;&#32972;&#20070;&#38656;&#35201;&#19982;AI&#25216;&#26415;&#21465;&#20107;&#32467;&#21512;&#65292;&#21542;&#21017;&#22312;"AI&#38450;&#26194;"&#35805;&#35821;&#31454;&#20105;&#20013;&#22788;&#20110;&#34987;&#21160;&#12290;</p>
                     <div class="metric">
                         <div class="metric-item"><strong>MISTINE</strong> AI抗光损</div>
                         <div class="metric-item"><strong>资生堂</strong> AI配方</div>
@@ -391,45 +406,62 @@
                     <div class="source">&#26469;&#28304;&#65306;&#21697;&#29260;&#23448;&#26041; / &#38738;&#30524;&#24773;&#25253; / 2026.06</div>
                 </div>
             </div>
+
+            <!-- 启示卡片（新增） -->
+            <div class="implication-cards">
+                <div class="implication-card action">
+                    <h4>🎯 &#34892;&#21160;&#21551;&#31034;</h4>
+                    <p>&#8226; &#38450;&#26194;&#36187;&#36947;&#65306;6-8&#26376;&#26159;&#37329;&#20254;&#38450;&#26194;&#20083;&#30340;"&#26368;&#21518;&#31383;&#21475;&#26399;"&#65292;&#38656;&#22312;&#23567;&#32418;&#20070;/&#25238;&#38899;&#24378;&#21270;"AI&#31185;&#25216;&#38450;&#26194;"&#21465;&#20107;&#65292;&#19982;&#23433;&#28909;&#27801;/MISTINE&#24418;&#25104;&#24046;&#24322;&#21270;&#65288;&#38750;&#32435;&#31859; vs AI&#32447;&#31890;&#20307;&#65289;
+&#8226; &#38738;&#23569;&#24180;&#25252;&#32932;&#65306;&#23558;"&#20840;&#22269;&#39318;&#20010;&#31067;&#30168;&#22242;&#26631;&#21046;&#23450;&#32773;"&#20316;&#20026;&#26680;&#24515;&#21697;&#29260;&#36164;&#20135;&#65292;&#22312;&#20869;&#23481;&#31471;&#25345;&#32493;&#24378;&#21270;"&#26631;&#20934;=&#23433;&#20840;=&#26377;&#25928;"&#30340;&#24515;&#26234;&#20851;&#32852;
+&#8226; &#20307;&#32946;&#26126;&#26143;&#20195;&#35328;&#65306;&#35780;&#20272;&#19982;&#20799;&#31185;&#21307;&#29983;/&#22885;&#36816;&#20896;&#20891;&#30340;&#21452;&#32972;&#20070;&#32452;&#21512;&#65292;&#22635;&#34917;&#23156;&#31461;&#36187;&#36947;&#20307;&#32946;&#20195;&#35328;&#31354;&#30333;
+&#8226; &#20869;&#23481;&#31574;&#30053;&#65306;&#20174;"&#25945;&#32946;&#29238;&#27597;"&#36716;&#21521;"&#20570;&#29238;&#27597;&#30340;&#20599;&#25042;&#25645;&#23376;"&#65292;&#38477;&#20302;&#20869;&#23481;&#36317;&#31163;&#24863;&#65292;&#25215;&#25509;05&#21518;&#28040;&#36153;&#24515;&#26234;&#21464;&#36801;</p>
+                </div>
+                <div class="implication-card risk">
+                    <h4>⚠️ &#39118;&#38505;&#39044;&#35686;</h4>
+                    <p>&#8226; &#23433;&#28909;&#27801;&#65288;&#36164;&#29983;&#22530;&#65289;&#25658;&#22269;&#38469;&#21697;&#29260;&#32972;&#20070;+&#32447;&#19979;&#28192;&#36947;&#20837;&#23616;&#20799;&#31461;&#38450;&#26194;&#65292;&#23545;&#28023;&#40863;&#29240;&#29240;&#24418;&#25104;"&#38477;&#32500;&#25171;&#20987;"&#39118;&#38505;&#65292;&#38656;&#21152;&#36895;&#25216;&#26415;&#24046;&#24322;&#21270;&#21465;&#20107;
+&#8226; &#28070;&#26412;Q1&#19994;&#32489;&#20142;&#30524;+&#38450;&#26194;&#27668;&#22443;&#26032;&#21697;&#21345;&#20301;&#22799;&#23395;&#65292;&#21516;&#20215;&#26684;&#24102;&#30452;&#25509;&#31454;&#20105;&#21152;&#21095;
+&#8226; &#38450;&#26194;&#25972;&#20307;&#24066;&#22330;&#33806;&#32553;&#65288;-7.8%&#65289;&#65292;&#23384;&#37327;&#21338;&#24328;&#19979;&#33829;&#38144;&#25104;&#26412;&#23558;&#25345;&#32493;&#19978;&#21319;
+&#8226; &#23567;&#32418;&#20070;&#20551;&#36135;&#20135;&#19994;&#38142;&#26333;&#20809;&#65288;&#24191;&#19996;315&#26202;&#20250;&#65289;&#65292;&#24179;&#21488;&#20449;&#20219;&#21361;&#26426;&#21487;&#33021;&#27874;&#21450;&#21697;&#29260;&#31181;&#33609;&#25928;&#29575;
+&#8226; &#24494;&#21338;&#34013;V 7&#26376;15&#26085;&#21040;&#26399;&#65292;&#33509;&#25918;&#24323;&#32493;&#36153;&#38656;&#25552;&#21069;&#21046;&#23450;&#36134;&#21495;&#36801;&#31227;&#26041;&#26696;</p>
+                </div>
+                <div class="implication-card opportunity">
+                    <h4>💡 &#26426;&#20250;&#31383;&#21475;</h4>
+                    <p>&#8226; &#38738;&#23569;&#24180;&#25252;&#32932;&#36187;&#36947;&#65306;&#26943;&#33609;/&#29577;&#27901;/&#24742;&#33433;&#23198;/&#34955;&#40736;&#22920;&#22920;&#32439;&#32439;&#20837;&#23616;&#65292;&#20294;&#28023;&#40863;&#29240;&#29240;&#24050;&#25250;&#21344;"&#26631;&#20934;&#21046;&#23450;&#32773;"&#36523;&#20221;&#65292;&#31383;&#21475;&#26399;&#27491;&#22312;&#32553;&#23567;
+&#8226; &#20307;&#32946;&#26126;&#26143;&#20195;&#35328;&#23156;&#31461;&#36187;&#36947;&#65306;&#24403;&#21069;&#26080;&#21697;&#29260;&#21344;&#20301;&#65292;&#20808;&#21457;&#32773;&#21487;&#24314;&#31435;"&#23433;&#20840;+&#19987;&#19994;+&#22269;&#27665;&#35748;&#21487;"&#19977;&#37325;&#20449;&#20219;&#22721;&#22418;
+&#8226; &#26080;&#27700;&#32654;&#22918;&#65306;2025&#24180;65.8&#20159;&#8594;2028&#24180;&#39044;&#35745;205.63&#20159;&#20803;&#65288;CAGR 46%&#65289;&#65292;"&#39640;&#35748;&#30693;&#20302;&#28183;&#36879;"&#33853;&#24046;70&#20010;&#30334;&#20998;&#28857;&#65292;&#25945;&#32946;&#31354;&#38388;&#24040;&#22823;
+&#8226; &#25919;&#31574;&#32418;&#21033;&#65306;&#36130;&#25919;&#37096;2026&#24180;&#32946;&#20799;&#34917;&#36148;999&#20159;&#20803;&#65288;+10.6%&#65289;&#65292;618&#21270;&#22918;&#21697;&#39318;&#27425;&#32435;&#20837;&#25919;&#24220;&#34917;&#36148;&#65288;12%-20%&#65289;&#65292;&#27597;&#23156;&#22522;&#26412;&#30424;&#21463;&#30410;
+&#8226; &#20986;&#28023;&#26426;&#20250;&#65306;&#23567;&#32418;&#20070;Redshop&#36328;&#22659;&#30005;&#21830;&#24179;&#21488;6&#26376;&#19978;&#32447;&#65292;&#22269;&#36135;&#20986;&#28023;&#36827;&#20837;&#26032;&#38454;&#27573;</p>
+                </div>
+            </div>
         </div>
 
-        <!-- 趋势对比图（新增） -->
+        <!-- 趋势对比图 -->
         <div class="trend-chart">
-            <h2>&#21697;&#31867;&#28909;&#24230;&#36235;&#21183;&#23545;&#27604;</h2>
+            <h2>&#21697;&#31867;&#28909;&#24230;&#19982;&#31454;&#20105;&#26684;&#23616;</h2>
             <div class="bar-chart">
                 <div class="bar-row">
                     <div class="bar-label">&#38738;&#23569;&#24180;&#25252;&#32932;</div>
-                    <div class="bar-track">
-                        <div class="bar-fill blue" style="width: 95%">&#39640;&#28909;&#24230;</div>
-                    </div>
+                    <div class="bar-track"><div class="bar-fill blue" style="width: 95%">&#39640;&#28909;&#24230;</div></div>
                     <div class="bar-value">+445%</div>
                 </div>
                 <div class="bar-row">
                     <div class="bar-label">AI&#38450;&#26194;</div>
-                    <div class="bar-track">
-                        <div class="bar-fill purple" style="width: 88%">&#24555;&#36895;&#22686;&#38271;</div>
-                    </div>
+                    <div class="bar-track"><div class="bar-fill purple" style="width: 88%">&#24555;&#36895;&#22686;&#38271;</div></div>
                     <div class="bar-value">&#29190;&#21457;&#26399;</div>
                 </div>
                 <div class="bar-row">
                     <div class="bar-label">&#26080;&#27700;&#32654;&#22918;</div>
-                    <div class="bar-track">
-                        <div class="bar-fill green" style="width: 72%">&#19978;&#21319;&#26399;</div>
-                    </div>
+                    <div class="bar-track"><div class="bar-fill green" style="width: 72%">&#19978;&#21319;&#26399;</div></div>
                     <div class="bar-value">CAGR 46%</div>
                 </div>
                 <div class="bar-row">
                     <div class="bar-label">&#38450;&#26194;&#25972;&#20307;</div>
-                    <div class="bar-track">
-                        <div class="bar-fill orange" style="width: 55%">&#35843;&#25972;&#26399;</div>
-                    </div>
+                    <div class="bar-track"><div class="bar-fill orange" style="width: 55%">&#35843;&#25972;&#26399;</div></div>
                     <div class="bar-value">-7.8%</div>
                 </div>
                 <div class="bar-row">
                     <div class="bar-label">&#24773;&#32490;&#32654;&#23481;</div>
-                    <div class="bar-track">
-                        <div class="bar-fill red" style="width: 40%">&#33804;&#33469;&#26399;</div>
-                    </div>
+                    <div class="bar-track"><div class="bar-fill red" style="width: 40%">&#33804;&#33469;&#26399;</div></div>
                     <div class="bar-value">&#26631;&#20934;&#21457;&#24067;</div>
                 </div>
             </div>
@@ -437,8 +469,7 @@
 
         <!-- 分类导航 -->
         <div class="category-nav scroll-x">
-            <button class="cat-btn active" onclick="showView('timeline')">&#20840;&#37096;&#26102;&#38388;&#32447; <span class="count">13</span></button>
-            <button class="cat-btn" onclick="showView('industry')">&#34892;&#19994;&#21160;&#24577; <span class="count">7</span></button>
+            <button class="cat-btn active" onclick="showView('industry')">&#34892;&#19994;&#21160;&#24577; <span class="count">7</span></button>
             <button class="cat-btn" onclick="showView('competitor')">&#31454;&#21697;&#21160;&#24577; <span class="count">6</span></button>
             <button class="cat-btn" onclick="showView('case')">&#33829;&#38144;&#26696;&#20363; <span class="count">6</span></button>
             <button class="cat-btn" onclick="showView('celebrity')">&#33402;&#20154;&#20195;&#35328; <span class="count">20+</span></button>
@@ -447,14 +478,255 @@
             <button class="cat-btn" onclick="showView('capital')">&#36164;&#26412;&#24066;&#22330; <span class="count">5</span></button>
         </div>
 
-        <!-- 搜索 -->
-        <input type="text" class="search-box" id="searchBox" placeholder="&#25628;&#32034;&#20851;&#38190;&#35789;&#65306;&#38450;&#26194;&#12289;&#28023;&#40863;&#29240;&#29240;&#12289;618&#12289;&#20195;&#35328;&#12289;AI..." oninput="doSearch()">
+        <!-- 2. 按维度分类的子类目总结 -->
 
-        <!-- 时间线视图 -->
-        <div id="timeline-view" class="view active">
+        <!-- 行业动态面板 -->
+        <div id="industry-view" class="panel active">
+            <h2><span class="icon">📊</span> &#34892;&#19994;&#21160;&#24577; &#183; &#23376;&#31867;&#30446;&#24635;&#32467;</h2>
+
+            <div class="cat-insight-card blue">
+                <h3>&#38450;&#26194;&#36187;&#36947;&#65306;&#38646;&#21806;&#39069;274.5&#20159;&#20803;&#65288;&#21516;&#27604;-7.8%&#65289;&#65292;&#38598;&#20013;&#24230;&#25552;&#21319;+&#24418;&#24577;&#21019;&#26032;</h3>
+                <p>&#24066;&#22330;&#38598;&#20013;&#24230;&#25345;&#32493;&#25552;&#21319;&#65288;TOP5 36.51%&#65289;&#65292;&#24418;&#24577;&#21019;&#26032;&#65288;&#38450;&#26194;&#26834;/&#27700;/&#31881;&#39292;/&#27668;&#22443;&#65289;+ AI&#36171;&#33021;&#65288;MISTINE&#32447;&#31890;&#20307;&#25239;&#20809;&#25439;&#12289;&#36164;&#29983;&#22530;AI&#39321;&#27675;&#21943;&#38654;&#65289;&#25104;&#30772;&#23616;&#20851;&#38190;&#12290;&#23156;&#31461;&#38450;&#26194;"&#23567;&#37329;&#30462;"&#26631;&#35782;&#25104;&#28966;&#28857;&#65292;&#30417;&#31649;&#36235;&#20005;&#21033;&#22909;&#21512;&#35268;&#21697;&#29260;&#12290;&#28023;&#40863;&#29240;&#29240;2025&#24180;GMV 8.2&#20159;&#65292;&#27431;&#30591;&#35748;&#35777;&#20122;&#27954;&#31532;&#19968;&#23156;&#31461;&#38450;&#26194;&#21697;&#29260;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#38738;&#30524;&#24773;&#25253; / &#27431;&#30591;&#22269;&#38469; / 2026&#38450;&#26194;&#24066;&#22330;&#27934;&#23519;</div>
+            </div>
+            <div class="cat-insight-card green">
+                <h3>&#38738;&#23569;&#24180;&#25252;&#32932;&#65306;05&#21518;&#28040;&#36153;621&#20159;&#20803;&#65288;2030&#30772;&#21315;&#20159;&#65289;&#65292;&#20197;&#37238;&#25239;&#30168;&#25104;&#36235;&#21183;</h3>
+                <p>&#32422;5,691&#19975;05&#21518;&#20154;&#32676;&#65292;&#28040;&#36153;&#38142;&#36335;&#20174;"&#25628;&#32034;&#20808;&#34892;"&#8594;"&#20869;&#23481;&#31181;&#33609;&#8594;&#39564;&#35777;&#8594;&#19979;&#21333;"&#12290;&#28023;&#40863;&#29240;&#29240;&#23567;&#34013;&#29942;SGS&#26816;&#27979;28&#22825;&#30168;&#30168;-54.83%&#12289;&#38381;&#21475;-67.96%&#65292;&#29301;&#22836;&#21046;&#23450;&#20840;&#22269;&#39318;&#20010;&#38738;&#23569;&#24180;&#31067;&#30168;&#22242;&#26631;&#12290;&#26943;&#33609;/&#29577;&#27901;/&#24742;&#33433;&#23198;/&#34955;&#40736;&#22920;&#22920;&#20837;&#23616;&#65292;"&#20197;&#37238;&#25239;&#30168;"&#27604;&#21047;&#37240;&#26356;&#28201;&#21644;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#38738;&#30524;&#24773;&#25253; / &#28023;&#40863;&#29240;&#29240;SGS&#26816;&#27979;&#25253;&#21578;</div>
+            </div>
+            <div class="cat-insight-card orange">
+                <h3>&#23156;&#31461;&#25239;&#25935;&#24863;&#65306;&#21307;&#30740;&#20849;&#21019; + &#25104;&#20998;&#31934;&#20934;&#21270;&#65292;&#35206;&#30422;&#20840;&#24180;&#40836;&#27573;</h3>
+                <p>&#28023;&#40863;&#29240;&#29240;&#24314;&#31435;&#20122;&#27954;&#39318;&#20010;&#23569;&#20799;&#30382;&#32932;&#25968;&#25454;&#24211;&#65292;&#35206;&#30422;&#20840;&#24180;&#40836;&#27573;&#32908;&#32932;&#30171;&#28857;&#65292;&#19977;&#22823;&#26680;&#24515;&#31995;&#21015;&#65288;&#25239;&#20809;&#25439;&#12289;&#25239;&#25935;&#24863;&#12289;&#25239;&#27833;&#30168;&#65289;&#35206;&#30422;&#20840;&#21608;&#26399;&#12290;&#23433;&#21807;&#20234;&#33719;CIC"&#23156;&#31461;&#32974;&#33026;&#38754;&#38684;&#20840;&#32593;&#38144;&#21806;&#39069;&#31532;&#19968;"&#21452;&#35748;&#35777;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;CIC&#28796;&#35782; / &#28023;&#40863;&#29240;&#29240;&#21697;&#29260;&#21457;&#24067;</div>
+            </div>
+            <div class="cat-insight-card blue">
+                <h3>&#26080;&#27700;&#32654;&#22918;&#65306;2025&#24180;65.8&#20159;&#8594;2028&#24180;&#39044;&#35745;205.63&#20159;&#20803;&#65288;CAGR 46%&#65289;</h3>
+                <p>"&#39640;&#35748;&#30693;&#20302;&#28183;&#36879;"&#33853;&#24046;&#36798;70&#20010;&#30334;&#20998;&#28857;&#65292;&#24066;&#22330;&#25945;&#32946;&#31354;&#38388;&#24040;&#22823;&#12290;&#20174;&#23548;&#20837;&#26399;&#36808;&#21521;&#25104;&#38271;&#26399;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#38738;&#30524;&#24773;&#25253; / &#32654;&#22918;&#22836;&#26465;</div>
+            </div>
+            <div class="cat-insight-card green">
+                <h3>&#24773;&#32490;&#32654;&#23481;&#65306;&#39318;&#37096;T/SHRH068-2024&#26631;&#20934;&#21457;&#24067;&#65292;&#946;-&#20869;&#21857;&#32957;/&#30382;&#36136;&#37255;&#25104;&#24067;&#23616;&#37325;&#28857;</h3>
+                <p>"&#38271;&#23551;&#25252;&#32932;"&#25104;2026&#39030;&#27969;&#28909;&#35789;&#65306;&#20848;&#34107;&#33729;&#32431;&#38271;&#23551;&#31995;&#21015;&#65292;&#31859;&#25176;&#28006;&#23572;&#27963;&#24615;&#25104;&#20998;&#21152;&#36895;&#32447;&#31890;&#20307;&#26356;&#26032;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;T/SHRH068-2024 / &#32654;&#22918;&#34892;&#19994;&#35266;&#23519;</div>
+            </div>
+            <div class="cat-insight-card orange">
+                <h3>&#29100;&#22812;&#25252;&#32932;&#65306;2025&#24180;48.70&#20159;&#20803;&#65288;+24.17%&#65289;&#65292;&#39044;&#35745;2026&#24180;53.57&#20159;</h3>
+                <p>"&#29100;&#22812;&#20462;&#22797;"&#22330;&#26223;&#32454;&#20998;&#65292;&#20174;"&#24613;&#25937;"&#21040;"&#26085;&#24120;&#20462;&#25252;"&#30340;&#36716;&#21270;&#36335;&#24452;&#34987;&#21697;&#29260;&#37325;&#35270;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#34892;&#19994;&#30740;&#25253; / 2026&#32654;&#22918;&#36235;&#21183;</div>
+            </div>
+            <div class="cat-insight-card red">
+                <h3>&#20840;&#29699;&#32654;&#22918;&#24066;&#22330;&#65306;$375.62B&#65292;&#20122;&#22826;&#22686;&#38271;&#26368;&#24555;</h3>
+                <p>2025&#24180;&#20840;&#29699;&#32654;&#22918;&#24066;&#22330;&#35268;&#27169;3756.2&#20159;&#32654;&#20803;&#65292;&#20122;&#22826;&#22320;&#21306;&#22686;&#38271;&#26368;&#24555;&#65292;&#20013;&#22269;&#24066;&#22330;&#21344;&#27604;&#25345;&#32493;&#25193;&#22823;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;5&#26376;&#21697;&#29260;&#21069;&#27839;&#36164;&#35759;&#26376;&#25253; / &#20840;&#29699;&#32654;&#22918;&#24066;&#22330;&#25968;&#25454;</div>
+            </div>
+        </div>
+
+        <!-- 竞品动态面板 -->
+        <div id="competitor-view" class="panel">
+            <h2><span class="icon">🎯</span> &#31454;&#21697;&#21160;&#24577; &#183; &#23376;&#31867;&#30446;&#24635;&#32467;</h2>
+            <div class="cat-insight-card red">
+                <h3>&#23433;&#28909;&#27801;&#65288;&#36164;&#29983;&#22530;&#65289;&#65306;&#39318;&#27425;&#24067;&#23616;&#27597;&#23156;&#36187;&#36947;&#65292;&#34013;&#23453;&#29942;&#20799;&#31461;&#38450;&#26194;</h3>
+                <p>2026&#24180;3&#26376;&#25512;&#20986;&#12300;&#20840;&#26032;&#34013;&#23453;&#29942;&#12301;&#20799;&#31461;&#38450;&#26194;&#65292;&#20027;&#25171;"&#38750;&#32435;&#31859;&#25216;&#26415;"+"&#23567;&#37329;&#30462;"&#26631;&#24535;&#12290;&#37319;&#21462;"&#32447;&#19978;&#25945;&#32946;&#24341;&#27969;&#32447;&#19979;&#20307;&#39564;&#12289;&#32447;&#19979;&#20307;&#39564;&#21453;&#21754;&#32447;&#19978;&#22797;&#36141;"&#21452;&#21521;&#36171;&#33021;&#38381;&#29615;&#12290;&#22269;&#38469;&#22823;&#29260;&#20837;&#23616;&#20799;&#31461;&#38450;&#26194;&#65292;&#23545;&#28023;&#40863;&#29240;&#29240;&#24418;&#25104;&#30452;&#25509;&#31454;&#20105;&#21387;&#21147;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#32463;&#27982;&#26202;&#25253;&#32593; / 2026&#21992;&#21019;&#21608;</div>
+            </div>
+            <div class="cat-insight-card orange">
+                <h3>moodytiger&#65306;&#20799;&#31461;&#38450;&#26194;&#26381;&#35746;&#21333;&#22686;&#38271;142%&#65292;&#20197;"&#20937;&#24863;+&#20146;&#23376;&#24773;&#24863;"&#37325;&#26032;&#23450;&#20041;&#38450;&#26194;</h3>
+                <p>&#23558;&#38450;&#26194;&#22330;&#26223;&#19982;&#20146;&#23376;&#36816;&#21160;&#28145;&#24230;&#32465;&#23450;&#65292;&#24378;&#35843;"&#33258;&#22312;&#30340;&#31461;&#24180;"&#24773;&#24863;&#20215;&#20540;&#12290;&#25143;&#22806;&#22330;&#26223;&#31454;&#20105;&#32500;&#24230;&#20174;&#25252;&#32932;&#21697;&#25193;&#22823;&#33267;&#26381;&#39280;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#33406;&#29790;&#21672;&#35810; / &#34633;&#39764;&#26041;</div>
+            </div>
+            <div class="cat-insight-card blue">
+                <h3>&#25140;&#21487;&#24605;&#65306;&#24180;&#24230;&#38144;&#21806;&#39069;3.74&#20159;&#39046;&#36305;&#22825;&#29483;&#23156;&#31461;&#25252;&#32932;&#65292;&#24378;&#21270;"&#25104;&#20998;&#20826;"&#24515;&#26234;</h3>
+                <p>&#21344;&#27604;7.8%&#12290;&#32852;&#21512;&#31532;&#19977;&#26041;&#23454;&#39564;&#23460;&#20570;&#20135;&#21697;&#27979;&#35780;&#12290;618&#31574;&#30053;&#32858;&#28966;&#29190;&#21697;+&#28508;&#21147;&#27454;&#32452;&#21512;&#65292;&#25628;&#32034;&#21345;&#20301;"&#20799;&#31461;&#38754;&#38684;""&#23156;&#20799;&#27927;&#25252;"&#31561;&#26680;&#24515;&#21697;&#31867;&#35789;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#39764;&#38236;&#25968;&#25454; / &#22825;&#29483;&#27036;&#21333;</div>
+            </div>
+            <div class="cat-insight-card green">
+                <h3>&#28070;&#26412;&#65306;Q1&#19994;&#32489;&#20142;&#30524;&#65292;&#38450;&#26194;&#21867;&#21937;+&#27668;&#22443;&#26032;&#21697;&#21345;&#20301;&#22799;&#23395;</h3>
+                <p>2025&#24180;&#25512;&#20986;&#20799;&#31461;&#38450;&#26194;&#21867;&#21937;&#12289;&#31461;&#38145;&#23450;&#26102;&#21152;&#28909;&#22120;&#12289;&#38738;&#23569;&#24180;&#31995;&#21015;&#31561;60&#20313;&#27454;&#21333;&#21697;&#12290;2026&#24180;&#26149;&#22799;&#23395;&#25512;&#20986;&#20799;&#31461;&#38450;&#26194;&#20445;&#28287;&#26085;&#38684;&#12289;&#38450;&#26194;&#27668;&#22443;&#31561;&#26032;&#21697;&#65292;&#31934;&#20934;&#21345;&#20301;&#22799;&#26085;&#20799;&#31461;&#38450;&#26194;&#38656;&#27714;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#24320;&#28304;&#35777;&#21048;&#30740;&#25253; / 2026-05-24</div>
+            </div>
+            <div class="cat-insight-card orange">
+                <h3>&#19968;&#39029;&#65306;&#38738;&#23569;&#24180;&#25252;&#32932;&#32447;&#25345;&#32493;&#21457;&#21147;&#65292;&#20998;&#40836;/&#20998;&#32932;&#36136;/&#20998;&#22330;&#26223;&#25252;&#29702;</h3>
+                <p>&#38738;&#23569;&#24180;&#25252;&#32932;&#36187;&#36947;&#31454;&#20105;&#32773;&#65292;&#24046;&#24322;&#21270;&#24067;&#23616;&#12290;&#22686;&#36895;134.2%&#65288;2025&#19978;&#21322;&#24180;&#65289;&#12290;</p>
+            </div>
+            <div class="cat-insight-card blue">
+                <h3>&#29632;&#33713;&#38597;&#65306;&#25910;&#36141;&#33457;&#30693;&#26195;&#65292;&#21152;&#30721;&#24425;&#22918;&#21697;&#31867;&#65292;&#23436;&#21892;&#22810;&#21697;&#29260;&#30697;&#38453;</h3>
+                <p>618&#32654;&#22918;&#34920;&#29616;&#20142;&#30524;&#65292;&#21516;&#26102;&#21152;&#30721;&#25910;&#36141;&#24425;&#22918;&#21697;&#29260;&#33457;&#30693;&#26195;&#65292;&#36827;&#19968;&#27493;&#25299;&#23637;&#24425;&#22918;&#21697;&#31867;&#24067;&#23616;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#19996;&#26041;&#36130;&#23500; / &#34892;&#19994;&#30740;&#25253;</div>
+            </div>
+        </div>
+
+        <!-- 营销案例面板 -->
+        <div id="case-view" class="panel">
+            <h2><span class="icon">💡</span> &#33829;&#38144;&#26696;&#20363; &#183; &#23376;&#31867;&#30446;&#24635;&#32467;</h2>
+            <div class="cat-insight-card green">
+                <h3>&#20140;&#19996;&#65306;&#21548;&#21149;&#24335;&#33829;&#38144;&#65288;APP&#19979;&#36733;&#37327;+156%&#65289;</h3>
+                <p>&#12304;&#26696;&#20363;&#19968;&#12305;&#21016;&#24378;&#19996;&#24037;&#26381;&#24418;&#35937;&#34987;&#32593;&#21451;&#21457;&#29616;&#19982;&#12298;&#29482;&#29482;&#20384;&#12299;&#20027;&#35282;&#30456;&#20284;&#65292;&#20140;&#19996;&#36805;&#36895;&#21709;&#24212;&#23448;&#23459;&#29482;&#29482;&#20384;"&#34394;&#25311;&#39569;&#25163;"&#20837;&#32844;&#65292;APP&#19979;&#36733;&#37327;&#29615;&#27604;+156%&#12290;&#12304;&#26696;&#20363;&#20108;&#12305;&#32593;&#21451;&#21628;&#21505;"&#32418;&#30340;&#20250;&#36194;"&#65292;&#20140;&#19996;&#23448;&#23459;&#24800;&#33521;&#32418;&#25285;&#20219;&#25163;&#26426;&#36890;&#35759;&#25512;&#24191;&#22823;&#20351;&#12290;&#26680;&#24515;&#36923;&#36753;&#65306;&#23558;UGC&#21453;&#39304;&#36716;&#21270;&#20026;&#23448;&#26041;&#21160;&#20316;&#65292;&#29992;"&#21548;&#21149;"&#20154;&#35774;&#25289;&#36817;&#21697;&#29260;&#19982;&#29992;&#25143;&#36317;&#31163;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#20844;&#24320;&#25253;&#36947; / &#31038;&#20132;&#23186;&#20307;&#30417;&#27979;</div>
+            </div>
+            <div class="cat-insight-card blue">
+                <h3>&#20234;&#21033;&#65306;"&#39532;&#24180;&#25214;&#39532;&#20234;&#29709;"&#21548;&#21149;+&#21019;&#24847;&#21472;&#21152;</h3>
+                <p>&#20808;&#23448;&#23459;&#39532;&#24605;&#32431;&#25512;&#20986;"&#39532;&#24180;&#24605;&#24565;&#32431;&#29275;&#22902;"&#65292;&#32487;&#32780;&#31574;&#21010;"&#23547;&#25214;&#39532;&#20234;&#29709;"&#24191;&#21578;&#29255;&#65292;&#22312;&#29255;&#23614;&#25581;&#26195;&#39532;&#20234;&#29709;&#20195;&#35328;&#20154;&#36523;&#20221;&#65292;&#32532;&#36896;&#24320;&#24180;&#29190;&#27454;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#20234;&#21033;&#21697;&#29260;&#33829;&#38144; / &#31038;&#20132;&#23186;&#20307;</div>
+            </div>
+            <div class="cat-insight-card orange">
+                <h3>&#36229;&#33021;&#65306;&#23448;&#23459;&#32918;&#25112;&#20026;&#20840;&#29699;&#21697;&#29260;&#20195;&#35328;&#20154;&#65292;&#23478;&#28165;&#36187;&#36947;"&#19977;&#39030;&#37197;"&#32452;&#21512;</h3>
+                <p>&#35206;&#30422;&#19977;&#21494;&#33609;&#12289;&#19977;&#26465;&#32441;&#12289;Y3&#20840;&#20135;&#21697;&#32447;&#12290;&#21697;&#29260;&#36827;&#20837;&#20013;&#22269;&#24066;&#22330;&#20197;&#26469;&#32597;&#35265;&#20840;&#21697;&#31867;&#39640;&#35268;&#26684;&#21512;&#20316;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#21697;&#29260;&#23448;&#26041; / &#24494;&#21338;</div>
+            </div>
+            <div class="cat-insight-card green">
+                <h3>&#32418;&#20043;&#65306;&#215;&#29579;&#28304;&#20108;&#24230;&#21512;&#20316;&#21319;&#32423;&#65288;&#20840;&#21697;&#31867;&#35206;&#30422;&#65289;</h3>
+                <p>&#20174;&#21368;&#22918;&#25299;&#23637;&#33267;&#38754;&#37096;&#28165;&#27905;&#20840;&#21697;&#31867;&#65292;&#20840;&#21608;&#26399;&#20195;&#35328;&#36816;&#33829;&#65288;&#39044;&#28909;&#8594;&#23448;&#23459;&#8594;&#20849;&#21019;&#8594;&#38271;&#32447;&#65289;&#12290;&#21697;&#29260;&#35748;&#30693;&#20174;"&#21368;&#22918;"&#25193;&#23637;&#21040;"&#38754;&#37096;&#28165;&#27905;&#19987;&#23478;"&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#21697;&#29260;&#26143;&#29699; / &#32418;&#20043;&#23448;&#26041;</div>
+            </div>
+            <div class="cat-insight-card blue">
+                <h3>MISTINE&#65306;&#31532;&#19971;&#20195;AI&#32447;&#31890;&#20307;&#25239;&#20809;&#25439;&#31185;&#25216;&#65292;&#32493;&#32422;&#29579;&#26970;&#38054;</h3>
+                <p>&#25645;&#36733;AI&#36171;&#33021;&#38450;&#26194;&#25216;&#26415;&#65292;&#32493;&#32422;&#29579;&#26970;&#38054;&#21319;&#32423;"&#20840;&#29699;&#39318;&#24109;&#38450;&#26194;&#20195;&#35328;&#20154;"&#12290;&#20174;&#27969;&#37327;&#25910;&#21106;&#21040;&#39118;&#26684;&#29983;&#24577;&#20849;&#24314;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;MISTINE&#23448;&#26041; / &#21697;&#29260;&#26143;&#29699;</div>
+            </div>
+            <div class="cat-insight-card orange">
+                <h3>&#29702;&#32932;&#27849;&#65306;&#32852;&#21517;&#12298;&#23567;&#40644;&#20154;&#19982;&#22823;&#24618;&#20861;&#12299;&#20840;&#29699;&#36328;&#30028;&#21512;&#20316;</h3>
+                <p>7&#26376;&#21021;&#29702;&#32932;&#27849;&#32852;&#21517;&#12298;&#23567;&#40644;&#20154;&#19982;&#22823;&#24618;&#20861;&#12299;&#20840;&#29699;&#36328;&#30028;&#21512;&#20316;&#65292;IP&#32852;&#21517;&#25104;&#20026;&#32654;&#22918;&#21697;&#29260;&#35302;&#36798;&#24180;&#36731;&#23478;&#24237;&#30340;&#26032;&#36335;&#24452;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#29992;&#25143;&#25552;&#20379; / 2026&#24180;7&#26376;</div>
+            </div>
+        </div>
+
+        <!-- 艺人代言面板 -->
+        <div id="celebrity-view" class="panel">
+            <h2><span class="icon">⭐</span> &#33402;&#20154;&#20195;&#35328; &#183; &#23376;&#31867;&#30446;&#24635;&#32467;&#65288;&#36817;3&#26376;&#65289;</h2>
+            <div class="cat-insight-card red">
+                <h3>&#20307;&#32946;&#26126;&#26143;&#20195;&#35328;&#32654;&#22918;&#25104;&#20026;&#34892;&#19994;&#26032;&#36235;&#21183;&#65288;6&#20301;&#20307;&#32946;&#26126;&#26143;&#65289;</h3>
+                <p>&#23385;&#39062;&#33678;&#215;&#21322;&#20137;&#33457;&#30000;&#65288;&#27927;&#25252;&#21457;&#65289;&#12289;&#29579;&#26970;&#38054;&#215;&#20248;&#26102;&#39068;/MISTINE&#65288;&#20840;&#29699;&#39318;&#24109;&#38450;&#26194;&#20195;&#35328;&#20154;&#65289;&#12289;&#27146;&#25391;&#19996;&#215;&#24247;&#22914;&#12289;&#23385;&#39062;&#33678;&#215;&#22958;&#32500;&#38597;&#12290;&#36816;&#21160;&#21592;"&#23433;&#20840;&#24615;""&#19987;&#19994;&#24418;&#35937;""&#22269;&#27665;&#24433;&#21709;&#21147;"&#39640;&#24230;&#22865;&#21512;&#21697;&#29260;&#38656;&#27714;&#12290;&#23156;&#31461;&#36187;&#36947;&#23578;&#26410;&#34987;&#20805;&#20998;&#24320;&#21457;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#21697;&#29260;&#23448;&#26041; / &#31038;&#20132;&#23186;&#20307;&#30417;&#27979;</div>
+            </div>
+            <div class="cat-insight-card blue">
+                <h3>95&#33457;&#39046;&#36305;&#65306;&#36213;&#38706;&#24605;&#24320;&#24180;6&#39033;&#20840;&#29699;&#20195;&#35328;</h3>
+                <p>&#21830;&#21153;&#33410;&#22863;&#39046;&#36305;95&#33457;&#65292;&#28085;&#30422;&#32654;&#22918;/&#25252;&#32932;/&#26102;&#23578;/&#29983;&#27963;&#26041;&#24335;&#22810;&#21697;&#31867;&#12290;</p>
+            </div>
+            <div class="cat-insight-card purple">
+                <h3>&#21452;&#22882;&#36827;&#38454;&#65306;&#21333;&#20381;&#32431;40&#22825;&#21452;&#22882;&#65288;&#39321;&#22856;&#20799;+&#34107;&#39536;&#65289;</h3>
+                <p>&#39321;&#22856;&#20799;&#21697;&#29260;&#21490;&#19978;&#39318;&#20301;00&#21518;&#21326;&#20154;&#27468;&#25163;&#20195;&#35328;&#20154;&#65307;&#34107;&#39536;&#20840;&#29699;&#20195;&#35328;&#20154;&#12290;40&#22825;&#20869;&#23436;&#25104;&#21452;&#22882;&#36827;&#38454;&#12290;</p>
+            </div>
+            <div class="cat-insight-card green">
+                <h3>&#20840;&#21697;&#31867;&#39640;&#35268;&#26684;&#65306;&#29579;&#40548;&#26851;&#38463;&#36842;&#36798;&#26031;&#20840;&#31995;&#20195;&#35328;&#20154;</h3>
+                <p>&#35206;&#30422;&#19977;&#21494;&#33609;&#12289;&#19977;&#26465;&#32441;&#12289;Y3&#20840;&#20135;&#21697;&#32447;&#12290;&#21697;&#29260;&#36827;&#20837;&#20013;&#22269;&#24066;&#22330;&#20197;&#26469;&#32597;&#35265;&#20840;&#21697;&#31867;&#39640;&#35268;&#26684;&#21512;&#20316;&#12290;</p>
+            </div>
+            <div class="cat-insight-card orange">
+                <h3>1+N&#30697;&#38453;&#21270;&#65306;&#30333;&#40575;11&#20010;&#26376;&#21319;&#20219;Jimmy Choo&#20840;&#29699;&#20195;&#35328;&#20154;</h3>
+                <p>&#22823;&#20013;&#21326;&#21306;&#38144;&#21806;&#39069;&#22686;34%&#65292;"1+N"&#30697;&#38453;&#21270;&#20195;&#35328;&#25104;&#34892;&#19994;&#26631;&#37197;&#12290;</p>
+            </div>
+            <div class="cat-insight-card blue">
+                <h3>&#20854;&#20182;&#37325;&#28857;&#20195;&#35328;</h3>
+                <p>&#8226; &#32918;&#25112;&#215;&#36229;&#33021;&#65288;&#20840;&#29699;&#21697;&#29260;&#20195;&#35328;&#20154;&#65289;
+&#8226; &#26446;&#29616;&#215;adidas&#65288;&#19990;&#30028;&#26479;&#24320;&#29699;&#65292;&#20013;&#22269;&#20869;&#22320;&#39318;&#20363;&#65289;
+&#8226; &#29579;&#28304;&#215;&#32418;&#20043;&#65288;&#20108;&#24230;&#21512;&#20316;&#21319;&#32423;&#65289;
+&#8226; &#29579;&#22025;&#23572;&#215;&#38889;&#26463;
+&#8226; &#38472;&#26122;&#23431;&#215;Augustinus Bader
+&#8226; &#24464;&#26790;&#27905;&#215;&#26412;&#26469;BENLAI
+&#8226; &#26472;&#32043;&#215;&#33609;&#26412;&#21021;&#33394;&#65288;&#20840;&#29699;&#20195;&#35328;&#20154;&#65289;
+&#8226; &#19969;&#31161;&#20846;&#215;&#34588;&#19997;&#23159;&#65288;&#20840;&#29699;&#38450;&#26194;&#20195;&#35328;&#20154;&#65289;
+&#8226; &#38472;&#31435;&#20892;&#215;&#32654;&#24247;&#31881;&#40667;&#65288;7&#26376;5&#26085;&#65289;
+&#8226; &#33487;&#28851;&#28155;&#215;&#28023;&#40863;&#29240;&#29240;&#65288;2025&#24180;&#23448;&#23459;&#65289;
+&#8226; &#36213;&#20029;&#39062;&#65306;7&#26376;6&#26085;&#21457;&#24067;&#32426;&#26805;&#24076;&#20840;&#26032;G&#26041;&#31649;&#24191;&#21578;&#22823;&#29255;&#65288;2026&#24180;1&#26376;&#24050;&#23448;&#23459;&#20840;&#29699;&#24425;&#22918;&#21450;&#39321;&#27675;&#20195;&#35328;&#20154;&#65289;</p>
+            </div>
+        </div>
+
+        <!-- 平台趋势面板 -->
+        <div id="platform-view" class="panel">
+            <h2><span class="icon">📱</span> &#24179;&#21488;&#36235;&#21183; &#183; &#23376;&#31867;&#30446;&#24635;&#32467;</h2>
+            <div class="cat-insight-card red">
+                <h3>&#23567;&#32418;&#20070;&#65306;05&#21518;&#28040;&#36153;&#24515;&#26234; + &#20551;&#36135;&#39118;&#27874;</h3>
+                <p>Redshop&#36328;&#22659;&#30005;&#21830;&#24179;&#21488;6&#26376;&#27491;&#24335;&#19978;&#32447;&#12290;05&#21518;&#28040;&#36153;&#38142;&#36335;&#20174;"&#25628;&#32034;&#20808;&#34892;"&#8594;"&#20869;&#23481;&#31181;&#33609;&#8594;&#39564;&#35777;&#8594;&#19979;&#21333;"&#65292;&#20449;&#20219;&#26426;&#21046;&#20174;"&#20449;&#36798;&#20154;"&#8594;"&#20449;&#30495;&#23454;&#21453;&#39304;"&#12290;&#20294;&#24191;&#19996;315&#26202;&#20250;&#26333;&#20809;&#24179;&#21488;&#36164;&#36136;&#23457;&#26680;&#28431;&#27934;&#65292;AKF/&#27224;&#26421;/&#37237;&#33394;&#31561;&#22269;&#36135;&#21697;&#29260;&#21457;&#24067;&#25171;&#20551;&#22768;&#26126;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#23567;&#32418;&#20070;&#21830;&#19994; / &#24191;&#19996;315&#26202;&#20250;</div>
+            </div>
+            <div class="cat-insight-card blue">
+                <h3>&#25238;&#38899;&#65306;&#39640;&#31471;&#32654;&#22918;&#26432;&#22238; + 618&#29190;&#21457;</h3>
+                <p>5&#26376;&#21270;&#22918;&#21697;GMV 284.58&#20159;&#20803;&#65292;&#36203;&#33714;&#23068;&#30331;&#39030;TOP1&#65292;&#30333;&#29260;&#28040;&#22833;&#20110;TOP20&#12290;618&#32654;&#23481;&#21697;&#29260;&#30772;&#20159;&#25968;&#37327;&#21516;&#27604;&#22686;&#38271;75%&#12290;&#22799;&#23395;&#22330;&#26223;&#21270;&#33829;&#38144;&#25104;&#20851;&#38190;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#25238;&#38899;&#30005;&#21830; / AgeClub</div>
+            </div>
+            <div class="cat-insight-card green">
+                <h3>&#22825;&#29483;&#65306;618&#21270;&#22918;&#21697;&#39318;&#27425;&#32435;&#20837;&#25919;&#24220;&#34917;&#36148;&#65288;12%-20%&#65289;</h3>
+                <p>&#26446;&#20339;&#29734;&#30452;&#25773;&#38388;54&#27454;&#21333;&#21697;GMV&#30772;&#21315;&#19975;&#65292;&#29632;&#33713;&#38597;19&#26465;&#38142;&#25509;&#23621;&#22269;&#36135;&#31532;&#19968;&#12290;&#26102;&#38388;&#33410;&#28857;&#65306;5.25&#25250;&#20808;&#36141;&#8594;6.1-3&#31532;&#19968;&#27874;&#8594;6.4-15&#34892;&#19994;&#36718;&#21160;&#8594;6.16-18&#20840;&#22495;&#29378;&#27426;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#28120;&#23453;&#22823;&#23398; / 618&#27963;&#21160;&#26085;&#21382;</div>
+            </div>
+            <div class="cat-insight-card orange">
+                <h3>&#20140;&#19996;&#65306;618&#27597;&#23156;&#24067;&#23616; + &#21363;&#26102;&#38646;&#21806;</h3>
+                <p>5&#26376;20&#26085;&#24320;&#21551;&#39044;&#21806;&#65292;6.1&#20799;&#31461;&#33410;&#26399;&#38388;&#25512;&#20986;&#20799;&#31461;&#29992;&#21697;&#19987;&#23646;&#20248;&#24800;&#12290;&#20140;&#19996;&#21040;&#23478;&#21516;&#27493;&#21152;&#30721;&#27597;&#23156;&#21363;&#26102;&#38646;&#21806;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#20140;&#19996;&#27963;&#21160;&#26085;&#21382; / 2026-05</div>
+            </div>
+            <div class="cat-insight-card purple">
+                <h3>Ulta Beauty&#65306;Q1&#20928;&#38144;&#21806;&#39069;31.64&#20159;&#32654;&#20803;&#65288;+11.1%&#65289;&#65292;&#19978;&#35843;&#30408;&#21033;&#39044;&#26399;</h3>
+                <p>&#21271;&#32654;&#20027;&#27969;&#32654;&#22918;&#38646;&#21806;&#28192;&#36947;&#22686;&#38271;&#31283;&#20581;&#12290;&#22269;&#36135;&#21697;&#29260;&#33457;&#35199;&#23376;2025/10&#20837;&#39547;&#65292;&#33457;&#30693;&#26195;&#30331;&#38470;Ulta&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;Ulta Beauty&#36130;&#25253;</div>
+            </div>
+        </div>
+
+        <!-- 政策监管面板 -->
+        <div id="policy-view" class="panel">
+            <h2><span class="icon">⚖️</span> &#25919;&#31574;&#30417;&#31649; &#183; &#23376;&#31867;&#30446;&#24635;&#32467;</h2>
+            <div class="cat-insight-card red">
+                <h3>&#22269;&#23478;&#33647;&#30417;&#23616;&#65306;&#21270;&#22918;&#21697;&#19981;&#21512;&#26684;&#36890;&#25253;&#36235;&#20005;&#65292;&#38450;&#26194;&#31867;&#38382;&#39064;&#21344;&#27604;47.5%</h3>
+                <p>5&#26376;&#36890;&#25253;44&#25209;&#27425;&#19981;&#21512;&#26684;&#21270;&#22918;&#21697;&#65292;4&#26376;&#36890;&#25253;25&#25209;&#27425;&#26816;&#20986;&#31105;&#29992;&#21407;&#26009;&#12290;&#38450;&#26194;&#31867;&#38382;&#39064;&#21344;&#27604;47.5%&#65288;19&#25209;&#27425;/40&#25209;&#27425;&#65289;&#12290;"&#23567;&#37329;&#30462;"&#25104;&#23156;&#31461;&#38450;&#26194;&#30828;&#25351;&#26631;&#12290;&#30417;&#31649;&#36235;&#20005;&#21033;&#22909;&#21512;&#35268;&#21697;&#29260;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#22269;&#23478;&#33647;&#30417;&#23616; / 2026&#24180;&#36890;&#25253;</div>
+            </div>
+            <div class="cat-insight-card orange">
+                <h3>&#36130;&#25919;&#37096;&#65306;2026&#24180;&#32946;&#20799;&#34917;&#36148;999&#20159;&#20803;&#65288;&#21516;&#27604;+10.6%&#65289;</h3>
+                <p>&#21033;&#22909;&#27597;&#23156;&#22522;&#26412;&#30424;&#12290;&#34917;&#36148;&#25919;&#31574;&#30452;&#25509;&#21050;&#28608;&#27597;&#23156;&#28040;&#36153;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#36130;&#25919;&#37096; / 2026&#24180;&#39044;&#31639;</div>
+            </div>
+            <div class="cat-insight-card blue">
+                <h3>&#23567;&#32418;&#20070;&#20551;&#36135;&#20135;&#19994;&#38142;&#26333;&#20809;&#65306;&#24191;&#19996;315&#26202;&#20250;</h3>
+                <p>&#26333;&#20809;&#23436;&#25972;&#36896;&#20551;&#38142;&#26465;&#65306;&#39640;&#20223;&#29983;&#20135;&#8594;&#22238;&#25910;&#29942;&#32592;&#35013;&#8594;&#20266;&#36896;&#20445;&#31246;&#20179;&#21457;&#36135;&#12290;&#28023;&#34013;&#20043;&#35868;&#20215;&#24046;&#36229;19&#20493;&#65292;7&#20010;&#26679;&#21697;&#20840;&#37096;&#38750;&#27491;&#21697;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#24191;&#19996;315&#26202;&#20250; / &#26032;&#20140;&#25253;</div>
+            </div>
+            <div class="cat-insight-card green">
+                <h3>&#21270;&#22918;&#21697;&#21512;&#35268;&#65306;262&#25209;&#27425;&#29190;&#38647;&#65292;&#38450;&#26194;&#21697;&#31867;&#38382;&#39064;&#31361;&#20986;</h3>
+                <p>2026&#24180;&#21270;&#22918;&#21697;&#21512;&#35268;&#30417;&#31649;&#25345;&#32493;&#25910;&#32039;&#12290;&#21512;&#35268;&#21697;&#29260;&#38656;&#20027;&#21160;&#20844;&#31034;&#26816;&#27979;&#25253;&#21578;&#65292;&#24314;&#31435;&#28040;&#36153;&#32773;&#20449;&#20219;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#22269;&#23478;&#33647;&#30417;&#23616; / &#34892;&#19994;&#21512;&#35268;&#25253;&#21578;</div>
+            </div>
+        </div>
+
+        <!-- 资本市场面板 -->
+        <div id="capital-view" class="panel">
+            <h2><span class="icon">💰</span> &#36164;&#26412;&#24066;&#22330; &#183; &#23376;&#31867;&#30446;&#24635;&#32467;</h2>
+            <div class="cat-insight-card blue">
+                <h3>&#33509;&#32701;&#33251;&#65306;2.99&#20159;&#20803;&#20840;&#36164;&#25910;&#36141;&#22885;&#20262;&#32435;&#32032;&#65288;1927&#24180;&#32445;&#32422;&#39640;&#31471;&#25252;&#32932;&#21697;&#29260;&#65289;</h3>
+                <p>&#26790;&#38706;/&#36203;&#26412;&#26366;&#38738;&#30544;&#12290;&#22269;&#36135;&#21697;&#29260;&#25910;&#36141;&#22269;&#38469;&#39640;&#31471;&#21697;&#29260;&#30340;&#26696;&#20363;&#22686;&#22810;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#36130;&#26032;&#32593; / &#33509;&#32701;&#33251;&#20844;&#21578;</div>
+            </div>
+            <div class="cat-insight-card green">
+                <h3>&#30334;&#29790;&#21513;&#65306;Q1&#33829;&#25910;9102&#19975;&#20803;&#65288;+26%&#65289;</h3>
+                <p>&#37325;&#32452;&#33014;&#21407;&#34507;&#30333;&#21407;&#26009;&#25345;&#32493;&#25918;&#37327;&#65292;&#21307;&#32654;&#19978;&#28216;&#21407;&#26009;&#20225;&#19994;&#21463;&#30410;&#20110;&#34892;&#19994;&#22686;&#38271;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#30334;&#29790;&#21513;&#36130;&#25253; / 2026-Q1</div>
+            </div>
+            <div class="cat-insight-card orange">
+                <h3>&#27721;&#39640;&#65306;7&#26376;7&#26085;&#23436;&#25104;&#25910;&#36141;OLAPLEX&#65288;14&#20159;&#32654;&#20803;&#65289;</h3>
+                <p>&#32654;&#21457;&#25252;&#21457;&#39046;&#22495;&#24182;&#36141;&#25972;&#21512;&#21152;&#36895;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#29992;&#25143;&#25552;&#20379; / 2026&#24180;7&#26376;</div>
+            </div>
+            <div class="cat-insight-card blue">
+                <h3>&#32654;&#22918;&#36164;&#26412;&#24066;&#22330;&#65306;"9&#36864;30&#36827;"&#65292;&#36164;&#26412;&#20174;&#27969;&#37327;&#25925;&#20107;&#36716;&#21521;&#31185;&#25216;&#25925;&#20107;</h3>
+                <p>Ulta Beauty Q1&#20928;&#38144;&#21806;&#39069;31.64&#20159;&#32654;&#20803;&#65288;+11.1%&#65289;&#65292;&#19978;&#35843;&#30408;&#21033;&#39044;&#26399;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;Ulta Beauty&#36130;&#25253; / &#34892;&#19994;&#30740;&#25253;</div>
+            </div>
+            <div class="cat-insight-card orange">
+                <h3>&#23624;&#33251;&#27663;&#65306;7&#26376;6&#26085;&#30830;&#35748;&#25311;&#20986;&#21806;Marionnaud</h3>
+                <p>&#38646;&#21806;&#28192;&#36947;&#25972;&#21512;&#35843;&#25972;&#65292;&#32654;&#22918;&#38646;&#21806;&#19994;&#24577;&#25345;&#32493;&#21464;&#38761;&#12290;&#28508;&#22312;&#20080;&#26041;BEHN&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#29992;&#25143;&#25552;&#20379; / 2026&#24180;7&#26376;</div>
+            </div>
+            <div class="cat-insight-card green">
+                <h3>&#21033;&#27905;&#26102;&#65306;7&#26376;8&#26085;&#21551;&#29992;&#19978;&#28023;&#20840;&#29699;&#31185;&#21019;&#30740;&#21457;&#20013;&#24515;&#65288;&#25237;&#36164;&#36229;3&#20159;&#20803;&#65289;</h3>
+                <p>&#22269;&#38469;&#21697;&#29260;&#21152;&#30721;&#20013;&#22269;&#24066;&#22330;&#30740;&#21457;&#25237;&#20837;&#65292;&#26412;&#22303;&#30740;&#21457;&#33021;&#21147;&#25104;&#20026;&#31454;&#20105;&#20851;&#38190;&#12290;&#28437;&#27827;&#27902;&#31185;&#25216;&#32511;&#27954;&#12290;</p>
+                <div class="source">&#26469;&#28304;&#65306;&#29992;&#25143;&#25552;&#20379; / 2026&#24180;7&#26376;</div>
+            </div>
+        </div>
+
+        <!-- 3. 时间线（从近到远，倒序排列） -->
+        <div class="timeline-section">
+            <h2><span class="icon">📅</span> &#26102;&#38388;&#32447; &#183; &#20174;&#36817;&#21040;&#36828;&#65288;&#20840;&#37096;&#25253;&#21578;&#65289;</h2>
+            <input type="text" class="search-box" id="searchBox" placeholder="&#25628;&#32034;&#20851;&#38190;&#35789;&#65306;&#38450;&#26194;&#12289;&#28023;&#40863;&#29240;&#29240;&#12289;618&#12289;&#20195;&#35328;..." oninput="doSearch()" style="margin-top: 12px;">
+
             <div class="timeline">
-
-                <!-- 7月 -->
+                <!-- 7月第二周 -->
                 <div class="timeline-item p0" data-category="celebrity capital industry">
                     <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/Z3fYdt77boSWV3xu0b2cMNZrn9e', '_blank')">
                         <div class="date">
@@ -462,7 +734,7 @@
                             <span class="tag">&#21608;&#25253;</span>
                         </div>
                         <div class="title">&#32654;&#24247;&#31881;&#40667;&#38472;&#31435;&#20892; + &#36213;&#20029;&#39062;&#32426;&#26805;&#24076;&#20840;&#29699;&#21452;&#32447; + &#27721;&#39640;&#25910;&#36141;OLAPLEX + &#21033;&#27905;&#26102;&#19978;&#28023;&#30740;&#21457;&#20013;&#24515;</div>
-                        <div class="summary">7&#26376;5&#26085;&#32654;&#24247;&#31881;&#40667;&#23448;&#23459;&#38472;&#31435;&#20892;&#20026;&#20195;&#35328;&#20154;&#65307;7&#26376;6&#26085;&#36213;&#20029;&#39062;&#21457;&#24067;&#32426;&#26805;&#24076;&#20840;&#26032;G&#26041;&#31649;&#24191;&#21578;&#22823;&#29255;&#65288;2026&#24180;1&#26376;&#24050;&#23448;&#23459;&#20840;&#29699;&#24425;&#22918;&#21450;&#39321;&#27675;&#20195;&#35328;&#20154;&#65289;&#65307;&#23624;&#33251;&#27663;&#30830;&#35748;&#25311;&#20986;&#21806;Marionnaud&#65307;7&#26376;7&#26085;&#27721;&#39640;&#23436;&#25104;&#25910;&#36141;OLAPLEX&#65288;14&#20159;&#32654;&#20803;&#65289;&#65307;7&#26376;8&#26085;&#21033;&#27905;&#26102;&#21551;&#29992;&#19978;&#28023;&#20840;&#29699;&#31185;&#21019;&#30740;&#21457;&#20013;&#24515;&#65288;&#25237;&#36164;&#36229;3&#20159;&#20803;&#65289;</div>
+                        <div class="summary">7&#26376;5&#26085;&#32654;&#24247;&#31881;&#40667;&#23448;&#23459;&#38472;&#31435;&#20892;&#20026;&#20195;&#35328;&#20154;&#65307;7&#26376;6&#26085;&#36213;&#20029;&#39062;&#21457;&#24067;&#32426;&#26805;&#24076;&#20840;&#26032;G&#26041;&#31649;&#24191;&#21578;&#22823;&#29255;&#65288;2026&#24180;1&#26376;&#24050;&#23448;&#23459;&#20840;&#29699;&#20195;&#35328;&#20154;&#65289;&#65307;&#23624;&#33251;&#27663;&#30830;&#35748;&#25311;&#20986;&#21806;Marionnaud&#65307;7&#26376;7&#26085;&#27721;&#39640;&#23436;&#25104;&#25910;&#36141;OLAPLEX&#65288;14&#20159;&#32654;&#20803;&#65289;&#65307;7&#26376;8&#26085;&#21033;&#27905;&#26102;&#21551;&#29992;&#19978;&#28023;&#20840;&#29699;&#31185;&#21019;&#30740;&#21457;&#20013;&#24515;&#65288;&#25237;&#36164;&#36229;3&#20159;&#20803;&#65289;</div>
                         <div class="tags">
                             <span class="tag-item tag-celebrity">&#33402;&#20154;&#20195;&#35328;</span>
                             <span class="tag-item tag-capital">&#36164;&#26412;&#24066;&#22330;</span>
@@ -472,18 +744,18 @@
                     </div>
                 </div>
 
-                <div class="timeline-item p0" data-category="industry case platform">
+                <!-- 7月第一周 -->
+                <div class="timeline-item p0" data-category="industry case">
                     <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/VeZfdCJFQorForxPTMUcTmvMn7p', '_blank')">
                         <div class="date">
                             <span>06&#26376;30-07&#26376;04&#26085; &#31532;&#19968;&#21608;</span>
                             <span class="tag">&#21608;&#25253;</span>
                         </div>
                         <div class="title">&#31185;&#33922;CEO&#25509;&#31649;&#39640;&#31471;&#32654;&#22918; + &#29702;&#32932;&#27849;&#215;&#23567;&#40644;&#20154;&#20840;&#29699;&#36328;&#30028;</div>
-                        <div class="summary">7&#26376;2&#26085;&#31185;&#33922;&#32452;&#32455;&#26550;&#26500;&#35843;&#25972;&#65292;CEO&#30452;&#25509;&#25509;&#31649;&#39640;&#31471;&#32654;&#22918;&#19994;&#21153;&#65307;7&#26376;&#21021;&#29702;&#32932;&#27849;&#32852;&#21517;&#12298;&#23567;&#40644;&#20154;&#19982;&#22823;&#24618;&#20861;&#12299;&#20840;&#29699;&#36328;&#30028;&#21512;&#20316;&#65307;</div>
+                        <div class="summary">7&#26376;2&#26085;&#31185;&#33922;&#32452;&#32455;&#26550;&#26500;&#35843;&#25972;&#65292;CEO&#30452;&#25509;&#25509;&#31649;&#39640;&#31471;&#32654;&#22918;&#19994;&#21153;&#65307;7&#26376;&#21021;&#29702;&#32932;&#27849;&#32852;&#21517;&#12298;&#23567;&#40644;&#20154;&#19982;&#22823;&#24618;&#20861;&#12299;&#20840;&#29699;&#36328;&#30028;&#21512;&#20316;</div>
                         <div class="tags">
                             <span class="tag-item tag-industry">&#34892;&#19994;&#21160;&#24577;</span>
                             <span class="tag-item tag-case">&#33829;&#38144;&#26696;&#20363;</span>
-                            <span class="tag-item tag-platform">&#24179;&#21488;&#36235;&#21183;</span>
                         </div>
                         <a href="https://www.feishu.cn/docx/VeZfdCJFQorForxPTMUcTmvMn7p" target="_blank" class="link" onclick="event.stopPropagation()">&#26597;&#30475;&#39134;&#20070;&#25991;&#26723; &#8594;</a>
                     </div>
@@ -682,246 +954,31 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
+                <!-- 5月月报 -->
+                <div class="timeline-item p1" data-category="industry competitor capital">
+                    <div class="timeline-card" onclick="window.open('https://www.feishu.cn/docx/XUbIdwT1ZovWn4xOSsccTI2WnJh', '_blank')">
+                        <div class="date">
+                            <span>05&#26376;01-30&#26085; &#26376;&#25253;</span>
+                            <span class="tag">&#26376;&#25253;</span>
+                        </div>
+                        <div class="title">CBE&#32654;&#21338;&#20250; + &#20840;&#29699;&#32654;&#22918;&#24066;&#22330;$375.62B + &#22269;&#36135;IPO&#21160;&#24577; + &#23156;&#31461;&#38450;&#26194;&#31185;&#30740;</div>
+                        <div class="summary">CBE&#32654;&#21338;&#20250;&#65288;5.12-5.14&#65289;&#26680;&#24515;&#21697;&#29260;&#21160;&#20316;&#20840;&#26803;&#29702;&#65307;&#20840;&#29699;&#32654;&#22918;&#24066;&#22330;&#25968;&#25454;$375.62B&#65307;&#22269;&#36135;&#32654;&#22918;IPO&#21160;&#24577;&#65288;&#32500;&#29738;&#31185;&#25216;/&#29632;&#33713;&#38597;&#65289;&#65307;&#23156;&#31461;&#38450;&#26194;&#31185;&#30740;&#20891;&#22791;&#31454;&#36187;&#65307;&#19978;&#32654;&#32929;&#20221;/&#19968;&#39029;&#22686;&#38271;&#25968;&#25454;&#65307;&#38271;&#35270;&#39057;&#24191;&#21578;&#36801;&#24473;&#36235;&#21183;</div>
+                        <div class="tags">
+                            <span class="tag-item tag-industry">&#34892;&#19994;&#21160;&#24577;</span>
+                            <span class="tag-item tag-competitor">&#31454;&#21697;&#21160;&#24577;</span>
+                            <span class="tag-item tag-capital">&#36164;&#26412;&#24066;&#22330;</span>
+                        </div>
+                        <a href="https://www.feishu.cn/docx/XUbIdwT1ZovWn4xOSsccTI2WnJh" target="_blank" class="link" onclick="event.stopPropagation()">&#26597;&#30475;&#39134;&#20070;&#25991;&#26723; &#8594;</a>
+                    </div>
+                </div>
 
-        <!-- 行业动态面板 -->
-        <div id="industry-view" class="panel">
-            <h2><span class="icon">📊</span> &#34892;&#19994;&#21160;&#24577;</h2>
-            <div class="insight-card blue">
-                <h3>&#38450;&#26194;&#36187;&#36947; &#183; &#38646;&#21806;&#39069;274.5&#20159;&#20803;&#65288;&#21516;&#27604;-7.8%&#65289;</h3>
-                <p>&#24066;&#22330;&#38598;&#20013;&#24230;&#25552;&#21319;&#65288;TOP5 36.51%&#65289;&#65292;&#24418;&#24577;&#21019;&#26032;&#65288;&#26834;/&#27700;/&#31881;&#39292;/&#27668;&#22443;&#65289;+ AI&#36171;&#33021;&#65288;MISTINE&#32447;&#31890;&#20307;&#25239;&#20809;&#25439;&#12289;&#36164;&#29983;&#22530;AI&#39321;&#27675;&#21943;&#38654;&#65289;&#25104;&#30772;&#23616;&#20851;&#38190;&#12290;&#23156;&#31461;&#38450;&#26194;"&#23567;&#37329;&#30462;"&#26631;&#35782;&#25104;&#28966;&#28857;&#65292;&#30417;&#31649;&#36235;&#20005;&#21033;&#22909;&#21512;&#35268;&#21697;&#29260;&#12290;&#28023;&#40863;&#29240;&#29240;2025&#24180;GMV 8.2&#20159;&#65292;&#27431;&#30591;&#35748;&#35777;&#20122;&#27954;&#31532;&#19968;&#23156;&#31461;&#38450;&#26194;&#21697;&#29260;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#38738;&#30524;&#24773;&#25253; / &#27431;&#30591;&#22269;&#38469; / 2026&#38450;&#26194;&#24066;&#22330;&#27934;&#23519;</div>
-            </div>
-            <div class="insight-card green">
-                <h3>&#38738;&#23569;&#24180;&#25252;&#32932; &#183; 05&#21518;&#28040;&#36153;621&#20159;&#20803;&#65288;2030&#30772;&#21315;&#20159;&#65289;</h3>
-                <p>&#32422;5,691&#19975;05&#21518;&#20154;&#32676;&#65292;&#28040;&#36153;&#38142;&#36335;&#20174;"&#25628;&#32034;&#20808;&#34892;"&#8594;"&#20869;&#23481;&#31181;&#33609;&#8594;&#39564;&#35777;&#8594;&#19979;&#21333;"&#12290;&#28023;&#40863;&#29240;&#29240;&#23567;&#34013;&#29942;SGS&#26816;&#27979;28&#22825;&#30168;&#30168;-54.83%&#12289;&#38381;&#21475;-67.96%&#65292;&#29301;&#22836;&#21046;&#23450;&#20840;&#22269;&#39318;&#20010;&#38738;&#23569;&#24180;&#31067;&#30168;&#22242;&#26631;&#12290;&#26943;&#33609;/&#29577;&#27901;/&#24742;&#33433;&#23198;/&#34955;&#40736;&#22920;&#22920;&#20837;&#23616;&#65292;"&#20197;&#37238;&#25239;&#30168;"&#27604;&#21047;&#37240;&#26356;&#28201;&#21644;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#38738;&#30524;&#24773;&#25253; / &#28023;&#40863;&#29240;&#29240;SGS&#26816;&#27979;&#25253;&#21578;</div>
-            </div>
-            <div class="insight-card orange">
-                <h3>&#23156;&#31461;&#25239;&#25935;&#24863; &#183; &#21307;&#30740;&#20849;&#21019; + &#25104;&#20998;&#31934;&#20934;&#21270;</h3>
-                <p>&#28023;&#40863;&#29240;&#29240;&#24314;&#31435;&#20122;&#27954;&#39318;&#20010;&#23569;&#20799;&#30382;&#32932;&#25968;&#25454;&#24211;&#65292;&#35206;&#30422;&#20840;&#24180;&#40836;&#27573;&#32908;&#32932;&#30171;&#28857;&#65292;&#19977;&#22823;&#26680;&#24515;&#31995;&#21015;&#65288;&#25239;&#20809;&#25439;&#12289;&#25239;&#25935;&#24863;&#12289;&#25239;&#27833;&#30168;&#65289;&#35206;&#30422;&#20840;&#21608;&#26399;&#12290;&#23433;&#21807;&#20234;&#33719;CIC"&#23156;&#31461;&#32974;&#33026;&#38754;&#38684;&#20840;&#32593;&#38144;&#21806;&#39069;&#31532;&#19968;"&#21452;&#35748;&#35777;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;CIC&#28796;&#35782; / &#28023;&#40863;&#29240;&#29240;&#21697;&#29260;&#21457;&#24067;</div>
-            </div>
-            <div class="insight-card blue">
-                <h3>&#26080;&#27700;&#32654;&#22918; &#183; 2025&#24180;65.8&#20159;&#8594;2028&#24180;&#39044;&#35745;205.63&#20159;&#20803;</h3>
-                <p>CAGR&#32422;46%&#65292;"&#39640;&#35748;&#30693;&#20302;&#28183;&#36879;"&#33853;&#24046;&#36798;70&#20010;&#30334;&#20998;&#28857;&#65292;&#24066;&#22330;&#25945;&#32946;&#31354;&#38388;&#24040;&#22823;&#12290;&#20174;&#23548;&#20837;&#26399;&#36808;&#21521;&#25104;&#38271;&#26399;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#38738;&#30524;&#24773;&#25253; / &#32654;&#22918;&#22836;&#26465;</div>
-            </div>
-            <div class="insight-card green">
-                <h3>&#24773;&#32490;&#32654;&#23481; &#183; &#22269;&#20869;&#39318;&#37096;T/SHRH068-2024&#26631;&#20934;&#21457;&#24067;</h3>
-                <p>&#946;-&#20869;&#21857;&#32957;/&#30382;&#36136;&#37255;&#25104;&#21407;&#26009;&#24040;&#22836;&#24067;&#23616;&#37325;&#28857;&#12290;"&#38271;&#23551;&#25252;&#32932;"&#25104;2026&#39030;&#27969;&#28909;&#35789;&#65306;&#20848;&#34107;&#33729;&#32431;&#38271;&#23551;&#31995;&#21015;&#65292;&#31859;&#25176;&#28006;&#23572;&#27963;&#24615;&#25104;&#20998;&#21152;&#36895;&#32447;&#31890;&#20307;&#26356;&#26032;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;T/SHRH068-2024 / &#32654;&#22918;&#34892;&#19994;&#35266;&#23519;</div>
-            </div>
-            <div class="insight-card orange">
-                <h3>&#29100;&#22812;&#25252;&#32932; &#183; 2025&#24180;48.70&#20159;&#20803;&#65288;+24.17%&#65289;</h3>
-                <p>&#39044;&#35745;2026&#24180;53.57&#20159;&#20803;&#12290;"&#29100;&#22812;&#20462;&#22797;"&#22330;&#26223;&#32454;&#20998;&#65292;&#20174;"&#24613;&#25937;"&#21040;"&#26085;&#24120;&#20462;&#25252;"&#30340;&#36716;&#21270;&#36335;&#24452;&#34987;&#21697;&#29260;&#37325;&#35270;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#34892;&#19994;&#30740;&#25253; / 2026&#32654;&#22918;&#36235;&#21183;</div>
-            </div>
-        </div>
-
-        <!-- 竞品动态面板 -->
-        <div id="competitor-view" class="panel">
-            <h2><span class="icon">🎯</span> &#31454;&#21697;&#21160;&#24577;</h2>
-            <div class="insight-card red">
-                <h3>&#23433;&#28909;&#27801;&#65288;&#36164;&#29983;&#22530;&#65289;&#183; &#39318;&#27425;&#24067;&#23616;&#27597;&#23156;&#36187;&#36947;</h3>
-                <p>2026&#24180;3&#26376;&#25512;&#20986;&#12300;&#20840;&#26032;&#34013;&#23453;&#29942;&#12301;&#20799;&#31461;&#38450;&#26194;&#65292;&#20027;&#25171;"&#38750;&#32435;&#31859;&#25216;&#26415;"+"&#23567;&#37329;&#30462;"&#26631;&#24535;&#12290;&#37319;&#21462;"&#32447;&#19978;&#25945;&#32946;&#24341;&#27969;&#32447;&#19979;&#20307;&#39564;&#12289;&#32447;&#19979;&#20307;&#39564;&#21453;&#21754;&#32447;&#19978;&#22797;&#36141;"&#21452;&#21521;&#36171;&#33021;&#38381;&#29615;&#12290;&#22269;&#38469;&#22823;&#29260;&#20837;&#23616;&#20799;&#31461;&#38450;&#26194;&#65292;&#23545;&#28023;&#40863;&#29240;&#29240;&#24418;&#25104;&#30452;&#25509;&#31454;&#20105;&#21387;&#21147;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#32463;&#27982;&#26202;&#25253;&#32593; / 2026&#21992;&#21019;&#21608;</div>
-            </div>
-            <div class="insight-card orange">
-                <h3>moodytiger &#183; &#20799;&#31461;&#38450;&#26194;&#26381;&#35746;&#21333;&#22686;&#38271;142%</h3>
-                <p>&#20197;"&#20937;&#24863;+&#20146;&#23376;&#24773;&#24863;"&#37325;&#26032;&#23450;&#20041;&#38450;&#26194;&#65292;&#23558;&#38450;&#26194;&#22330;&#26223;&#19982;&#20146;&#23376;&#36816;&#21160;&#28145;&#24230;&#32465;&#23450;&#65292;&#24378;&#35843;"&#33258;&#22312;&#30340;&#31461;&#24180;"&#24773;&#24863;&#20215;&#20540;&#12290;&#25143;&#22806;&#22330;&#26223;&#31454;&#20105;&#32500;&#24230;&#20174;&#25252;&#32932;&#21697;&#25193;&#22823;&#33267;&#26381;&#39280;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#33406;&#29790;&#21672;&#35810; / &#34633;&#39764;&#26041;</div>
-            </div>
-            <div class="insight-card blue">
-                <h3>&#25140;&#21487;&#24605; &#183; &#24180;&#24230;&#38144;&#21806;&#39069;3.74&#20159;&#39046;&#36305;&#22825;&#29483;&#23156;&#31461;&#25252;&#32932;</h3>
-                <p>&#21344;&#27604;7.8%&#12290;&#25345;&#32493;&#24378;&#21270;"&#25104;&#20998;&#20826;"&#24515;&#26234;&#65292;&#32852;&#21512;&#31532;&#19977;&#26041;&#23454;&#39564;&#23460;&#20570;&#20135;&#21697;&#27979;&#35780;&#12290;618&#31574;&#30053;&#32858;&#28966;&#29190;&#21697;+&#28508;&#21147;&#27454;&#32452;&#21512;&#65292;&#25628;&#32034;&#21345;&#20301;"&#20799;&#31461;&#38754;&#38684;""&#23156;&#20799;&#27927;&#25252;"&#31561;&#26680;&#24515;&#21697;&#31867;&#35789;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#39764;&#38236;&#25968;&#25454; / &#22825;&#29483;&#27036;&#21333;</div>
-            </div>
-            <div class="insight-card green">
-                <h3>&#28070;&#26412; &#183; Q1&#19994;&#32489;&#20142;&#30524;&#65292;&#38450;&#26194;&#21867;&#21937;+&#27668;&#22443;&#26032;&#21697;&#21345;&#20301;&#22799;&#23395;</h3>
-                <p>2025&#24180;&#25512;&#20986;&#20799;&#31461;&#38450;&#26194;&#21867;&#21937;&#12289;&#31461;&#38145;&#23450;&#26102;&#21152;&#28909;&#22120;&#12289;&#38738;&#23569;&#24180;&#31995;&#21015;&#31561;60&#20313;&#27454;&#21333;&#21697;&#12290;2026&#24180;&#26149;&#22799;&#23395;&#25512;&#20986;&#20799;&#31461;&#38450;&#26194;&#20445;&#28287;&#26085;&#38684;&#12289;&#38450;&#26194;&#27668;&#22443;&#31561;&#26032;&#21697;&#65292;&#31934;&#20934;&#21345;&#20301;&#22799;&#26085;&#20799;&#31461;&#38450;&#26194;&#38656;&#27714;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#24320;&#28304;&#35777;&#21048;&#30740;&#25253; / 2026-05-24</div>
-            </div>
-            <div class="insight-card orange">
-                <h3>&#19968;&#39029; &#183; &#38738;&#23569;&#24180;&#25252;&#32932;&#32447;&#25345;&#32493;&#21457;&#21147;</h3>
-                <p>&#38738;&#23569;&#24180;&#25252;&#32932;&#36187;&#36947;&#31454;&#20105;&#32773;&#65292;&#20998;&#40836;/&#20998;&#32932;&#36136;/&#20998;&#22330;&#26223;&#25252;&#29702;&#24046;&#24322;&#21270;&#24067;&#23616;&#12290;</p>
-            </div>
-            <div class="insight-card blue">
-                <h3>&#29632;&#33713;&#38597; &#183; &#25910;&#36141;&#33457;&#30693;&#26195;&#65292;&#21152;&#30721;&#24425;&#22918;&#21697;&#31867;</h3>
-                <p>618&#32654;&#22918;&#34920;&#29616;&#20142;&#30524;&#65292;&#21516;&#26102;&#21152;&#30721;&#25910;&#36141;&#24425;&#22918;&#21697;&#29260;&#33457;&#30693;&#26195;&#65292;&#36827;&#19968;&#27493;&#25299;&#23637;&#24425;&#22918;&#21697;&#31867;&#24067;&#23616;&#65292;&#23436;&#21892;&#22810;&#21697;&#29260;&#30697;&#38453;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#19996;&#26041;&#36130;&#23500; / &#34892;&#19994;&#30740;&#25253;</div>
-            </div>
-        </div>
-
-        <!-- 营销案例面板 -->
-        <div id="case-view" class="panel">
-            <h2><span class="icon">💡</span> &#33829;&#38144;&#26696;&#20363;</h2>
-            <div class="insight-card green">
-                <h3>&#20140;&#19996; &#183; &#21548;&#21149;&#24335;&#33829;&#38144;&#65288;APP&#19979;&#36733;&#37327;+156%&#65289;</h3>
-                <p>&#12304;&#26696;&#20363;&#19968;&#12305;&#21016;&#24378;&#19996;&#24037;&#26381;&#24418;&#35937;&#34987;&#32593;&#21451;&#21457;&#29616;&#19982;&#12298;&#29482;&#29482;&#20384;&#12299;&#20027;&#35282;&#30456;&#20284;&#65292;&#20140;&#19996;&#36805;&#36895;&#21709;&#24212;&#23448;&#23459;&#29482;&#29482;&#20384;"&#34394;&#25311;&#39569;&#25163;"&#20837;&#32844;&#65292;APP&#19979;&#36733;&#37327;&#29615;&#27604;+156%&#12290;&#12304;&#26696;&#20363;&#20108;&#12305;&#32593;&#21451;&#21628;&#21505;"&#32418;&#30340;&#20250;&#36194;"&#65292;&#20140;&#19996;&#23448;&#23459;&#24800;&#33521;&#32418;&#25285;&#20219;&#25163;&#26426;&#36890;&#35759;&#25512;&#24191;&#22823;&#20351;&#12290;&#26680;&#24515;&#36923;&#36753;&#65306;&#23558;UGC&#21453;&#39304;&#36716;&#21270;&#20026;&#23448;&#26041;&#21160;&#20316;&#65292;&#29992;"&#21548;&#21149;"&#20154;&#35774;&#25289;&#36817;&#21697;&#29260;&#19982;&#29992;&#25143;&#36317;&#31163;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#20844;&#24320;&#25253;&#36947; / &#31038;&#20132;&#23186;&#20307;&#30417;&#27979;</div>
-            </div>
-            <div class="insight-card blue">
-                <h3>&#20234;&#21033; &#183; "&#39532;&#24180;&#25214;&#39532;&#20234;&#29709;"&#21548;&#21149;+&#21019;&#24847;&#21472;&#21152;</h3>
-                <p>&#20808;&#23448;&#23459;&#39532;&#24605;&#32431;&#25512;&#20986;"&#39532;&#24180;&#24605;&#24565;&#32431;&#29275;&#22902;"&#65292;&#32487;&#32780;&#31574;&#21010;"&#23547;&#25214;&#39532;&#20234;&#29709;"&#24191;&#21578;&#29255;&#65292;&#22312;&#29255;&#23614;&#25581;&#26195;&#39532;&#20234;&#29709;&#20195;&#35328;&#20154;&#36523;&#20221;&#65292;&#32532;&#36896;&#24320;&#24180;&#29190;&#27454;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#20234;&#21033;&#21697;&#29260;&#33829;&#38144; / &#31038;&#20132;&#23186;&#20307;</div>
-            </div>
-            <div class="insight-card orange">
-                <h3>&#36229;&#33021; &#183; &#23448;&#23459;&#32918;&#25112;&#20026;&#20840;&#29699;&#21697;&#29260;&#20195;&#35328;&#20154;</h3>
-                <p>&#23478;&#28165;&#36187;&#36947;"&#19977;&#39030;&#37197;"&#32452;&#21512;&#65292;&#35206;&#30422;&#19977;&#21494;&#33609;&#12289;&#19977;&#26465;&#32441;&#12289;Y3&#20840;&#20135;&#21697;&#32447;&#12290;&#21697;&#29260;&#36827;&#20837;&#20013;&#22269;&#24066;&#22330;&#20197;&#26469;&#32597;&#35265;&#20840;&#21697;&#31867;&#39640;&#35268;&#26684;&#21512;&#20316;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#21697;&#29260;&#23448;&#26041; / &#24494;&#21338;</div>
-            </div>
-            <div class="insight-card green">
-                <h3>&#32418;&#20043; &#183; &#215;&#29579;&#28304;&#20108;&#24230;&#21512;&#20316;&#21319;&#32423;&#65288;&#20840;&#21697;&#31867;&#35206;&#30422;&#65289;</h3>
-                <p>&#20174;&#21368;&#22918;&#25299;&#23637;&#33267;&#38754;&#37096;&#28165;&#27905;&#20840;&#21697;&#31867;&#65292;&#20840;&#21608;&#26399;&#20195;&#35328;&#36816;&#33829;&#65288;&#39044;&#28909;&#8594;&#23448;&#23459;&#8594;&#20849;&#21019;&#8594;&#38271;&#32447;&#65289;&#12290;&#21697;&#29260;&#35748;&#30693;&#20174;"&#21368;&#22918;"&#25193;&#23637;&#21040;"&#38754;&#37096;&#28165;&#27905;&#19987;&#23478;"&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#21697;&#29260;&#26143;&#29699; / &#32418;&#20043;&#23448;&#26041;</div>
-            </div>
-            <div class="insight-card blue">
-                <h3>MISTINE &#183; &#31532;&#19971;&#20195;AI&#32447;&#31890;&#20307;&#25239;&#20809;&#25439;&#31185;&#25216;</h3>
-                <p>&#25645;&#36733;AI&#36171;&#33021;&#38450;&#26194;&#25216;&#26415;&#65292;&#32493;&#32422;&#29579;&#26970;&#38054;&#21319;&#32423;"&#20840;&#29699;&#39318;&#24109;&#38450;&#26194;&#20195;&#35328;&#20154;"&#12290;&#20174;&#27969;&#37327;&#25910;&#21106;&#21040;&#39118;&#26684;&#29983;&#24577;&#20849;&#24314;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;MISTINE&#23448;&#26041; / &#21697;&#29260;&#26143;&#29699;</div>
-            </div>
-            <div class="insight-card orange">
-                <h3>&#29702;&#32932;&#27849; &#183; &#32852;&#21517;&#12298;&#23567;&#40644;&#20154;&#19982;&#22823;&#24618;&#20861;&#12299;&#20840;&#29699;&#36328;&#30028;</h3>
-                <p>7&#26376;&#21021;&#29702;&#32932;&#27849;&#32852;&#21517;&#12298;&#23567;&#40644;&#20154;&#19982;&#22823;&#24618;&#20861;&#12299;&#20840;&#29699;&#36328;&#30028;&#21512;&#20316;&#65292;IP&#32852;&#21517;&#25104;&#20026;&#32654;&#22918;&#21697;&#29260;&#35302;&#36798;&#24180;&#36731;&#23478;&#24237;&#30340;&#26032;&#36335;&#24452;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#29992;&#25143;&#25552;&#20379; / 2026&#24180;7&#26376;</div>
-            </div>
-        </div>
-
-        <!-- 艺人代言面板 -->
-        <div id="celebrity-view" class="panel">
-            <h2><span class="icon">⭐</span> &#33402;&#20154;&#20195;&#35328;&#65288;&#36817;3&#26376;&#65289;</h2>
-            <div class="insight-card red">
-                <h3>&#20307;&#32946;&#26126;&#26143;&#20195;&#35328;&#32654;&#22918;&#25104;&#20026;&#34892;&#19994;&#26032;&#36235;&#21183; <span class="tag tag-hot">&#36235;&#21183;</span></h3>
-                <p>&#23385;&#39062;&#33678;&#215;&#21322;&#20137;&#33457;&#30000;&#65288;&#27927;&#25252;&#21457;&#65289;&#12289;&#29579;&#26970;&#38054;&#215;&#20248;&#26102;&#39068;/MISTINE&#65288;&#20840;&#29699;&#39318;&#24109;&#38450;&#26194;&#20195;&#35328;&#20154;&#65289;&#12289;&#27146;&#25391;&#19996;&#215;&#24247;&#22914;&#12289;&#23385;&#39062;&#33678;&#215;&#22958;&#32500;&#38597;&#12290;&#36816;&#21160;&#21592;"&#23433;&#20840;&#24615;""&#19987;&#19994;&#24418;&#35937;""&#22269;&#27665;&#24433;&#21709;&#21147;"&#39640;&#24230;&#22865;&#21512;&#21697;&#29260;&#38656;&#27714;&#12290;&#23156;&#31461;&#36187;&#36947;&#23578;&#26410;&#34987;&#20805;&#20998;&#24320;&#21457;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#21697;&#29260;&#23448;&#26041; / &#31038;&#20132;&#23186;&#20307;&#30417;&#27979;</div>
-            </div>
-            <div class="insight-card blue">
-                <h3>95&#33457;&#39046;&#36305; &#183; &#36213;&#38706;&#24605;&#24320;&#24180;6&#39033;&#20840;&#29699;&#20195;&#35328;</h3>
-                <p>&#21830;&#21153;&#33410;&#22863;&#39046;&#36305;95&#33457;&#65292;&#28085;&#30422;&#32654;&#22918;/&#25252;&#32932;/&#26102;&#23578;/&#29983;&#27963;&#26041;&#24335;&#22810;&#21697;&#31867;&#12290;</p>
-            </div>
-            <div class="insight-card purple">
-                <h3>&#21452;&#22882;&#36827;&#38454; &#183; &#21333;&#20381;&#32431;40&#22825;&#21452;&#22882;&#65288;&#39321;&#22856;&#20799;+&#34107;&#39536;&#65289;</h3>
-                <p>&#39321;&#22856;&#20799;&#21697;&#29260;&#21490;&#19978;&#39318;&#20301;00&#21518;&#21326;&#20154;&#27468;&#25163;&#20195;&#35328;&#20154;&#65307;&#34107;&#39536;&#20840;&#29699;&#20195;&#35328;&#20154;&#12290;40&#22825;&#20869;&#23436;&#25104;&#21452;&#22882;&#36827;&#38454;&#12290;</p>
-            </div>
-            <div class="insight-card green">
-                <h3>&#20840;&#21697;&#31867;&#39640;&#35268;&#26684; &#183; &#29579;&#40548;&#26851;&#38463;&#36842;&#36798;&#26031;&#20840;&#31995;&#20195;&#35328;&#20154;</h3>
-                <p>&#35206;&#30422;&#19977;&#21494;&#33609;&#12289;&#19977;&#26465;&#32441;&#12289;Y3&#20840;&#20135;&#21697;&#32447;&#12290;&#21697;&#29260;&#36827;&#20837;&#20013;&#22269;&#24066;&#22330;&#20197;&#26469;&#32597;&#35265;&#20840;&#21697;&#31867;&#39640;&#35268;&#26684;&#21512;&#20316;&#12290;</p>
-            </div>
-            <div class="insight-card orange">
-                <h3>1+N&#30697;&#38453;&#21270; &#183; &#30333;&#40575;11&#20010;&#26376;&#21319;&#20219;Jimmy Choo&#20840;&#29699;&#20195;&#35328;&#20154;</h3>
-                <p>&#22823;&#20013;&#21326;&#21306;&#38144;&#21806;&#39069;&#22686;34%&#65292;"1+N"&#30697;&#38453;&#21270;&#20195;&#35328;&#25104;&#34892;&#19994;&#26631;&#37197;&#12290;</p>
-            </div>
-            <div class="insight-card red">
-                <h3>&#20840;&#29699;&#21452;&#32447; &#183; &#36213;&#20029;&#39062;&#21319;&#32423;&#20026;&#32426;&#26805;&#24076;&#20840;&#29699;&#24425;&#22918;&#21450;&#39321;&#27675;&#21452;&#32447;&#20195;&#35328;&#20154;&#65288;7&#26376;6&#26085;&#65289;</h3>
-                <p>&#39318;&#20301;&#21326;&#20154;&#33719;&#24471;&#32426;&#26805;&#24076;&#20840;&#29699;&#24425;&#22918;&#21450;&#39321;&#27675;&#21452;&#32447;&#20195;&#35328;&#20154;&#12290;7&#26376;6&#26085;&#23448;&#23459;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#29992;&#25143;&#25552;&#20379; / 2026&#24180;7&#26376;</div>
-            </div>
-            <div class="insight-card blue">
-                <h3>&#20854;&#20182;&#37325;&#28857;&#20195;&#35328;</h3>
-                <p>&#8226; &#32918;&#25112;&#215;&#36229;&#33021;&#65288;&#20840;&#29699;&#21697;&#29260;&#20195;&#35328;&#20154;&#65289;
-&#8226; &#26446;&#29616;&#215;adidas&#65288;&#19990;&#30028;&#26479;&#24320;&#29699;&#65292;&#20013;&#22269;&#20869;&#22320;&#39318;&#20363;&#65289;
-&#8226; &#29579;&#28304;&#215;&#32418;&#20043;&#65288;&#20108;&#24230;&#21512;&#20316;&#21319;&#32423;&#65289;
-&#8226; &#29579;&#22025;&#23572;&#215;&#38889;&#26463;
-&#8226; &#38472;&#26122;&#23431;&#215;Augustinus Bader
-&#8226; &#24464;&#26790;&#27905;&#215;&#26412;&#26469;BENLAI
-&#8226; &#26472;&#32043;&#215;&#33609;&#26412;&#21021;&#33394;&#65288;&#20840;&#29699;&#20195;&#35328;&#20154;&#65289;
-&#8226; &#19969;&#31161;&#20846;&#215;&#34588;&#19997;&#23159;&#65288;&#20840;&#29699;&#38450;&#26194;&#20195;&#35328;&#20154;&#65289;
-&#8226; &#38472;&#31435;&#20892;&#215;&#32654;&#24247;&#31881;&#40667;&#65288;7&#26376;5&#26085;&#65289;
-&#8226; &#33487;&#28851;&#28155;&#215;&#28023;&#40863;&#29240;&#29240;&#65288;2025&#24180;&#23448;&#23459;&#65289;</p>
-            </div>
-        </div>
-
-        <!-- 平台趋势面板 -->
-        <div id="platform-view" class="panel">
-            <h2><span class="icon">📱</span> &#24179;&#21488;&#36235;&#21183;</h2>
-            <div class="insight-card red">
-                <h3>&#23567;&#32418;&#20070; &#183; 05&#21518;&#28040;&#36153;&#24515;&#26234; + &#20551;&#36135;&#39118;&#27874;</h3>
-                <p>Redshop&#36328;&#22659;&#30005;&#21830;&#24179;&#21488;6&#26376;&#27491;&#24335;&#19978;&#32447;&#12290;05&#21518;&#28040;&#36153;&#38142;&#36335;&#20174;"&#25628;&#32034;&#20808;&#34892;"&#8594;"&#20869;&#23481;&#31181;&#33609;&#8594;&#39564;&#35777;&#8594;&#19979;&#21333;"&#65292;&#20449;&#20219;&#26426;&#21046;&#20174;"&#20449;&#36798;&#20154;"&#8594;"&#20449;&#30495;&#23454;&#21453;&#39304;"&#12290;&#20294;&#24191;&#19996;315&#26202;&#20250;&#26333;&#20809;&#24179;&#21488;&#36164;&#36136;&#23457;&#26680;&#28431;&#27934;&#65292;AKF/&#27224;&#26421;/&#37237;&#33394;&#31561;&#22269;&#36135;&#21697;&#29260;&#21457;&#24067;&#25171;&#20551;&#22768;&#26126;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#23567;&#32418;&#20070;&#21830;&#19994; / &#24191;&#19996;315&#26202;&#20250;</div>
-            </div>
-            <div class="insight-card blue">
-                <h3>&#25238;&#38899; &#183; &#39640;&#31471;&#32654;&#22918;&#26432;&#22238; + 618&#29190;&#21457;</h3>
-                <p>5&#26376;&#21270;&#22918;&#21697;GMV 284.58&#20159;&#20803;&#65292;&#36203;&#33714;&#23068;&#30331;&#39030;TOP1&#65292;&#30333;&#29260;&#28040;&#22833;&#20110;TOP20&#12290;618&#32654;&#23481;&#21697;&#29260;&#30772;&#20159;&#25968;&#37327;&#21516;&#27604;&#22686;&#38271;75%&#12290;&#22799;&#23395;&#22330;&#26223;&#21270;&#33829;&#38144;&#25104;&#20851;&#38190;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#25238;&#38899;&#30005;&#21830; / AgeClub</div>
-            </div>
-            <div class="insight-card green">
-                <h3>&#22825;&#29483; &#183; 618&#21270;&#22918;&#21697;&#39318;&#27425;&#32435;&#20837;&#25919;&#24220;&#34917;&#36148;&#65288;12%-20%&#65289;</h3>
-                <p>&#26446;&#20339;&#29734;&#30452;&#25773;&#38388;54&#27454;&#21333;&#21697;GMV&#30772;&#21315;&#19975;&#65292;&#29632;&#33713;&#38597;19&#26465;&#38142;&#25509;&#23621;&#22269;&#36135;&#31532;&#19968;&#12290;&#26102;&#38388;&#33410;&#28857;&#65306;5.25&#25250;&#20808;&#36141;&#8594;6.1-3&#31532;&#19968;&#27874;&#8594;6.4-15&#34892;&#19994;&#36718;&#21160;&#8594;6.16-18&#20840;&#22495;&#29378;&#27426;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#28120;&#23453;&#22823;&#23398; / 618&#27963;&#21160;&#26085;&#21382;</div>
-            </div>
-            <div class="insight-card orange">
-                <h3>&#20140;&#19996; &#183; 618&#27597;&#23156;&#24067;&#23616; + &#21363;&#26102;&#38646;&#21806;</h3>
-                <p>5&#26376;20&#26085;&#24320;&#21551;&#39044;&#21806;&#65292;6.1&#20799;&#31461;&#33410;&#26399;&#38388;&#25512;&#20986;&#20799;&#31461;&#29992;&#21697;&#19987;&#23646;&#20248;&#24800;&#12290;&#20140;&#19996;&#21040;&#23478;&#21516;&#27493;&#21152;&#30721;&#27597;&#23156;&#21363;&#26102;&#38646;&#21806;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#20140;&#19996;&#27963;&#21160;&#26085;&#21382; / 2026-05</div>
-            </div>
-            
-
-        <!-- 政策监管面板 -->
-        <div id="policy-view" class="panel">
-            <h2><span class="icon">⚖️</span> &#25919;&#31574;&#30417;&#31649;</h2>
-            <div class="insight-card red">
-                <h3>&#22269;&#23478;&#33647;&#30417;&#23616; &#183; &#21270;&#22918;&#21697;&#19981;&#21512;&#26684;&#36890;&#25253;&#36235;&#20005;</h3>
-                <p>5&#26376;&#36890;&#25253;44&#25209;&#27425;&#19981;&#21512;&#26684;&#21270;&#22918;&#21697;&#65292;4&#26376;&#36890;&#25253;25&#25209;&#27425;&#26816;&#20986;&#31105;&#29992;&#21407;&#26009;&#12290;&#38450;&#26194;&#31867;&#38382;&#39064;&#21344;&#27604;47.5%&#65288;19&#25209;&#27425;/40&#25209;&#27425;&#65289;&#12290;"&#23567;&#37329;&#30462;"&#25104;&#23156;&#31461;&#38450;&#26194;&#30828;&#25351;&#26631;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#22269;&#23478;&#33647;&#30417;&#23616; / 2026&#24180;&#36890;&#25253;</div>
-            </div>
-            <div class="insight-card orange">
-                <h3>&#36130;&#25919;&#37096; &#183; 2026&#24180;&#32946;&#20799;&#34917;&#36148;999&#20159;&#20803;&#65288;+10.6%&#65289;</h3>
-                <p>&#21033;&#22909;&#27597;&#23156;&#22522;&#26412;&#30424;&#12290;&#34917;&#36148;&#25919;&#31574;&#30452;&#25509;&#21050;&#28608;&#27597;&#23156;&#28040;&#36153;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#36130;&#25919;&#37096; / 2026&#24180;&#39044;&#31639;</div>
-            </div>
-            <div class="insight-card blue">
-                <h3>&#23567;&#32418;&#20070;&#20551;&#36135;&#20135;&#19994;&#38142;&#26333;&#20809; &#183; &#24191;&#19996;315&#26202;&#20250;</h3>
-                <p>&#26333;&#20809;&#23436;&#25972;&#36896;&#20551;&#38142;&#26465;&#65306;&#39640;&#20223;&#29983;&#20135;&#8594;&#22238;&#25910;&#29942;&#32592;&#35013;&#8594;&#20266;&#36896;&#20445;&#31246;&#20179;&#21457;&#36135;&#12290;&#28023;&#34013;&#20043;&#35868;&#20215;&#24046;&#36229;19&#20493;&#65292;7&#20010;&#26679;&#21697;&#20840;&#37096;&#38750;&#27491;&#21697;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#24191;&#19996;315&#26202;&#20250; / &#26032;&#20140;&#25253;</div>
-            </div>
-            <div class="insight-card green">
-                <h3>&#21270;&#22918;&#21697;&#21512;&#35268; &#183; 262&#25209;&#27425;&#29190;&#38647;</h3>
-                <p>2026&#24180;&#21270;&#22918;&#21697;&#21512;&#35268;&#30417;&#31649;&#25345;&#32493;&#25910;&#32039;&#65292;&#38450;&#26194;&#21697;&#31867;&#38382;&#39064;&#31361;&#20986;&#12290;&#21512;&#35268;&#21697;&#29260;&#38656;&#20027;&#21160;&#20844;&#31034;&#26816;&#27979;&#25253;&#21578;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#22269;&#23478;&#33647;&#30417;&#23616; / &#34892;&#19994;&#21512;&#35268;&#25253;&#21578;</div>
-            </div>
-        </div>
-
-        <!-- 资本市场面板 -->
-        <div id="capital-view" class="panel">
-            <h2><span class="icon">💰</span> &#36164;&#26412;&#24066;&#22330;</h2>
-            <div class="insight-card blue">
-                <h3>&#33509;&#32701;&#33251; &#183; 2.99&#20159;&#20803;&#20840;&#36164;&#25910;&#36141;&#22885;&#20262;&#32435;&#32032;</h3>
-                <p>1927&#24180;&#32445;&#32422;&#39640;&#31471;&#25252;&#32932;&#21697;&#29260;&#65292;&#26790;&#38706;/&#36203;&#26412;&#26366;&#38738;&#30544;&#12290;&#22269;&#36135;&#21697;&#29260;&#25910;&#36141;&#22269;&#38469;&#39640;&#31471;&#21697;&#29260;&#30340;&#26696;&#20363;&#22686;&#22810;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#36130;&#26032;&#32593; / &#33509;&#32701;&#33251;&#20844;&#21578;</div>
-            </div>
-            <div class="insight-card green">
-                <h3>&#30334;&#29790;&#21513; &#183; Q1&#33829;&#25910;9102&#19975;&#20803;&#65288;+26%&#65289;</h3>
-                <p>&#37325;&#32452;&#33014;&#21407;&#34507;&#30333;&#21407;&#26009;&#25345;&#32493;&#25918;&#37327;&#65292;&#21307;&#32654;&#19978;&#28216;&#21407;&#26009;&#20225;&#19994;&#21463;&#30410;&#20110;&#34892;&#19994;&#22686;&#38271;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#30334;&#29790;&#21513;&#36130;&#25253; / 2026-Q1</div>
-            </div>
-            <div class="insight-card orange">
-                <h3>&#27721;&#39640; &#183; 7&#26376;7&#26085;&#23436;&#25104;&#25910;&#36141;OLAPLEX&#65288;14&#20159;&#32654;&#20803;&#65289;</h3>
-                <p>2026&#24180;7&#26376;7&#26085;&#23436;&#25104;&#25910;&#36141;&#12290;&#32654;&#21457;&#25252;&#21457;&#39046;&#22495;&#24182;&#36141;&#25972;&#21512;&#21152;&#36895;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#29992;&#25143;&#25552;&#20379; / 2026&#24180;7&#26376;</div>
-            </div>
-            <div class="insight-card blue">
-                <h3>&#32654;&#22918;&#36164;&#26412;&#24066;&#22330; &#183; "9&#36864;30&#36827;"</h3>
-                <p>&#36164;&#26412;&#20174;&#27969;&#37327;&#25925;&#20107;&#36716;&#21521;&#31185;&#25216;&#25925;&#20107;&#12290;Ulta Beauty Q1&#20928;&#38144;&#21806;&#39069;31.64&#20159;&#32654;&#20803;&#65288;+11.1%&#65289;&#65292;&#19978;&#35843;&#30408;&#21033;&#39044;&#26399;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;Ulta Beauty&#36130;&#25253; / &#34892;&#19994;&#30740;&#25253;</div>
-            </div>
-            <div class="insight-card orange">
-                <h3>&#23624;&#33251;&#27663; &#183; 7&#26376;6&#26085;&#30830;&#35748;&#25311;&#20986;&#21806;Marionnaud</h3>
-                <p>&#38646;&#21806;&#28192;&#36947;&#25972;&#21512;&#35843;&#25972;&#65292;&#32654;&#22918;&#38646;&#21806;&#19994;&#24577;&#25345;&#32493;&#21464;&#38761;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#29992;&#25143;&#25552;&#20379; / 2026&#24180;7&#26376;</div>
-            </div>
-            <div class="insight-card green">
-                <h3>&#21033;&#27905;&#26102; &#183; 7&#26376;8&#26085;&#21551;&#29992;&#19978;&#28023;&#20840;&#29699;&#31185;&#21019;&#30740;&#21457;&#20013;&#24515;&#65288;&#25237;&#36164;&#36229;3&#20159;&#20803;&#65289;</h3>
-                <p>&#22269;&#38469;&#21697;&#29260;&#21152;&#30721;&#20013;&#22269;&#24066;&#22330;&#30740;&#21457;&#25237;&#20837;&#65292;&#26412;&#22303;&#30740;&#21457;&#33021;&#21147;&#25104;&#20026;&#31454;&#20105;&#20851;&#38190;&#12290;</p>
-                <div class="source">&#26469;&#28304;&#65306;&#29992;&#25143;&#25552;&#20379; / 2026&#24180;7&#26376;</div>
             </div>
         </div>
 
         <!-- 底部 -->
         <div class="footer">
-            <p>Hi! Papa &#21697;&#29260;&#21069;&#27839;&#36164;&#35759;&#30693;&#35782;&#24211;&#30475;&#26495; &#183; &#27599;&#21608;&#22235;&#26356;&#26032;</p>
-            <p>&#20986;&#21697;&#65306;&#21697;&#29260;&#23567;&#40857;&#34430; + Kimi &#183; &#32500;&#25252;&#65306;&#29840;&#23159; Routine</p>
+            <p>Hi! Papa &#21697;&#29260;&#21069;&#27839;&#36164;&#35759;&#30693;&#35782;&#24211;&#30475;&#26495; · &#27599;&#21608;&#26085;&#26356;&#26032;</p>
+            <p>&#20986;&#21697;&#65306;&#21697;&#29260;&#23567;&#40857;&#34430; + Kimi · &#32500;&#25252;&#65306;&#29840;&#23159; Routine</p>
             <p><a href="https://github.com/1341657621-hash/Routine-s-document/tree/main/品牌前沿资讯" target="_blank">GitHub &#30693;&#35782;&#24211; &#8594;</a></p>
         </div>
     </div>
@@ -929,7 +986,7 @@
     <script>
         // 视图切换
         function showView(viewId) {
-            document.querySelectorAll('.view, .panel').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(el => el.classList.remove('active'));
             document.getElementById(viewId + '-view').classList.add('active');
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
@@ -947,32 +1004,12 @@
 
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('timeline-view').classList.add('active');
-
-            // 为时间线卡片添加动画
+            document.getElementById('industry-view').classList.add('active');
             document.querySelectorAll('.timeline-item').forEach((item, index) => {
                 item.style.animationDelay = (index * 0.05) + 's';
                 item.classList.add('animate-in');
             });
         });
-
-        // 触摸滑动优化（移动端）
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const nav = document.querySelector('.category-nav');
-
-        if (nav) {
-            nav.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
-            }, { passive: true });
-
-            nav.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].screenX;
-                if (Math.abs(touchEndX - touchStartX) > 50) {
-                    nav.scrollLeft += (touchStartX - touchEndX) * 0.5;
-                }
-            }, { passive: true });
-        }
     </script>
 </body>
 </html>
