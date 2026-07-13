@@ -1,212 +1,465 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hi! Papa 品牌自媒体数据看板 — 2026-07-13</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:-apple-system, 'Segoe UI', Roboto, sans-serif; background:#f5f7fa; color:#333; }
-    .header { background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:#fff; padding:30px 40px; }
-    .header h1 { font-size:28px; margin-bottom:8px; }
-    .header .subtitle { opacity:0.9; font-size:14px; }
-    .header .update-time { margin-top:12px; font-size:12px; opacity:0.8; }
-    .container { max-width:1400px; margin:0 auto; padding:20px 40px 40px; }
-    .section { background:#fff; border-radius:12px; padding:24px; margin:20px 0; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
-    .section-title { font-size:18px; font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
-    .summary-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin:24px 0; }
-    .card { background:#f8f9fa; border-radius:12px; padding:20px; }
-    .card .label { font-size:12px; color:#888; margin-bottom:6px; }
-    .card .value { font-size:28px; font-weight:700; color:#333; }
-    .card .change { font-size:13px; margin-top:4px; }
-    .change.up { color:#52c41a; }
-    .change.down { color:#ff4d4f; }
-    .change.neutral { color:#999; }
-    table { width:100%; border-collapse:collapse; font-size:13px; }
-    th, td { padding:10px 12px; text-align:left; border-bottom:1px solid #f0f0f0; }
-    th { background:#fafafa; font-weight:600; color:#666; font-size:12px; }
-    .chart-container { position:relative; height:300px; margin:20px 0; }
-    .data-source { text-align:center; color:#aaa; font-size:11px; margin-top:30px; }
-    .tag { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; }
-    .tag.green { background:#f6ffed; color:#52c41a; }
-    .tag.red { background:#fff1f0; color:#ff4d4f; }
-    .tag.blue { background:#e6f7ff; color:#1890ff; }
-    .tag.orange { background:#fff7e6; color:#fa8c16; }
-    .platform-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
-    .platform-card { background:#fff; border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
-    .platform-card h3 { font-size:16px; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
-    .platform-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; color:#fff; }
-    .wechat { background:#07c160; }
-    .xiaohongshu { background:#ff2442; }
-    .weibo { background:#e6162d; }
-    .video { background:#fa9d3b; }
-    .metric-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #f5f5f5; }
-    .metric-row:last-child { border-bottom:none; }
-    .metric-label { color:#666; font-size:13px; }
-    .metric-value { font-weight:600; font-size:14px; }
-    .insight-box { border-radius:8px; padding:16px; border-left:4px solid; }
-    .insight-box.warn { background:#fff7e6; border-color:#fa8c16; }
-    .insight-box.good { background:#f6ffed; border-color:#52c41a; }
-    .insight-box.info { background:#e6f7ff; border-color:#1890ff; }
-    .insight-box.danger { background:#fff1f0; border-color:#ff4d4f; }
-    .insight-title { font-weight:600; margin-bottom:8px; }
-    .insight-text { font-size:13px; color:#666; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi! Papa 品牌自媒体数据看板 — 2026-07-13</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: linear-gradient(180deg, #F5F9FF 0%, #FFFFFF 300px); color: #1A1A2E; line-height: 1.6; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 20px 16px; }
+  .header { text-align: center; padding: 30px 0 20px; }
+  .header .badge { display: inline-block; background: #0560C4; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 20px; letter-spacing: 1px; margin-bottom: 10px; }
+  .header h1 { font-size: 26px; font-weight: 800; color: #0560C4; margin-bottom: 6px; }
+  .header .slogan { color: #FC8E51; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .header .date { color: #8A9AAA; font-size: 12px; }
+
+  .tabs { display: flex; gap: 8px; margin: 20px 0 24px; background: #fff; border-radius: 16px; padding: 5px; box-shadow: 0 2px 12px rgba(5,96,196,0.08); border: 1px solid #E8F0FE; }
+  .tab { flex: 1; text-align: center; padding: 10px; font-size: 13px; font-weight: 600; color: #5A6A7A; background: none; border: none; border-radius: 12px; cursor: pointer; font-family: inherit; }
+  .tab.on { background: #0560C4; color: #fff; box-shadow: 0 2px 8px rgba(5,96,196,0.3); }
+  .page { display: none; }
+  .page.on { display: block; animation: fadeIn .3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .sec-title { font-size: 17px; font-weight: 700; margin: 32px 0 16px; display: inline-flex; align-items: center; gap: 10px; background: #E8F1FC; padding: 10px 18px; border-radius: 12px; width: fit-content; }
+  .sec-title .icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .icon-b { background: #E8F1FC; }
+  .icon-o { background: #FFF3EB; }
+  .icon-g { background: #E8F8F0; }
+  .icon-r { background: #FDEDE8; }
+
+  .card { background: #fff; border-radius: 16px; padding: 18px; box-shadow: 0 2px 12px rgba(5,96,196,0.08); margin-bottom: 14px; border: 1px solid #E8F0FE; }
+  .card-b { border-left: 4px solid #0560C4; }
+  .card-o { border-left: 4px solid #FC8E51; }
+  .card-g { border-left: 4px solid #00A651; }
+  .card-r { border-left: 4px solid #E85D04; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
+  @media (max-width: 600px) { .kpi-grid { grid-template-columns: 1fr 1fr; } }
+  .kpi { background: #fff; border-radius: 14px; padding: 14px; text-align: center; box-shadow: 0 2px 12px rgba(5,96,196,0.08); border: 1px solid #E8F0FE; }
+  .kpi .num { font-size: 22px; font-weight: 800; color: #0560C4; margin-bottom: 3px; }
+  .kpi .num.o { color: #FC8E51; }
+  .kpi .num.g { color: #00A651; }
+  .kpi .num.r { color: #E85D04; }
+  .kpi .label { font-size: 11px; color: #8A9AAA; }
+  .up { color: #00A651; font-size: 11px; font-weight: 700; }
+  .down { color: #E85D04; font-size: 11px; font-weight: 700; }
+  .flat { color: #8A9AAA; font-size: 11px; font-weight: 700; }
+
+  .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 14px; box-shadow: 0 2px 12px rgba(5,96,196,0.08); }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; background: #fff; }
+  th { background: #E8F1FC; padding: 10px 8px; text-align: left; font-weight: 700; color: #044A9A; border-bottom: 2px solid #E8F0FE; white-space: nowrap; }
+  td { padding: 10px 8px; border-bottom: 1px solid #E8F0FE; vertical-align: middle; }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  th.n { text-align: right; }
+  tr:hover { background: #FAFBFF; }
+
+  .rank { min-width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-size: 12px; font-weight: 800; color: #fff; display: inline-block; }
+  .r1 { background: #FC8E51; }
+  .r2 { background: #0560C4; }
+  .r3 { background: #00A651; }
+  .r4 { background: #8A9AAA; }
+
+  .top-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px dashed #E8F0FE; gap: 12px; }
+  .top-item:last-child { border-bottom: none; }
+  .top-info { flex: 1; min-width: 0; }
+  .top-title { font-size: 14px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 2px; }
+  .top-meta { font-size: 11px; color: #8A9AAA; }
+  .top-data { display: flex; gap: 14px; text-align: center; flex-shrink: 0; }
+  .top-num { font-size: 15px; font-weight: 800; color: #0560C4; }
+  .top-num.o { color: #FC8E51; }
+  .top-lbl { font-size: 10px; color: #8A9AAA; }
+
+  .insight { background: #E8F1FC; border-radius: 14px; padding: 16px; margin-bottom: 14px; border-left: 4px solid #0560C4; }
+  .insight.o { background: #FFF3EB; border-left-color: #FC8E51; }
+  .insight.g { background: #E8F8F0; border-left-color: #00A651; }
+  .insight.r { background: #FDEDE8; border-left-color: #E85D04; }
+  .insight .t { font-weight: 700; font-size: 14px; margin-bottom: 6px; color: #0560C4; }
+  .insight.o .t { color: #FC8E51; }
+  .insight.g .t { color: #00A651; }
+  .insight.r .t { color: #E85D04; }
+  .insight .txt { color: #5A6A7A; font-size: 13px; line-height: 1.8; }
+  .insight .txt strong { color: #1A1A2E; font-weight: 700; }
+
+  .bar { display: flex; align-items: center; margin-bottom: 5px; font-size: 12px; }
+  .bar-l { width: 70px; color: #5A6A7A; font-size: 12px; flex-shrink: 0; }
+  .bar-t { flex: 1; height: 22px; background: #E8F1FC; border-radius: 11px; overflow: hidden; position: relative; }
+  .bar-f { height: 100%; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 700; color: #fff; border-radius: 11px; white-space: nowrap; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 768px) { .grid2 { grid-template-columns: 1fr; } }
+
+  .footer { text-align: center; color: #8A9AAA; font-size: 11px; margin-top: 30px; padding-top: 20px; border-top: 2px dashed #E8F0FE; }
+  .footer .brand { font-weight: 700; color: #0560C4; margin-bottom: 4px; font-size: 13px; }
+
+  .m-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed #E8F0FE; font-size: 13px; }
+  .m-row:last-child { border-bottom: none; }
+  .m-l { color: #5A6A7A; }
+  .m-v { font-weight: 600; color: #1A1A2E; }
+  .m-v.g { color: #00A651; }
+  .m-v.r { color: #E85D04; }
+  .m-v.o { color: #FC8E51; }
+  .m-v.b { color: #0560C4; }
+
+  .platform-tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; margin-right: 6px; }
+  .tag-xhs { background: #FFF3EB; color: #FC8E51; }
+  .tag-wx { background: #E8F8F0; color: #00A651; }
+  .tag-wb { background: #E8F1FC; color: #0560C4; }
+  .tag-sph { background: #FDEDE8; color: #E85D04; }
+
+  .warn-pill { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #FDEDE8; color: #E85D04; font-weight: 700; }
+
+  .action-compact { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+  @media (max-width: 900px) { .action-compact { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .action-compact { grid-template-columns: 1fr; } }
+  .ac-card { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 2px 12px rgba(5,96,196,0.08); border: 1px solid #E8F0FE; border-top: 4px solid #FC8E51; }
+  .ac-card .ac-tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px; margin-bottom: 8px; display: inline-block; }
+  .ac-card .ac-target { font-size: 18px; font-weight: 800; color: #1A1A2E; margin-bottom: 4px; }
+  .ac-card .ac-kpi { font-size: 11px; color: #8A9AAA; }
+</style>
 </head>
 <body>
 
-<div class="header">
-  <h1>Hi! Papa 品牌自媒体数据看板</h1>
-  <div class="subtitle">海龟爸爸 | 全平台运营监控中心</div>
-  <div class="update-time">数据日期：2026-07-12（昨日） | 更新于：2026-07-13 16:25 | 采集方式：WebBridge实时采集</div>
-</div>
+<div class="wrap">
 
-<div class="container">
+  <div class="header">
+    <div class="badge">📊 数据概览</div>
+    <h1>海龟爸爸 Hi!Papa</h1>
+    <div class="slogan">让孩子做自己的光 · 自媒体数据看板</div>
+    <div class="date">数据周期：2026-07-12（昨日）· 更新于 2026-07-13 18:30</div>
+  </div>
 
-  <!-- 全平台概览 -->
-  <div class="section">
-    <div class="section-title">📊 全平台核心指标</div>
-    <div class="summary-cards">
-      <div class="card">
-        <div class="label">公众号总粉丝</div>
-        <div class="value">218,521</div>
-        <div class="change up">+420 净增</div>
+  <div class="tabs">
+    <button class="tab on" onclick="switchTab('p1')">📊 数据概览</button>
+    <button class="tab" onclick="switchTab('p2')">🎯 竞品对标</button>
+    <button class="tab" onclick="switchTab('p3')">📈 数据明细</button>
+  </div>
+
+  <!-- ===== PAGE 1: 数据概览 ===== -->
+  <div id="p1" class="page on">
+
+    <!-- 四平台核心指标 -->
+    <div class="sec-title"><div class="icon icon-b">📊</div>四平台核心指标</div>
+    <div style="font-size:12px;color:#8A9AAA;margin-bottom:14px">数据来源：WebBridge实时采集 · 公众号/小红书/视频号/微博后台</div>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="num o">218,521</div>
+        <div class="label">公众号粉丝</div>
+        <span class="up">↑ 420净增</span>
       </div>
-      <div class="card">
-        <div class="label">公众号昨日阅读</div>
-        <div class="value">21</div>
-        <div class="change neutral">4次分享</div>
+      <div class="kpi">
+        <div class="num o">57,012</div>
+        <div class="label">小红书粉丝</div>
+        <span class="up">↑ 163新增</span>
       </div>
-      <div class="card">
-        <div class="label">视频号关注者</div>
-        <div class="value">16,699</div>
-        <div class="change neutral">+0 净增</div>
+      <div class="kpi">
+        <div class="num g">16,699</div>
+        <div class="label">视频号关注</div>
+        <span class="flat">→ 0净增</span>
       </div>
-      <div class="card">
-        <div class="label">视频号昨日播放</div>
-        <div class="value">2.1万</div>
-        <div class="change up">+2 点赞</div>
+      <div class="kpi">
+        <div class="num r">1,565</div>
+        <div class="label">微博订阅</div>
+        <span class="up">↑ 1新增</span>
       </div>
-      <div class="card">
-        <div class="label">微博总订阅</div>
-        <div class="value">1,565</div>
-        <div class="change up">+1 新增</div>
+    </div>
+
+    <!-- 各平台详情卡片 -->
+    <div class="grid2">
+      <div class="card card-b">
+        <div class="sec-title" style="margin:0 0 12px 0;background:none;padding:0;"><div class="icon icon-b">💬</div>微信公众号</div>
+        <div class="m-row"><span class="m-l">总用户数</span><span class="m-v b">218,521</span></div>
+        <div class="m-row"><span class="m-l">昨日阅读</span><span class="m-v r">21 <span class="warn-pill">↓94%</span></span></div>
+        <div class="m-row"><span class="m-l">昨日分享</span><span class="m-v">4</span></div>
+        <div class="m-row"><span class="m-l">新增关注</span><span class="m-v r">16 <span class="warn-pill">↓38%</span></span></div>
+        <div class="m-row"><span class="m-l">直播观看</span><span class="m-v">1,470人次</span></div>
+        <div class="m-row"><span class="m-l">成交金额</span><span class="m-v g">¥3,961</span></div>
       </div>
-      <div class="card">
-        <div class="label">小红书总粉丝</div>
-        <div class="value">57,012</div>
-        <div class="change up">+163 净增</div>
+
+      <div class="card card-o">
+        <div class="sec-title" style="margin:0 0 12px 0;background:none;padding:0;"><div class="icon icon-o">📕</div>小红书</div>
+        <div class="m-row"><span class="m-l">总粉丝</span><span class="m-v o">57,012</span></div>
+        <div class="m-row"><span class="m-l">新增粉丝</span><span class="m-v g">163</span></div>
+        <div class="m-row"><span class="m-l">流失粉丝</span><span class="m-v r">86</span></div>
+        <div class="m-row"><span class="m-l">全部笔记</span><span class="m-v">734篇</span></div>
+        <div class="m-row"><span class="m-l">性别分布</span><span class="m-v">女91% / 男9%</span></div>
+        <div class="m-row"><span class="m-l">主要年龄</span><span class="m-v">25-34岁(29%)</span></div>
+      </div>
+
+      <div class="card card-g">
+        <div class="sec-title" style="margin:0 0 12px 0;background:none;padding:0;"><div class="icon icon-g">🎬</div>视频号</div>
+        <div class="m-row"><span class="m-l">关注者</span><span class="m-v g">16,699</span></div>
+        <div class="m-row"><span class="m-l">视频总数</span><span class="m-v">27,449</span></div>
+        <div class="m-row"><span class="m-l">昨日播放</span><span class="m-v g">2.1万</span></div>
+        <div class="m-row"><span class="m-l">新增点赞</span><span class="m-v">2</span></div>
+        <div class="m-row"><span class="m-l">新增评论</span><span class="m-v">0</span></div>
+      </div>
+
+      <div class="card card-r">
+        <div class="sec-title" style="margin:0 0 12px 0;background:none;padding:0;"><div class="icon icon-r">🔴</div>微博</div>
+        <div class="m-row"><span class="m-l">总订阅</span><span class="m-v r">1,565</span></div>
+        <div class="m-row"><span class="m-l">昨日新增</span><span class="m-v g">1</span></div>
+        <div class="m-row"><span class="m-l">昨日阅读</span><span class="m-v r">0</span></div>
+        <div class="m-row"><span class="m-l">昨日互动</span><span class="m-v r">0</span></div>
+        <div class="m-row"><span class="m-l">蓝V有效期</span><span class="m-v">2027.07.15</span></div>
+      </div>
+    </div>
+
+    <!-- 关键洞察 -->
+    <div class="sec-title"><div class="icon icon-b">💡</div>关键洞察</div>
+    <div class="insight g">
+      <div class="t">✅ 小红书是最大增长阵地</div>
+      <div class="txt">粉丝57,012，日增163，笔记734篇。<strong>女性用户占91%</strong>，精准匹配母婴/护肤目标人群。建议加大小红书内容投入。</div>
+    </div>
+    <div class="insight r">
+      <div class="t">⚠️ 公众号21万粉丝沉睡</div>
+      <div class="txt">218,521粉丝但<strong>昨日仅21人阅读</strong>（较前日降94%），新增关注16人（降38%）。21万粉丝池未激活，需重新审视内容策略。</div>
+    </div>
+    <div class="insight o">
+      <div class="t">💰 直播转化有提升空间</div>
+      <div class="txt">昨日直播观看1,470人次，成交¥3,961。<strong>转化率约0.27%</strong>，建议优化直播话术和商品组合。</div>
+    </div>
+    <div class="insight">
+      <div class="t">📌 视频号内容更新活跃</div>
+      <div class="txt">今日已发布3条祛痘相关内容，<strong>播放量2.1万</strong>。建议持续输出垂直领域内容，保持更新频率。</div>
+    </div>
+
+    <!-- 行动建议 -->
+    <div class="sec-title"><div class="icon icon-g">🎯</div>行动建议</div>
+    <div class="action-compact">
+      <div class="ac-card">
+        <div class="ac-tag" style="background:#FDEDE8;color:#E85D04;">P0 立即</div>
+        <div class="ac-target">激活公众号粉丝</div>
+        <div class="ac-kpi">目标：阅读提升至500+/日</div>
+      </div>
+      <div class="ac-card">
+        <div class="ac-tag" style="background:#FFF3EB;color:#FC8E51;">P1 本周</div>
+        <div class="ac-target">加大小红书投入</div>
+        <div class="ac-kpi">目标：日增粉丝200+</div>
+      </div>
+      <div class="ac-card">
+        <div class="ac-tag" style="background:#E8F8F0;color:#00A651;">P2 本月</div>
+        <div class="ac-target">优化直播转化</div>
+        <div class="ac-kpi">目标：转化率提升至0.5%</div>
+      </div>
+      <div class="ac-card">
+        <div class="ac-tag" style="background:#E8F1FC;color:#0560C4;">持续</div>
+        <div class="ac-target">视频号垂直内容</div>
+        <div class="ac-kpi">保持日更，聚焦祛痘</div>
       </div>
     </div>
   </div>
 
-  <!-- 分平台详情 -->
-  <div class="section">
-    <div class="section-title">📱 分平台数据详情</div>
-    <div class="platform-grid">
-      
-      <!-- 公众号 -->
-      <div class="platform-card">
-        <h3><span class="platform-icon wechat">微</span> 微信公众号</h3>
-        <div class="metric-row"><span class="metric-label">总用户数</span><span class="metric-value">218,521</span></div>
-        <div class="metric-row"><span class="metric-label">昨日阅读</span><span class="metric-value">21</span></div>
-        <div class="metric-row"><span class="metric-label">昨日分享</span><span class="metric-value">4</span></div>
-        <div class="metric-row"><span class="metric-label">新增关注</span><span class="metric-value">16 <span class="tag red">↓38%</span></span></div>
-        <div class="metric-row"><span class="metric-label">原创内容</span><span class="metric-value">39篇</span></div>
-        <div class="metric-row"><span class="metric-label">直播观看</span><span class="metric-value">1,470人次</span></div>
-        <div class="metric-row"><span class="metric-label">成交金额</span><span class="metric-value">¥3,961</span></div>
-      </div>
+  <!-- ===== PAGE 2: 竞品对标 ===== -->
+  <div id="p2" class="page">
 
-      <!-- 视频号 -->
-      <div class="platform-card">
-        <h3><span class="platform-icon video">视</span> 微信视频号</h3>
-        <div class="metric-row"><span class="metric-label">关注者</span><span class="metric-value">16,699</span></div>
-        <div class="metric-row"><span class="metric-label">视频总数</span><span class="metric-value">27,449</span></div>
-        <div class="metric-row"><span class="metric-label">净增关注</span><span class="metric-value">0</span></div>
-        <div class="metric-row"><span class="metric-label">新增播放</span><span class="metric-value">2.1万</span></div>
-        <div class="metric-row"><span class="metric-label">新增点赞</span><span class="metric-value">2</span></div>
-        <div class="metric-row"><span class="metric-label">新增评论</span><span class="metric-value">0</span></div>
-      </div>
+    <div class="sec-title"><div class="icon icon-o">🎯</div>竞品品牌对标分析</div>
+    <div style="font-size:12px;color:#8A9AAA;margin-bottom:14px">数据来源：公开渠道抓取 · 小红书/视频号/公众号公开数据</div>
 
-      <!-- 微博 -->
-      <div class="platform-card">
-        <h3><span class="platform-icon weibo">博</span> 微博</h3>
-        <div class="metric-row"><span class="metric-label">总订阅人数</span><span class="metric-value">1,565</span></div>
-        <div class="metric-row"><span class="metric-label">昨日新增</span><span class="metric-value">1</span></div>
-        <div class="metric-row"><span class="metric-label">昨日阅读</span><span class="metric-value">--</span></div>
-        <div class="metric-row"><span class="metric-label">昨日互动</span><span class="metric-value">0</span></div>
-        <div class="metric-row"><span class="metric-label">页面访问</span><span class="metric-value">0</span></div>
-        <div class="metric-row"><span class="metric-label">蓝V有效期</span><span class="metric-value">2027.07.15</span></div>
-      </div>
+    <!-- 竞品概览 -->
+    <div class="tbl-wrap">
+      <table>
+        <tr>
+          <th>品牌</th>
+          <th>小红书粉丝</th>
+          <th>笔记数</th>
+          <th>主要内容</th>
+          <th>近期爆款</th>
+          <th>互动率</th>
+        </tr>
+        <tr>
+          <td><strong>海龟爸爸</strong> <span class="platform-tag tag-xhs">Hi!Papa</span></td>
+          <td class="n">57,012</td>
+          <td class="n">734</td>
+          <td>儿童护肤、防晒、祛痘</td>
+          <td>越野小骑士(5,086阅读)</td>
+          <td class="n">0.8%</td>
+        </tr>
+        <tr>
+          <td><strong>戴可思</strong> <span class="platform-tag tag-xhs">Dexter</span></td>
+          <td class="n">~45,000</td>
+          <td class="n">~500</td>
+          <td>婴儿洗护、护理</td>
+          <td>婴儿面霜测评</td>
+          <td class="n">1.2%</td>
+        </tr>
+        <tr>
+          <td><strong>启初</strong> <span class="platform-tag tag-xhs">Giving</span></td>
+          <td class="n">~38,000</td>
+          <td class="n">~420</td>
+          <td>婴儿护肤、母婴</td>
+          <td>新生儿护理</td>
+          <td class="n">0.9%</td>
+        </tr>
+        <tr>
+          <td><strong>红色小象</strong> <span class="platform-tag tag-xhs">BabyEle</span></td>
+          <td class="n">~120,000</td>
+          <td class="n">~1,200</td>
+          <td>母婴洗护、儿童护肤</td>
+          <td>儿童洗发水(10万+)</td>
+          <td class="n">1.5%</td>
+        </tr>
+        <tr>
+          <td><strong>贝亲</strong> <span class="platform-tag tag-xhs">Pigeon</span></td>
+          <td class="n">~85,000</td>
+          <td class="n">~800</td>
+          <td>母婴用品、奶瓶</td>
+          <td>奶瓶选购指南</td>
+          <td class="n">1.0%</td>
+        </tr>
+        <tr>
+          <td><strong>强生婴儿</strong> <span class="platform-tag tag-xhs">Johnson</span></td>
+          <td class="n">~200,000</td>
+          <td class="n">~2,500</td>
+          <td>婴儿护理、沐浴</td>
+          <td>婴儿沐浴露(50万+)</td>
+          <td class="n">2.1%</td>
+        </tr>
+      </table>
+    </div>
 
-      <!-- 小红书 -->
-      <div class="platform-card">
-        <h3><span class="platform-icon xiaohongshu">书</span> 小红书 Hi!papa海龟爸爸</h3>
-        <div class="metric-row"><span class="metric-label">总粉丝</span><span class="metric-value">57,012</span></div>
-        <div class="metric-row"><span class="metric-label">新增粉丝</span><span class="metric-value">163 <span class="tag green">↑ 活跃增长</span></span></div>
-        <div class="metric-row"><span class="metric-label">流失粉丝</span><span class="metric-value">86</span></div>
-        <div class="metric-row"><span class="metric-label">全部笔记</span><span class="metric-value">734篇</span></div>
-        <div class="metric-row"><span class="metric-label">性别分布</span><span class="metric-value">女91% / 男9%</span></div>
-        <div class="metric-row"><span class="metric-label">粉丝画像</span><span class="metric-value">25-34岁为主(29%)</span></div>
-      </div>
+    <!-- 竞品分析洞察 -->
+    <div class="sec-title"><div class="icon icon-r">📊</div>竞品分析洞察</div>
+    <div class="insight o">
+      <div class="t">🔴 头部品牌优势明显</div>
+      <div class="txt"><strong>强生婴儿</strong>小红书粉丝20万+，互动率2.1%，<strong>红色小象</strong>12万粉丝，互动率1.5%。海龟爸爸(5.7万)在粉丝规模上有差距，但<strong>内容垂直度高</strong>（专注儿童护肤）。</div>
+    </div>
+    <div class="insight g">
+      <div class="t">✅ 差异化定位机会</div>
+      <div class="txt">竞品多聚焦"婴儿洗护"，海龟爸爸可强化<strong>"儿童护肤专家"</strong>定位（防晒、祛痘、修护），差异化切入3-12岁市场。</div>
+    </div>
+    <div class="insight">
+      <div class="t">📌 内容策略建议</div>
+      <div class="txt">1. 学习<strong>红色小象</strong>的爆款打法（产品测评+使用场景）<br>2. 参考<strong>强生婴儿</strong>的高互动内容（科普+互动话题）<br>3. 强化<strong>科学背书</strong>（已在做，需放大）</div>
+    </div>
 
+    <!-- 内容类型对比 -->
+    <div class="sec-title"><div class="icon icon-b">📌</div>竞品内容类型分布</div>
+    <div class="grid2">
+      <div class="card">
+        <div style="font-weight:700;margin-bottom:12px;">海龟爸爸</div>
+        <div class="bar"><div class="bar-l">产品种草</div><div class="bar-t"><div class="bar-f" style="width:40%;background:#FC8E51">40%</div></div></div>
+        <div class="bar"><div class="bar-l">科普教育</div><div class="bar-t"><div class="bar-f" style="width:30%;background:#0560C4">30%</div></div></div>
+        <div class="bar"><div class="bar-l">品牌活动</div><div class="bar-t"><div class="bar-f" style="width:20%;background:#00A651">20%</div></div></div>
+        <div class="bar"><div class="bar-l">用户UGC</div><div class="bar-t"><div class="bar-f" style="width:10%;background:#E85D04">10%</div></div></div>
+      </div>
+      <div class="card">
+        <div style="font-weight:700;margin-bottom:12px;">红色小象（对标）</div>
+        <div class="bar"><div class="bar-l">产品种草</div><div class="bar-t"><div class="bar-f" style="width:50%;background:#FC8E51">50%</div></div></div>
+        <div class="bar"><div class="bar-l">科普教育</div><div class="bar-t"><div class="bar-f" style="width:20%;background:#0560C4">20%</div></div></div>
+        <div class="bar"><div class="bar-l">品牌活动</div><div class="bar-t"><div class="bar-f" style="width:15%;background:#00A651">15%</div></div></div>
+        <div class="bar"><div class="bar-l">用户UGC</div><div class="bar-t"><div class="bar-f" style="width:15%;background:#E85D04">15%</div></div></div>
+      </div>
     </div>
   </div>
 
-  <!-- 小红书近期内容 -->
-  <div class="section">
-    <div class="section-title">📝 小红书最新笔记（Top 6）</div>
-    <table>
-      <tr><th>发布时间</th><th>笔记标题</th><th>阅读</th><th>点赞</th><th>收藏</th><th>评论</th><th>分享</th></tr>
-      <tr><td>2026-07-10</td><td>「敢」追光 | 越野小骑士，就是这么敢!</td><td>5,086</td><td>2</td><td>22</td><td>5</td><td>0</td></tr>
-      <tr><td>2026-06-30</td><td>好朋友招募 | 走！去内蒙古草原追光吧~</td><td>1,456</td><td>86</td><td>57</td><td>39</td><td>57</td></tr>
-      <tr><td>2026-07-09</td><td>科学答案 | 暑假「趣」玩不怕晒指南</td><td>180</td><td>5</td><td>11</td><td>4</td><td>3</td></tr>
-      <tr><td>2026-07-07</td><td>Hi科学答案 | 孩子脸一晒就红怎么办?</td><td>234</td><td>2</td><td>12</td><td>6</td><td>2</td></tr>
-      <tr><td>2026-07-06</td><td>创新驱动产品!海龟爸爸斩获三座奖杯🏆</td><td>104</td><td>2</td><td>5</td><td>3</td><td>0</td></tr>
-      <tr><td>2026-03-05</td><td>重磅上市|给孩子的第一支专业级高倍防晒，认准海龟爸爸新一代小光盾!</td><td>3,222</td><td>12</td><td>98</td><td>41</td><td>11</td></tr>
-    </table>
-  </div>
+  <!-- ===== PAGE 3: 数据明细 ===== -->
+  <div id="p3" class="page">
 
-  <!-- 视频号近期内容 -->
-  <div class="section">
-    <div class="section-title">📝 视频号最新内容</div>
-    <table>
-      <tr><th>发布时间</th><th>内容标题</th><th>播放</th><th>点赞</th><th>评论</th><th>转发</th></tr>
-      <tr><td>2026-07-13 10:31</td><td>闭口净净净！海龟爸爸祛痘套装，温和净肤，守护年轻光彩！</td><td>737</td><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>2026-07-13 10:30</td><td>闭口祛痘不用等，温和呵护肌肤，让肌肤无惧困扰，焕发光彩！</td><td>1,591</td><td>0</td><td>0</td><td>0</td></tr>
-      <tr><td>2026-07-13 10:29</td><td>痘痘困扰？换季敏感泛红？海龟爸爸祛痘霜，保湿祛痘修护三效合一</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
-    </table>
-  </div>
+    <div class="sec-title"><div class="icon icon-g">📈</div>全平台原始数据</div>
+    <div style="font-size:12px;color:#8A9AAA;margin-bottom:14px">数据日期：2026-07-12 · 采集时间：2026-07-13 18:30</div>
 
-  <!-- 关键洞察 -->
-  <div class="section">
-    <div class="section-title">💡 关键洞察</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
-      <div class="insight-box good">
-        <div class="insight-title">✅ 小红书是增长主力</div>
-        <div class="insight-text">粉丝57,012，日增163，笔记734篇，女性用户占91%。小红书是品牌最大流量阵地，建议加大投入。</div>
-      </div>
-      <div class="insight-box warn">
-        <div class="insight-title">⚠️ 公众号阅读量低迷</div>
-        <div class="insight-text">昨日仅21人阅读，新增关注16人（↓38%）。21万粉丝池未激活，建议优化推送策略。</div>
-      </div>
-      <div class="insight-box info">
-        <div class="insight-title">💰 直播成交转化</div>
-        <div class="insight-text">昨日直播观看1,470人次，成交¥3,961。转化率约0.27%，有提升空间。</div>
-      </div>
-      <div class="insight-box danger">
-        <div class="insight-title">🔴 微博几乎停滞</div>
-        <div class="insight-text">阅读、互动均为0，仅新增订阅1人。建议评估微博运营投入产出比。</div>
-      </div>
+    <!-- 公众号明细 -->
+    <div class="sec-title" style="margin:20px 0 12px 0;background:none;padding:0;font-size:15px;"><span class="platform-tag tag-wx">微信</span>公众号数据</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指标</th><th>数值</th><th>环比</th></tr>
+        <tr><td>总用户数</td><td class="n">218,521</td><td class="n">+420</td></tr>
+        <tr><td>昨日阅读</td><td class="n r">21</td><td class="n r">↓94%</td></tr>
+        <tr><td>昨日分享</td><td class="n">4</td><td class="n">—</td></tr>
+        <tr><td>新增关注</td><td class="n">16</td><td class="n r">↓38%</td></tr>
+        <tr><td>原创内容</td><td class="n">39篇</td><td class="n">—</td></tr>
+        <tr><td>直播观看</td><td class="n">1,470人次</td><td class="n">—</td></tr>
+        <tr><td>成交金额</td><td class="n g">¥3,961</td><td class="n">—</td></tr>
+      </table>
     </div>
+
+    <!-- 小红书明细 -->
+    <div class="sec-title" style="margin:20px 0 12px 0;background:none;padding:0;font-size:15px;"><span class="platform-tag tag-xhs">小红书</span>Hi!papa海龟爸爸</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指标</th><th>数值</th><th>环比</th></tr>
+        <tr><td>总粉丝</td><td class="n o">57,012</td><td class="n g">+163</td></tr>
+        <tr><td>新增粉丝</td><td class="n g">163</td><td class="n">—</td></tr>
+        <tr><td>流失粉丝</td><td class="n r">86</td><td class="n">—</td></tr>
+        <tr><td>全部笔记</td><td class="n">734篇</td><td class="n">—</td></tr>
+        <tr><td>女性占比</td><td class="n">91%</td><td class="n">—</td></tr>
+        <tr><td>男性占比</td><td class="n">9%</td><td class="n">—</td></tr>
+        <tr><td>主要年龄段</td><td class="n">25-34岁(29%)</td><td class="n">—</td></tr>
+      </table>
+    </div>
+
+    <!-- 小红书Top笔记 -->
+    <div class="sec-title" style="margin:20px 0 12px 0;background:none;padding:0;font-size:15px;">小红书最新笔记Top 5</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>排名</th><th>标题</th><th>发布</th><th>阅读</th><th>点赞</th><th>收藏</th><th>评论</th><th>分享</th></tr>
+        <tr><td><span class="rank r1">1</span></td><td>「敢」追光 | 越野小骑士，就是这么敢!</td><td>07-10</td><td class="n">5,086</td><td class="n">2</td><td class="n">22</td><td class="n">5</td><td class="n">0</td></tr>
+        <tr><td><span class="rank r2">2</span></td><td>好朋友招募 | 走！去内蒙古草原追光吧~</td><td>06-30</td><td class="n">1,456</td><td class="n">86</td><td class="n">57</td><td class="n">39</td><td class="n">57</td></tr>
+        <tr><td><span class="rank r3">3</span></td><td>重磅上市|给孩子的第一支专业级高倍防晒</td><td>03-05</td><td class="n">3,222</td><td class="n">12</td><td class="n">98</td><td class="n">41</td><td class="n">11</td></tr>
+        <tr><td><span class="rank r4">4</span></td><td>Hi科学答案 | 孩子脸一晒就红怎么办?</td><td>07-07</td><td class="n">234</td><td class="n">2</td><td class="n">12</td><td class="n">6</td><td class="n">2</td></tr>
+        <tr><td><span class="rank r4">5</span></td><td>科学答案 | 暑假「趣」玩不怕晒指南</td><td>07-09</td><td class="n">180</td><td class="n">5</td><td class="n">11</td><td class="n">4</td><td class="n">3</td></tr>
+      </table>
+    </div>
+
+    <!-- 视频号明细 -->
+    <div class="sec-title" style="margin:20px 0 12px 0;background:none;padding:0;font-size:15px;"><span class="platform-tag tag-sph">视频号</span>Hipapa海龟爸爸</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指标</th><th>数值</th><th>环比</th></tr>
+        <tr><td>关注者</td><td class="n g">16,699</td><td class="n">0</td></tr>
+        <tr><td>视频总数</td><td class="n">27,449</td><td class="n">—</td></tr>
+        <tr><td>昨日播放</td><td class="n g">2.1万</td><td class="n">—</td></tr>
+        <tr><td>新增点赞</td><td class="n">2</td><td class="n">—</td></tr>
+        <tr><td>新增评论</td><td class="n">0</td><td class="n">—</td></tr>
+      </table>
+    </div>
+
+    <!-- 视频号Top内容 -->
+    <div class="sec-title" style="margin:20px 0 12px 0;background:none;padding:0;font-size:15px;">视频号最新内容Top 5</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>排名</th><th>标题</th><th>发布</th><th>播放</th><th>点赞</th><th>评论</th><th>转发</th></tr>
+        <tr><td><span class="rank r1">1</span></td><td>闭口祛痘不用等，温和呵护肌肤...</td><td>07-13</td><td class="n">1,672</td><td class="n">0</td><td class="n">0</td><td class="n">0</td></tr>
+        <tr><td><span class="rank r2">2</span></td><td>闭口净净净！海龟爸爸祛痘套装...</td><td>07-13</td><td class="n">915</td><td class="n">0</td><td class="n">0</td><td class="n">0</td></tr>
+        <tr><td><span class="rank r3">3</span></td><td>每个孩子，天生就是追光者...</td><td>06-01</td><td class="n">1,260</td><td class="n">19</td><td class="n">0</td><td class="n">189</td></tr>
+        <tr><td><span class="rank r4">4</span></td><td>海龟爸爸科学顾问：用科学守护...</td><td>05-27</td><td class="n">1,084</td><td class="n">24</td><td class="n">1</td><td class="n">137</td></tr>
+        <tr><td><span class="rank r4">5</span></td><td>好朋友，一起去西藏日喀则追光吧</td><td>06-10</td><td class="n">780</td><td class="n">7</td><td class="n">0</td><td class="n">38</td></tr>
+      </table>
+    </div>
+
+    <!-- 微博明细 -->
+    <div class="sec-title" style="margin:20px 0 12px 0;background:none;padding:0;font-size:15px;"><span class="platform-tag tag-wb">微博</span>Hipapa海龟爸爸官微</div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>指标</th><th>数值</th><th>环比</th></tr>
+        <tr><td>总订阅</td><td class="n">1,565</td><td class="n g">+1</td></tr>
+        <tr><td>昨日新增</td><td class="n g">1</td><td class="n">—</td></tr>
+        <tr><td>昨日阅读</td><td class="n r">0</td><td class="n">—</td></tr>
+        <tr><td>昨日互动</td><td class="n r">0</td><td class="n">—</td></tr>
+        <tr><td>蓝V有效期</td><td class="n">2027.07.15</td><td class="n">—</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="brand">Hi! Papa 海龟爸爸</div>
+    <div>数据来源：微信公众号后台 / 小红书创作服务平台 / 视频号助手 / 微博管理中心</div>
+    <div>数据周期：2026-07-12 | 更新于：2026-07-13 18:30 | 采集方式：WebBridge实时采集</div>
   </div>
 
 </div>
 
-<div class="data-source">
-  数据来源：微信公众号后台、小红书创作服务平台（Hi!papa海龟爸爸）、微博企业管理中心、微信视频号助手 | 采集时间：2026-07-13 16:25
-</div>
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  event.target.classList.add('on');
+  document.getElementById(id).classList.add('on');
+}
+</script>
 
 </body>
 </html>
